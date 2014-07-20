@@ -1,0 +1,41 @@
+[user]
+	email = blaz.hrast@gmail.com
+	name = Blaž Hrastnik
+	signingkey = E31F4464
+
+[credential]
+        helper = cache --timeout=3600
+        
+[core]
+        whitespace = space-before-tab, trailing-space
+        
+[diff]
+        renames = copies
+        mnemonicprefix = true
+
+[push]
+        default = simple
+
+[color]
+        ui = auto
+
+[color "diff"]
+        meta = blue bold
+        frag = magenta bold
+        old = red bold
+        new = green bold
+
+[color "branch"]
+        current = yellow reverse
+        local = yellow bold
+        remote = green bold
+        plain = red bold
+
+[color "status"]
+        added = yellow
+        changed = green bold
+        untracked = blue bold
+
+[alias]
+        undo = reset --soft HEAD^
+        scommit = commit -s
