@@ -16,6 +16,7 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'fatih/vim-go'
 Plugin 'bash-support.vim'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'scrooloose/syntastic'
 
 call vundle#end()
 filetype plugin indent on
@@ -63,6 +64,7 @@ set ruler                  " show the cursor position all the time
 set noshowcmd              " don't display incomplete commands
 set nolazyredraw           " turn off lazy redraw
 set number                 " line numbers
+set numberwidth=5          " 3 digit line numbers don't get squashed
 set wildmenu               " turn on wild menu
 set wildmode=list:longest,full
 set ch=2                   " command line height
@@ -71,7 +73,9 @@ set shortmess=filtIoOA     " shorten messages
 set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
 set mousehide              " Hide the mouse pointer while typing
-set scrolloff=8            " minimum lines to keep above and below cursor
+set scrolloff=5            " minimum lines to keep above and below cursor
+set splitbelow             " splits that make more sense
+set splitright
 
 " ----------------------------------------------------------------------------
 " Visual Cues
@@ -99,6 +103,7 @@ set tabstop=4
 set expandtab              " expand tabs to spaces
 set formatoptions+=n       " support for numbered/bullet lists
 set textwidth=80           " wrap at 80 chars by default
+set colorcolumn=+1
 set virtualedit=block      " allow virtual edit in visual block ..
 
 "-----------------------------------------------------------------------------
