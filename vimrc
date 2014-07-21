@@ -1,11 +1,11 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" ---------------------------------------------------------------------------
+" Vundle
+" ---------------------------------------------------------------------------
 
-" set the runtime path to include Vundle and initialize
+set nocompatible
+filetype off                " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
@@ -17,87 +17,31 @@ Plugin 'fatih/vim-go'
 Plugin 'bash-support.vim'
 Plugin 'terryma/vim-multiple-cursors'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end()
+filetype plugin indent on
 
-set t_Co=256
-set background=dark
-colorscheme base16-paraiso
+" ---------------------------------------------------------------------------
+" General
+" ---------------------------------------------------------------------------
 
-set number
-
-" Tabstops are 4 spaces
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-set autoindent
+set nocompatible           " be iMproved, required
+set history=1000           " keep some stuff in the history
+set autoread               " reload files (no local changes only)
 
 set encoding=utf-8
 set fileencoding=utf-8
-set term=screen-256color
 
-" set the search scan to wrap lines
-set wrapscan
+set hidden                " allow buffer switching without saving
+set diffopt+=iwhite       " Add ignorance of whitespace to diff
 
-" I'm happy to type the case of things.  I tried the ignorecase, smartcase
-" thing but it just wasn't working out for me
-set noignorecase
+" ---------------------------------------------------------------------------
+" Colors / Theme
+" ---------------------------------------------------------------------------
 
-" set visual bell -- i hate that damned beeping
-set vb
-
-" Allow backspacing over indent, eol, and the start of an insert
-set backspace=2
-
-" Make sure that unsaved buffers that are to be put in the background are 
-" allowed to go in there (ie. the "must save first" error doesn't come up)
-set hidden
-
-" tell VIM to always put a status line in, even if there is only one window
-set laststatus=2
-
-" Show the current mode
-set showmode
-
-" Switch on syntax highlighting.
-syntax on
-
-" Hide the mouse pointer while typing
-set mousehide
-
-" Keep some stuff in the history
-set history=100
-
-" These commands open folds
-set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
-
-" When the page starts to scroll, keep the cursor 8 lines from the top and 8
-" lines from the bottom
-set scrolloff=8
-
-" Allow the cursor to go in to "invalid" places
-set virtualedit=all
-
-" Disable encryption (:X)
-set key=
-
-" Make the command-line completion better
-set wildmenu
-set wildmode=list:longest,full
-
-" Add ignorance of whitespace to diff
-set diffopt+=iwhite
-
-" Enable search highlighting
-set hlsearch
-
-" Incrementally match the search
-set incsearch
-
-" Automatically read a file that has changed on disk
-set autoread
+syntax on                 " Switch on syntax highlighting.
+set t_Co=256              " Fix colors in the terminal
+set background=dark
+colorscheme base16-paraiso
 
 " ----------------------------------------------------------------------------
 "  Backups
@@ -112,6 +56,24 @@ set backupskip=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
 set directory=~/.vim/swap,~/tmp,.      " keep swp files under ~/.vim/swap
 
 " ----------------------------------------------------------------------------
+"  UI
+" ----------------------------------------------------------------------------
+
+set ruler                  " show the cursor position all the time
+set noshowcmd              " don't display incomplete commands
+set nolazyredraw           " turn off lazy redraw
+set number                 " line numbers
+set wildmenu               " turn on wild menu
+set wildmode=list:longest,full
+set ch=2                   " command line height
+set backspace=2            " allow backspacing over everything in insert mode
+set shortmess=filtIoOA     " shorten messages
+set report=0               " tell us about changes
+set nostartofline          " don't jump to the start of line when scrolling
+set mousehide              " Hide the mouse pointer while typing
+set scrolloff=8            " minimum lines to keep above and below cursor
+
+" ----------------------------------------------------------------------------
 " Visual Cues
 " ----------------------------------------------------------------------------
 
@@ -120,7 +82,7 @@ set mat=5                  " duration to show matching brace (1/10 sec)
 set incsearch              " do incremental searching
 set laststatus=2           " always show the status line
 set ignorecase             " ignore case when searching
-set nohlsearch             " don't highlight searches
+set hlsearch               " highlight searches
 set visualbell             " shut the fuck up
 set cpoptions+=$           " in the change mode, show an $ at the end
 
@@ -135,7 +97,6 @@ set softtabstop=2          " yep, two
 set shiftwidth=2           " ..
 set tabstop=4
 set expandtab              " expand tabs to spaces
-set nosmarttab             " fuck tabs
 set formatoptions+=n       " support for numbered/bullet lists
 set textwidth=80           " wrap at 80 chars by default
 set virtualedit=block      " allow virtual edit in visual block ..
@@ -149,14 +110,18 @@ nmap <F7> :NERDTreeToggle<CR>
 " Close the NERD Tree with Shift-F7
 nmap <S-F7> :NERDTreeClose<CR>
 
-" Show the bookmarks table on startup
-let NERDTreeShowBookmarks=1
+let NERDTreeShowBookmarks=1  " Show the bookmarks table on startup
+let NERDTreeMinimalUI=1      " Get rid of the extra cruft
 
 " Don't display these kinds of files
 let NERDTreeIgnore=[ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
                    \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
                    \ '\.embed\.manifest$', '\.embed\.manifest.res$',
                    \ '\.intermediate\.manifest$', '^mt.dep$' ]
+
+" ---------------------------------------------------------------------------
+"  Mappings
+" ---------------------------------------------------------------------------
 
 " Disable arrow keys
 noremap <Up> <NOP>
