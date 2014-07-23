@@ -84,7 +84,7 @@ export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 test -d "$HOME/bin" &&
 PATH="$HOME/bin:$PATH"
 
-export GOPATH="/Users/speed/go"
+export GOPATH="/Users/speed/src/go"
 export PATH="${GOPATH//://bin:}/bin:$PATH"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,

@@ -11,7 +11,7 @@ export GL_ENABLE_DEBUG_ATTACH=YES
 
 export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 
-export GOPATH="/Users/speed/go"
+export GOPATH="/Users/speed/src/go"
 export PATH="${GOPATH//://bin:}/bin:$PATH"
 
 shopt -s cdspell          # autocorrects cd misspellings
