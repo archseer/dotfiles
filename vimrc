@@ -14,6 +14,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'chriskempson/base16-vim'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'fatih/vim-go'
+Plugin 'wting/rust.vim'
 Plugin 'bash-support.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
@@ -34,6 +35,9 @@ set fileencoding=utf-8
 
 set hidden                " allow buffer switching without saving
 set diffopt+=iwhite       " Add ignorance of whitespace to diff
+
+" Golang tab settings
+au FileType go setl noet ts=4 sw=4 sts=4
 
 " ---------------------------------------------------------------------------
 " Colors / Theme
@@ -133,3 +137,15 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+
+nnoremap <F1> <nop>
+nnoremap Q <nop>
+nnoremap K <nop>
+
+" Easy buffer navigation
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+noremap <leader>v <C-w>v
