@@ -79,12 +79,14 @@ export TERM='screen-256color'
 
 export GL_ENABLE_DEBUG_ATTACH=YES
 
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 # put ~/bin on PATH if you have it
 test -d "$HOME/bin" &&
 PATH="$HOME/bin:$PATH"
 
-export GOPATH="/Users/speed/src/go"
+export GOPATH="$HOME/src/go"
 export PATH="${GOPATH//://bin:}/bin:$PATH"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
