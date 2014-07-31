@@ -18,6 +18,7 @@ Plugin 'wting/rust.vim'
 Plugin 'bash-support.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
+Plugin 'bling/vim-airline'
 
 call vundle#end()
 filetype plugin indent on
@@ -78,6 +79,8 @@ set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
 set mousehide              " Hide the mouse pointer while typing
 set scrolloff=5            " minimum lines to keep above and below cursor
+set sidescrolloff=7
+set sidescroll=1
 set splitbelow             " splits that make more sense
 set splitright
 
@@ -149,3 +152,17 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 noremap <leader>v <C-w>v
+
+" unicode symbols
+let g:airline_theme = 'powerlineish'
+let g:airline_symbols = {}
+let g:airline_left_sep = '»'
+let g:airline_left_sep = ''
+let g:airline_right_sep = '«'
+let g:airline_right_sep = ''
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.whitespace = 'Ξ'
