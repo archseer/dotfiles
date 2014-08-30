@@ -37,5 +37,36 @@
         untracked = blue bold
 
 [alias]
+        a   = add
+        ap  = add --patch
+        bd  = branch -d
+        bdd = branch -D
+        c   = commit -v
+        ca  = commit -v --amend
+        co  = checkout
+        cp  = cherry-pick
+        d   = diff
+        dc  = diff --cached
+        f   = fetch
+        fx  = !sh -c 'git commit -m \"fixup! $(git log -1 --format='\\''%s'\\'' $@)\"' -
+        g   = grep -n
+        hrd = reset --hard
+        l   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(yellow)%an%Creset' --all --abbrev-commit --date=relative
+        m   = merge
+        mm  = merge origin/master
+        pf  = push --force
+        pm  = push origin master
+        pms = push origin master:staging
+        pmp = push origin master:production
+        r   = rebase
+        ra  = rebase --abort
+        rc  = rebase --continue
+        ri  = rebase --interactive --autosquash
+        rs  = rebase --skip
+        s   = status
+        sh  = !git-sh
+        sq  = !sh -c 'git commit -m \"squash! $(git log -1 --format='\\''%s'\\'' $@)\"' -
+        sw  = show
+
         undo = reset --soft HEAD^
-        scommit = commit -s
+
