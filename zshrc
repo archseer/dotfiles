@@ -56,7 +56,7 @@ export ZSH_THEME_GIT_PROMPT_SUFFIX="]%{$reset_color%}"
 PS1=$'%{$fg[blue]%}┌─%{$fg[magenta]%}%m%{$fg[green]%}[%c]$(git_prompt_info)%{$reset_color%}\n %{$fg[blue]%}└─ λ%{$reset_color%} '
 #PS1=$'%{$fg[blue]%}──%{$fg[magenta]%}%m%{$fg[green]%}[%c]%{$reset_color%}$(git_prompt_info) %{$fg[blue]%}λ%{$reset_color%} '
 
-export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/MacGPG2/bin:/usr/texbin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/usr/texbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
