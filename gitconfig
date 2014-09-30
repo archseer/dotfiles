@@ -36,6 +36,9 @@
         changed = green bold
         untracked = blue bold
 
+[merge]
+        conflictstyle = diff3
+
 [alias]
         a   = add
         ap  = add --patch
@@ -72,3 +75,5 @@
 
         undo = reset --soft HEAD^
 
+[rerere]
+	enabled = 1

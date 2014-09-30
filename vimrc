@@ -13,12 +13,18 @@ Plugin 'scrooloose/nerdtree'
 "Plugin 'godlygeek/csapprox'
 Plugin 'chriskempson/base16-vim'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'fatih/vim-go'
 Plugin 'wting/rust.vim'
 Plugin 'bash-support.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
+Plugin 'Shougo/echodoc.vim'
+Plugin 'Shougo/neocomplete.vim'
+Bundle 'Shougo/neosnippet'
+Bundle 'Shougo/neosnippet-snippets'
+Plugin 'kien/ctrlp.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -130,6 +136,30 @@ let NERDTreeIgnore=[ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
                    \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
                    \ '\.embed\.manifest$', '\.embed\.manifest.res$',
                    \ '\.intermediate\.manifest$', '^mt.dep$' ]
+
+" ---------------------------------------------------------------------------
+"  Neocomplete
+" ---------------------------------------------------------------------------
+
+" Enable Neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:echodoc_enable_at_startup = 1
+set completeopt+=menuone
+set completeopt-=preview
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+let g:go_snippet_engine = "neosnippet"
 
 " ---------------------------------------------------------------------------
 "  Mappings
