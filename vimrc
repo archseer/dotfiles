@@ -9,7 +9,6 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-Plugin 'scrooloose/nerdtree'
 "Plugin 'godlygeek/csapprox'
 Plugin 'chriskempson/base16-vim'
 Plugin 'vim-ruby/vim-ruby'
@@ -17,7 +16,6 @@ Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'fatih/vim-go'
 Plugin 'wting/rust.vim'
 Plugin 'bash-support.vim'
-Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'Shougo/echodoc.vim'
@@ -118,24 +116,6 @@ set formatoptions+=n       " support for numbered/bullet lists
 set textwidth=80           " wrap at 80 chars by default
 set colorcolumn=+1
 set virtualedit=block      " allow virtual edit in visual block ..
-
-"-----------------------------------------------------------------------------
-" NERD Tree Plugin Settings
-"-----------------------------------------------------------------------------
-" Toggle the NERD Tree on an off with F7
-nmap <F7> :NERDTreeToggle<CR>
-
-" Close the NERD Tree with Shift-F7
-nmap <S-F7> :NERDTreeClose<CR>
-
-let NERDTreeShowBookmarks=1  " Show the bookmarks table on startup
-let NERDTreeMinimalUI=1      " Get rid of the extra cruft
-
-" Don't display these kinds of files
-let NERDTreeIgnore=[ '\.ncb$', '\.suo$', '\.vcproj\.RIMNET', '\.obj$',
-                   \ '\.ilk$', '^BuildLog.htm$', '\.pdb$', '\.idb$',
-                   \ '\.embed\.manifest$', '\.embed\.manifest.res$',
-                   \ '\.intermediate\.manifest$', '^mt.dep$' ]
 
 " ---------------------------------------------------------------------------
 "  Neocomplete
