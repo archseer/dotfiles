@@ -45,7 +45,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker osx)
+plugins=(git osx)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -81,7 +81,6 @@ export GL_ENABLE_DEBUG_ATTACH=YES
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 # put ~/bin on PATH if you have it
 test -d "$HOME/bin" &&
 PATH="$HOME/bin:$PATH"
