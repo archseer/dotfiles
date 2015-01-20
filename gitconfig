@@ -51,7 +51,7 @@
         d   = diff
         dc  = diff --cached
         f   = fetch
-        fx  = !sh -c 'git commit -m \"fixup! $(git log -1 --format='\\''%s'\\'' $@)\"' -
+        fx  = commit --fixup
         g   = grep -n
         hrd = reset --hard
         l   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(yellow)%an%Creset' --all --abbrev-commit --date=relative
@@ -70,7 +70,7 @@
         rs  = rebase --skip
         s   = status
         sh  = !git-sh
-        sq  = !sh -c 'git commit -m \"squash! $(git log -1 --format='\\''%s'\\'' $@)\"' -
+        sq  = commit --squash
         sw  = show
 
         undo = reset --soft HEAD^
