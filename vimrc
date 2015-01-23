@@ -19,7 +19,9 @@ Plugin 'bash-support.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'Shougo/echodoc.vim'
-Plugin 'Shougo/neocomplete.vim'
+if has('lua')
+  Plugin 'Shougo/neocomplete.vim'
+endif
 Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/neosnippet-snippets'
 Plugin 'kien/ctrlp.vim'
