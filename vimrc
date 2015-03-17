@@ -46,6 +46,7 @@ set diffopt+=iwhite       " Add ignorance of whitespace to diff
 
 " Golang tab settings
 au FileType go setl noet ts=4 sw=4 sts=4
+au FileType ruby setl et ts=2 sw=2 sts=2
 
 " ---------------------------------------------------------------------------
 " Colors / Theme
@@ -193,3 +194,15 @@ let g:airline_symbols.whitespace = 'Ξ'
 let g:ctrlp_extensions = ['funky']
 let g:ctrlp_funky_matchtype = 'path'
 let g:ctrlp_funky_syntax_highlight = 1
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  "let g:ctrlp_use_caching = 0
+ endif
