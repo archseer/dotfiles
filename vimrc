@@ -164,10 +164,14 @@ let g:go_highlight_structs = 1
 " ---------------------------------------------------------------------------
 
 " Disable arrow keys
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+nnoremap <Up> <NOP>
+nnoremap <Down> <NOP>
+nnoremap <Left> <NOP>
+nnoremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
 
 nnoremap <F1> <nop>
 nnoremap Q <nop>
@@ -190,6 +194,16 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 noremap <leader>v <C-w>v
+
+" close current buffer with <leader>x
+map <silent> <leader>x :bd<CR>
+
+" show whitespace with <leader>s
+set listchars=tab:>-,trail:·,eol:$
+nmap <silent> <leader>s :set nolist!<CR>
+
+" toggle highlighting with <leader>h
+map <silent> <leader>h :set invhlsearch<CR>
 
 " Stringify symbols
 nmap <leader>' :s/:\(\w\+\)/'\1'/<cr>
