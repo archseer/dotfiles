@@ -11,6 +11,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 "Plugin 'godlygeek/csapprox'
 Plugin 'chriskempson/base16-vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-endwise'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'fatih/vim-go'
@@ -121,6 +123,14 @@ set textwidth=80           " wrap at 80 chars by default
 set colorcolumn=+1
 set virtualedit=block      " allow virtual edit in visual block ..
 
+" Change cursor shape in insert mode
+"if exists('$TMUX')
+"  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"else
+"  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+"endif
 " ---------------------------------------------------------------------------
 "  Neocomplete
 " ---------------------------------------------------------------------------
