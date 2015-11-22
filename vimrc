@@ -32,6 +32,7 @@ filetype plugin indent on
 " ---------------------------------------------------------------------------
 " General
 " ---------------------------------------------------------------------------
+let mapleader=","
 
 set nocompatible           " be iMproved, required
 set history=1000           " keep some stuff in the history
@@ -97,10 +98,10 @@ set splitright
 
 set showmatch              " brackets/braces that is
 set mat=5                  " duration to show matching brace (1/10 sec)
-set incsearch              " do incremental searching
 set laststatus=2           " always show the status line
-set ignorecase             " ignore case when searching
+set ignorecase smartcase   " ignore case for searches without capital letters
 set hlsearch               " highlight searches
+set incsearch              " do incremental searching
 set visualbell             " shut the fuck up
 set cpoptions+=$           " in the change mode, show an $ at the end
 
@@ -168,6 +169,10 @@ nnoremap <leader>P P
 nnoremap p p'[v']=
 nnoremap P P'[v']=
 
+" Copy/paste system buffer
+map <leader>y "*y
+map <leader>p "*p
+
 " Easy buffer navigation
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -175,6 +180,9 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 noremap <leader>v <C-w>v
+
+" Stringify symbols
+nmap <leader>' :s/:\(\w\+\)/'\1'/<cr>
 
 " unicode symbols
 let g:airline_theme = 'powerlineish'
