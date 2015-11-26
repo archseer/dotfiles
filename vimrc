@@ -239,6 +239,8 @@ let g:airline#extensions#tabline#tab_min_count = 2
 " flat separators, no arrows
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
+" disable the GUI close button
+let g:airline#extensions#tabline#show_close_button = 0
 
 
 " The Silver Searcher
