@@ -135,9 +135,12 @@ set virtualedit=block      " allow virtual edit in visual block ..
 "  Neocomplete
 " ---------------------------------------------------------------------------
 
+" ruby private/protected indentation
+let g:ruby_indent_access_modifier_style = 'outdent'
+
 " Enable Neocomplete
-let g:neocomplete#enable_at_startup = 1
 let g:echodoc_enable_at_startup = 1
+let g:neocomplete#enable_at_startup = 1
 set completeopt+=menuone
 set completeopt-=preview
 
@@ -241,9 +244,6 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 " disable the GUI close button
 let g:airline#extensions#tabline#show_close_button = 0
-
-" ruby private/protected indentation
-let g:ruby_indent_access_modifier_style = 'outdent'
 
 " The Silver Searcher
 if executable('ag')
