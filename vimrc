@@ -224,7 +224,9 @@ nmap <leader>' :s/:\(\w\+\)/'\1'/<cr>
 
 " unicode symbols
 let g:airline_theme = 'powerlineish'
-let g:airline_symbols = {}
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
 let g:airline_left_sep = '»'
 let g:airline_left_sep = ''
 let g:airline_right_sep = '«'
