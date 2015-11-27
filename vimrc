@@ -13,6 +13,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-endwise'
+Plugin 'Raimondi/delimitMate'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'fatih/vim-go'
