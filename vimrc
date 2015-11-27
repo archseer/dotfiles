@@ -242,6 +242,8 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 " disable the GUI close button
 let g:airline#extensions#tabline#show_close_button = 0
 
+" ruby private/protected indentation
+let g:ruby_indent_access_modifier_style = 'outdent'
 
 " The Silver Searcher
 if executable('ag')
