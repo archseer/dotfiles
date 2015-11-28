@@ -41,14 +41,17 @@ let mapleader=","
 " don't throw away the reverse character search command
 noremap \ ,
 
-set nocompatible           " be iMproved, required
-set history=1000           " keep some stuff in the history
-set autoread               " reload files (no local changes only)
+set history=1000          " keep some stuff in the history
+set autoread              " reload files (no local changes only)
 
 set encoding=utf-8
 
 set hidden                " allow buffer switching without saving
 set diffopt+=iwhite       " Add ignorance of whitespace to diff
+
+set nobackup              " do not keep backups after close
+set nowritebackup         " do not keep a backup while working
+set noswapfile            " don't keep swp files either
 
 " Golang tab settings
 au FileType go setl noet ts=4 sw=4 sts=4
@@ -62,14 +65,6 @@ syntax on                 " Switch on syntax highlighting.
 set t_Co=256              " Fix colors in the terminal
 set background=dark
 colorscheme base16-paraiso
-
-" ----------------------------------------------------------------------------
-"  Backups
-" ----------------------------------------------------------------------------
-
-set nobackup                           " do not keep backups after close
-set nowritebackup                      " do not keep a backup while working
-set noswapfile                         " don't keep swp files either
 
 " ----------------------------------------------------------------------------
 "  UI
