@@ -46,7 +46,6 @@ set history=1000           " keep some stuff in the history
 set autoread               " reload files (no local changes only)
 
 set encoding=utf-8
-set fileencoding=utf-8
 
 set hidden                " allow buffer switching without saving
 set diffopt+=iwhite       " Add ignorance of whitespace to diff
