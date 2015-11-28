@@ -29,6 +29,8 @@ Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/neosnippet-snippets'
 Plugin 'ctrlpvim/ctrlp.vim'
 
+runtime macros/matchit.vim
+
 call vundle#end()
 filetype plugin indent on
 
@@ -36,6 +38,8 @@ filetype plugin indent on
 " General
 " ---------------------------------------------------------------------------
 let mapleader=","
+" don't throw away the reverse character search command
+noremap \ ,
 
 set nocompatible           " be iMproved, required
 set history=1000           " keep some stuff in the history
@@ -79,6 +83,7 @@ set directory=~/.vim/swap,~/tmp,.      " keep swp files under ~/.vim/swap
 set ruler                  " show the cursor position all the time
 set noshowcmd              " don't display incomplete commands
 set nolazyredraw           " turn off lazy redraw
+set ttyfast                " usually automatic, needed in tmux
 set number                 " line numbers
 set numberwidth=5          " 3 digit line numbers don't get squashed
 set wildmenu               " turn on wild menu
@@ -221,6 +226,10 @@ map <silent> <leader>h :set invhlsearch<CR>
 
 " Stringify symbols
 nmap <leader>' :s/:\(\w\+\)/'\1'/<cr>
+
+" practical vim: use c-p, c-n with filtered command history
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 
 " unicode symbols
 let g:airline_theme = 'powerlineish'
