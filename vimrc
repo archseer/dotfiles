@@ -37,9 +37,7 @@ filetype plugin indent on
 " ---------------------------------------------------------------------------
 " General
 " ---------------------------------------------------------------------------
-let mapleader=","
-" don't throw away the reverse character search command
-noremap \ ,
+let mapleader=" "
 
 set history=1000          " keep some stuff in the history
 set autoread              " reload files (no local changes only)
@@ -53,7 +51,7 @@ set nobackup              " do not keep backups after close
 set nowritebackup         " do not keep a backup while working
 set noswapfile            " don't keep swp files either
 
-" Golang tab settings
+" file-specific indentation
 au FileType go setl noet ts=4 sw=4 sts=4
 au FileType ruby setl et ts=2 sw=2 sts=2
 
