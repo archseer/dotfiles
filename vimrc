@@ -135,6 +135,7 @@ let g:ruby_indent_access_modifier_style = 'outdent'
 " Enable Neocomplete
 let g:echodoc_enable_at_startup = 1
 let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#max_list = 15
 set completeopt+=menuone
 set completeopt-=preview
 
@@ -193,6 +194,8 @@ nnoremap tt  :tabnew<CR>
 nnoremap tn  :tabnext<Space>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
+" split pane into new tab
+nnoremap ts  <C-w>T
 
 " Easy buffer navigation
 noremap <C-h> <C-w>h
@@ -206,7 +209,7 @@ noremap <leader>v <C-w>v
 map <silent> <leader>x :bd<CR>
 
 " show whitespace with <leader>s
-set listchars=tab:>-,trail:·,eol:$
+set listchars=tab:——,trail:·,space:·,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 
 " toggle highlighting with <leader>h
@@ -219,7 +222,13 @@ nmap <leader>' :s/:\(\w\+\)/'\1'/<cr>
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
-" unicode symbols
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
+
+" ----------------------------------------------------------------------------
+" Airline
+" ----------------------------------------------------------------------------
+
 let g:airline_theme = 'powerlineish'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -234,6 +243,7 @@ let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
+
 " Enable airline tabline!
 let g:airline#extensions#tabline#enabled = 1
 " only show the tabline when we have more than one tab
