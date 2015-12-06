@@ -122,6 +122,11 @@ set textwidth=80           " wrap at 80 chars by default
 set colorcolumn=+1
 set virtualedit=block      " allow virtual edit in visual block ..
 
+set formatoptions+=1
+if has('patch-7.3.541')
+  set formatoptions+=j     " be smart about joining lines with comments
+endif
+
 " Change cursor shape in insert mode
 "if exists('$TMUX')
 "  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
