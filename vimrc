@@ -167,6 +167,9 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 
+" don't check handlebars with html tidy...
+let g:syntastic_filetype_map = { "html.handlebars": "handlebars" }
+
 " ---------------------------------------------------------------------------
 "  Mappings
 " ---------------------------------------------------------------------------
