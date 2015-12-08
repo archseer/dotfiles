@@ -204,7 +204,7 @@ nnoremap <leader>O O<Esc>
 
 " Switch from horizontal split to vertical split and vice versa
 nnoremap <leader>- <C-w>t<C-w>H
-nnoremap <leader>\ <C-w>t <C-w>K
+nnoremap <leader>\ <C-w>t<C-w>K
 
 " Tab navigation
 nnoremap th  :tabfirst<CR>
