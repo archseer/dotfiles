@@ -23,11 +23,10 @@ Plugin 'mattn/emmet-vim'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'wting/rust.vim'
-Plugin 'bash-support.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
-Plugin 'Shougo/echodoc.vim'
 if has('lua')
+  Plugin 'Shougo/echodoc.vim'
   Plugin 'Shougo/neocomplete.vim'
 endif
 Bundle 'Shougo/neosnippet'
@@ -227,9 +226,6 @@ nmap <silent> <leader>s :set nolist!<CR>
 
 " toggle highlighting with <leader>h
 map <silent> <leader>h :set invhlsearch<CR>
-
-" Stringify symbols
-nmap <leader>' :s/:\(\w\+\)/'\1'/<cr>
 
 " practical vim: use c-p, c-n with filtered command history
 cnoremap <C-p> <Up>
