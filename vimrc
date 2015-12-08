@@ -56,7 +56,6 @@ set noswapfile            " don't keep swp files either
 
 " file-specific indentation
 au FileType go setl noet ts=4 sw=4 sts=4
-au FileType ruby setl et ts=2 sw=2 sts=2
 
 " ---------------------------------------------------------------------------
 " Colors / Theme
@@ -196,8 +195,16 @@ nnoremap p p'[v']=
 nnoremap P P'[v']=
 
 " Copy/paste system buffer
-map <leader>y "*y
-map <leader>p "*p
+nnoremap <leader>y "*y
+nnoremap <leader>p "*p
+
+" Blank lines without insert
+nnoremap <leader>o o<Esc>
+nnoremap <leader>O O<Esc>
+
+" Switch from horizontal split to vertical split and vice versa
+nnoremap <leader>- <C-w>t<C-w>H
+nnoremap <leader>\ <C-w>t <C-w>K
 
 " Tab navigation
 nnoremap th  :tabfirst<CR>
