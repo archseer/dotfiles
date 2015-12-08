@@ -22,7 +22,6 @@ Plugin 'othree/html5.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'sheerun/vim-polyglot'
-Plugin 'wting/rust.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 if has('lua')
