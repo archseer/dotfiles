@@ -233,9 +233,6 @@ map <silent> <leader>x :bd<CR>
 set listchars=tab:——,trail:·,space:·,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 
-" toggle highlighting with <leader>h
-map <silent> <leader>h :set invhlsearch<CR>
-
 " practical vim: use c-p, c-n with filtered command history
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
