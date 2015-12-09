@@ -103,3 +103,5 @@ export LSCOLORS=""
 alias ls='ls -G'      # colorized ls
 alias grep='grep -G'  # colorized grep
 alias mm='middleman'
+
+alias vim='nvim'

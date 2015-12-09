@@ -20,8 +20,10 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/syntastic'
 Plug 'bling/vim-airline'
-if has('lua')
-  Plug 'Shougo/echodoc.vim'
+Plug 'Shougo/echodoc.vim'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim'
+elseif has('lua')
   Plug 'Shougo/neocomplete.vim'
 endif
 Plug 'Shougo/neosnippet'
@@ -135,10 +137,37 @@ endif
 " ruby private/protected indentation
 let g:ruby_indent_access_modifier_style = 'outdent'
 
-" Enable Neocomplete
 let g:echodoc_enable_at_startup = 1
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#max_list = 15
+if has('nvim')
+  " Use deoplete.
+  let g:deoplete#enable_at_startup = 1
+  " Use smartcase.
+  let g:deoplete#enable_smart_case = 1
+
+  let g:deoplete#sources = {}
+  "let g:deoplete#sources._ = ['buffer', 'tag']
+  let g:deoplete#sources.elixir = ['omni']
+
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+
+  " <CR>: close popup and save indent.
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function()
+    return deoplete#mappings#close_popup() . "\<CR>"
+  endfunction
+
+  let g:deoplete#omni#input_patterns = {}
+  let g:deoplete#omni#input_patterns.ruby =
+        \ ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+  let g:deoplete#omni#input_patterns.elixir =
+        \ ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+else
+  " Enable Neocomplete
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#max_list = 15
+endif
 set completeopt+=menuone
 set completeopt-=preview
 
