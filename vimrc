@@ -1,41 +1,37 @@
 " ---------------------------------------------------------------------------
-" Vundle
+" vim-plug
 " ---------------------------------------------------------------------------
 
 set nocompatible
-filetype off                " required
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-"Plugin 'godlygeek/csapprox'
-Plugin 'chriskempson/base16-vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-endwise'
-Plugin 'Raimondi/delimitMate'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
-Plugin 'fatih/vim-go'
-Plugin 'othree/yajs.vim'
-Plugin 'othree/html5.vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'scrooloose/syntastic'
-Plugin 'bling/vim-airline'
+"Plug 'godlygeek/csapprox'
+Plug 'chriskempson/base16-vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-endwise'
+Plug 'Raimondi/delimitMate'
+Plug 'vim-ruby/vim-ruby'
+Plug 'nsf/gocode', {'rtp': 'vim/'}
+Plug 'fatih/vim-go'
+Plug 'othree/yajs.vim'
+Plug 'othree/html5.vim'
+Plug 'mattn/emmet-vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'sheerun/vim-polyglot'
+Plug 'scrooloose/syntastic'
+Plug 'bling/vim-airline'
 if has('lua')
-  Plugin 'Shougo/echodoc.vim'
-  Plugin 'Shougo/neocomplete.vim'
+  Plug 'Shougo/echodoc.vim'
+  Plug 'Shougo/neocomplete.vim'
 endif
-Bundle 'Shougo/neosnippet'
-Bundle 'Shougo/neosnippet-snippets'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mileszs/ack.vim'
 
 runtime macros/matchit.vim
 
-call vundle#end()
-filetype plugin indent on
+call plug#end()
 
 " ---------------------------------------------------------------------------
 " General
