@@ -280,6 +280,190 @@ cnoremap <C-n> <Down>
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
+" Write with sudo
+cmap w!! w !sudo tee > /dev/null %
+
+" Shortcut for emmet
+imap <c-e> <c-y><leader>
+
+" toggle highlighting
+nnoremap <silent> <leader>h :set invhlsearch<CR>
+
+" ----------------------------------------------------------------------------
+" Text objects
+" ----------------------------------------------------------------------------
+
+function! s:textobj_cancel()
+  if v:operator == 'c'
+    augroup textobj_undo_empty_change
+      autocmd InsertLeave <buffer> execute 'normal! u'
+            \| execute 'autocmd! textobj_undo_empty_change'
+            \| execute 'augroup! textobj_undo_empty_change'
+    augroup END
+  endif
+endfunction
+
+noremap         <Plug>(TOC) <nop>
+inoremap <expr> <Plug>(TOC) exists('#textobj_undo_empty_change')?"\<esc>":''
+
+" ----------------------------------------------------------------------------
+" ?ii / ?ai | indent-object
+" ?io       | strictly-indent-object
+" ----------------------------------------------------------------------------
+function! s:indent_len(str)
+  return type(a:str) == 1 ? len(matchstr(a:str, '^\s*')) : 0
+endfunction
+
+function! s:indent_object(op, skip_blank, b, e, bd, ed)
+  let i = min([s:indent_len(getline(a:b)), s:indent_len(getline(a:e))])
+  let x = line('$')
+  let d = [a:b, a:e]
+
+  if i == 0 && empty(getline(a:b)) && empty(getline(a:e))
+    let [b, e] = [a:b, a:e]
+    while b > 0 && e <= line('$')
+      let b -= 1
+      let e += 1
+      let i = min(filter(map([b, e], 's:indent_len(getline(v:val))'), 'v:val != 0'))
+      if i > 0
+        break
+      endif
+    endwhile
+  endif
+
+  for triple in [[0, 'd[o] > 1', -1], [1, 'd[o] < x', +1]]
+    let [o, ev, df] = triple
+
+    while eval(ev)
+      let line = getline(d[o] + df)
+      let idt = s:indent_len(line)
+
+      if eval('idt '.a:op.' i') && (a:skip_blank || !empty(line)) || (a:skip_blank && empty(line))
+        let d[o] += df
+      else | break | end
+    endwhile
+  endfor
+  execute printf('normal! %dGV%dG', max([1, d[0] + a:bd]), min([x, d[1] + a:ed]))
+endfunction
+xnoremap <silent> ii :<c-u>call <SID>indent_object('>=', 1, line("'<"), line("'>"), 0, 0)<cr>
+onoremap <silent> ii :<c-u>call <SID>indent_object('>=', 1, line('.'), line('.'), 0, 0)<cr>
+xnoremap <silent> ai :<c-u>call <SID>indent_object('>=', 1, line("'<"), line("'>"), -1, 1)<cr>
+onoremap <silent> ai :<c-u>call <SID>indent_object('>=', 1, line('.'), line('.'), -1, 1)<cr>
+xnoremap <silent> io :<c-u>call <SID>indent_object('==', 0, line("'<"), line("'>"), 0, 0)<cr>
+onoremap <silent> io :<c-u>call <SID>indent_object('==', 0, line('.'), line('.'), 0, 0)<cr>
+
+" ----------------------------------------------------------------------------
+" <Leader>I/A | Prepend/Append to all adjacent lines with same indentation
+" ----------------------------------------------------------------------------
+nmap <silent> <leader>I ^vio<C-V>I
+nmap <silent> <leader>A ^vio<C-V>$A
+
+" ----------------------------------------------------------------------------
+" ?i_ ?a_ ?i. ?a. ?i, ?a, ?i/
+" ----------------------------------------------------------------------------
+function! s:between_the_chars(incll, inclr, char, vis)
+  let cursor = col('.')
+  let line   = getline('.')
+  let before = line[0 : cursor - 1]
+  let after  = line[cursor : -1]
+  let [b, e] = [cursor, cursor]
+
+  try
+    let i = stridx(join(reverse(split(before, '\zs')), ''), a:char)
+    if i < 0 | throw 'exit' | end
+    let b = len(before) - i + (a:incll ? 0 : 1)
+
+    let i = stridx(after, a:char)
+    if i < 0 | throw 'exit' | end
+    let e = cursor + i + 1 - (a:inclr ? 0 : 1)
+
+    execute printf("normal! 0%dlhv0%dlh", b, e)
+  catch 'exit'
+    call s:textobj_cancel()
+    if a:vis
+      normal! gv
+    endif
+  finally
+    " Cleanup command history
+    if histget(':', -1) =~ '<SNR>[0-9_]*between_the_chars('
+      call histdel(':', -1)
+    endif
+    echo
+  endtry
+endfunction
+
+for [s:c, s:l] in items({'_': 0, '.': 0, ',': 0, '/': 1, '-': 0})
+  execute printf("xmap <silent> i%s :<C-U>call <SID>between_the_chars(0,  0, '%s', 1)<CR><Plug>(TOC)", s:c, s:c)
+  execute printf("omap <silent> i%s :<C-U>call <SID>between_the_chars(0,  0, '%s', 0)<CR><Plug>(TOC)", s:c, s:c)
+  execute printf("xmap <silent> a%s :<C-U>call <SID>between_the_chars(%s, 1, '%s', 1)<CR><Plug>(TOC)", s:c, s:l, s:c)
+  execute printf("omap <silent> a%s :<C-U>call <SID>between_the_chars(%s, 1, '%s', 0)<CR><Plug>(TOC)", s:c, s:l, s:c)
+endfor
+
+" ----------------------------------------------------------------------------
+" ?il | inner line
+" ----------------------------------------------------------------------------
+xnoremap <silent> il <Esc>^vg_
+onoremap <silent> il :<C-U>normal! ^vg_<CR>
+
+" ----------------------------------------------------------------------------
+" ?i# | inner comment
+" ----------------------------------------------------------------------------
+function! s:inner_comment(vis)
+  if synIDattr(synID(line('.'), col('.'), 0), 'name') !~? 'comment'
+    call s:textobj_cancel()
+    if a:vis
+      normal! gv
+    endif
+    return
+  endif
+
+  let origin = line('.')
+  let lines = []
+  for dir in [-1, 1]
+    let line = origin
+    let line += dir
+    while line >= 1 && line <= line('$')
+      execute 'normal!' line.'G^'
+      if synIDattr(synID(line('.'), col('.'), 0), 'name') !~? 'comment'
+        break
+      endif
+      let line += dir
+    endwhile
+    let line -= dir
+    call add(lines, line)
+  endfor
+
+  execute 'normal!' lines[0].'GV'.lines[1].'G'
+endfunction
+xmap <silent> i# :<C-U>call <SID>inner_comment(1)<CR><Plug>(TOC)
+omap <silent> i# :<C-U>call <SID>inner_comment(0)<CR><Plug>(TOC)
+
+" ----------------------------------------------------------------------------
+" Functions
+" ----------------------------------------------------------------------------
+
+" http://technotales.wordpress.com/2010/03/31/preserve-a-vim-function-that-keeps-your-state/
+function! Preserve(command)
+  " Save search history and cursor position
+  let save_search = @/
+  let save_pos = getpos('.')
+
+  " Run the command
+  execute a:command
+
+  " Restore search and position
+  let @/ = save_search
+  call setpos('.', save_pos)
+endfunction
+
+function! StripTrailingWhitespace()
+  call Preserve("%s/\\s\\+$//e")
+endfunction
+
+
+nmap _$ :call StripTrailingWhitespace()<CR>
+nmap _= :call Preserve("normal gg=G")<CR>
+
 " ----------------------------------------------------------------------------
 " Airline
 " ----------------------------------------------------------------------------
