@@ -249,16 +249,11 @@ nnoremap <leader>- <C-w>t<C-w>H
 nnoremap <leader>\ <C-w>t<C-w>K
 
 " Tab navigation
-nnoremap th  :tabfirst<CR>
-nnoremap tj  :tabnext<CR>
-nnoremap tk  :tabprev<CR>
-nnoremap tl  :tablast<CR>
-nnoremap tt  :tabnew<CR>
-nnoremap tn  :tabnext<Space>
-nnoremap tm  :tabm<Space>
-nnoremap td  :tabclose<CR>
+nnoremap tt :tabnew<CR>
+nnoremap tm :tabm<Space>
+nnoremap td :tabclose<CR>
 " split pane into new tab
-nnoremap ts  <C-w>T
+nnoremap ts <C-w>T
 
 " Easy buffer navigation
 noremap <C-h> <C-w>h
