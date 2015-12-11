@@ -26,6 +26,7 @@ Plug 'bling/vim-airline'
 Plug 'Shougo/echodoc.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
+  Plug 'zenorocha/dracula-theme', {'rtp': 'vim'}
 elseif has('lua')
   Plug 'Shougo/neocomplete.vim'
 endif
@@ -56,7 +57,7 @@ set nowritebackup         " do not keep a backup while working
 set noswapfile            " don't keep swp files either
 
 if has('nvim')
-  set clipboard+=unnamedplus " fix my nvim <leader>y action
+  "set clipboard+=unnamedplus " fix my nvim <leader>y action
 endif
 
 " file-specific indentation
@@ -67,10 +68,14 @@ au FileType go setl noet ts=4 sw=4 sts=4
 " ---------------------------------------------------------------------------
 
 syntax on                 " Switch on syntax highlighting.
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " true color!
 "set t_Co=256             " Fix colors in the terminal
 set background=dark
-colorscheme base16-paraiso
+"colorscheme base16-paraiso
 
+if has('nvim')
+  colors dracula
+endif
 " ----------------------------------------------------------------------------
 "  UI
 " ----------------------------------------------------------------------------
@@ -237,8 +242,8 @@ nnoremap p p'[v']=
 nnoremap P P'[v']=
 
 " Copy/paste system buffer
-nnoremap <leader>y "*y
-nnoremap <leader>p "*p
+map <leader>y "*y
+map <leader>p "*p
 
 " Blank lines without insert
 nnoremap <leader>o o<Esc>
