@@ -26,8 +26,10 @@ values."
      auto-completion
      ;; better-defaults
      emacs-lisp
+     perspectives
      osx
      git
+     ruby
      ;; markdown
      ;; org
      ;; (shell :variables
