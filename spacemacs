@@ -30,6 +30,7 @@ values."
      osx
      git
      ruby
+     html
      ;; markdown
      ;; org
      ;; (shell :variables
@@ -38,7 +39,6 @@ values."
      ;; spell-checking
      syntax-checking
      ;; version-control
-     company-mode
      erlang
      elixir
      )
@@ -76,7 +76,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 999;;'official
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
@@ -84,11 +84,12 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(birds-of-paradise-plus
+                         brin
+                         spacemacs-dark
                          spacemacs-light
                          solarized-light
                          solarized-dark
-                         leuven
                          monokai
                          zenburn)
    ;; If non nil the cursor color matches the state color.
