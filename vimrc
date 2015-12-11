@@ -7,14 +7,17 @@ call plug#begin('~/.vim/plugged')
 
 "Plug 'godlygeek/csapprox'
 Plug 'chriskempson/base16-vim'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-endwise'
 Plug 'Raimondi/delimitMate'
+if has('nvim')
+  "Plug 'awetzel/vim-elixir', {'branch': 'nvim-rplugin'}
+  Plug 'archSeer/elixir.nvim'
+endif
 Plug 'vim-ruby/vim-ruby'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
 Plug 'fatih/vim-go'
 Plug 'othree/yajs.vim'
-Plug 'othree/html5.vim'
 Plug 'mattn/emmet-vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'sheerun/vim-polyglot'
@@ -52,6 +55,10 @@ set nobackup              " do not keep backups after close
 set nowritebackup         " do not keep a backup while working
 set noswapfile            " don't keep swp files either
 
+if has('nvim')
+  set clipboard+=unnamedplus " fix my nvim <leader>y action
+endif
+
 " file-specific indentation
 au FileType go setl noet ts=4 sw=4 sts=4
 
@@ -60,7 +67,7 @@ au FileType go setl noet ts=4 sw=4 sts=4
 " ---------------------------------------------------------------------------
 
 syntax on                 " Switch on syntax highlighting.
-set t_Co=256              " Fix colors in the terminal
+"set t_Co=256             " Fix colors in the terminal
 set background=dark
 colorscheme base16-paraiso
 
@@ -71,7 +78,6 @@ colorscheme base16-paraiso
 set ruler                  " show the cursor position all the time
 set noshowcmd              " don't display incomplete commands
 set nolazyredraw           " turn off lazy redraw
-set ttyfast                " usually automatic, needed in tmux
 set number                 " line numbers
 set numberwidth=5          " 3 digit line numbers don't get squashed
 set wildmenu               " turn on wild menu
@@ -87,6 +93,12 @@ set sidescrolloff=7
 set sidescroll=1
 set splitbelow             " splits that make more sense
 set splitright
+
+" augroup CursorLine
+"   au!
+"   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+"   au WinLeave * setlocal nocursorline
+" augroup END
 
 " ----------------------------------------------------------------------------
 " Visual Cues
@@ -123,13 +135,17 @@ if has('patch-7.3.541')
 endif
 
 " Change cursor shape in insert mode
-"if exists('$TMUX')
-"  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-"  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-"else
-"  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-"endif
+if has('nvim')
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+else
+  if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  endif
+endif
 " ---------------------------------------------------------------------------
 "  Neocomplete
 " ---------------------------------------------------------------------------
@@ -137,6 +153,7 @@ endif
 " ruby private/protected indentation
 let g:ruby_indent_access_modifier_style = 'outdent'
 
+set noshowmode " I use airline anyway + it tampers with echodoc.
 let g:echodoc_enable_at_startup = 1
 if has('nvim')
   " Use deoplete.
@@ -145,8 +162,8 @@ if has('nvim')
   let g:deoplete#enable_smart_case = 1
 
   let g:deoplete#sources = {}
-  "let g:deoplete#sources._ = ['buffer', 'tag']
-  let g:deoplete#sources.elixir = ['omni']
+  let g:deoplete#sources._ = ['buffer', 'tag']
+  let g:deoplete#sources.elixir = ['elixir']
 
   " <C-h>, <BS>: close popup and delete backword char.
   inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
@@ -157,11 +174,8 @@ if has('nvim')
   function! s:my_cr_function()
     return deoplete#mappings#close_popup() . "\<CR>"
   endfunction
-
   let g:deoplete#omni#input_patterns = {}
   let g:deoplete#omni#input_patterns.ruby =
-        \ ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
-  let g:deoplete#omni#input_patterns.elixir =
         \ ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
 else
   " Enable Neocomplete
@@ -213,6 +227,9 @@ nnoremap <F1> <nop>
 nnoremap Q <nop>
 nnoremap K <nop>
 
+" Make Y behave like other capitals
+nnoremap Y y$
+
 " Easy block pasting with auto indentation
 nnoremap <leader>p p
 nnoremap <leader>P P
@@ -253,6 +270,9 @@ noremap <leader>v <C-w>v
 
 " close current buffer with <leader>x
 map <silent> <leader>x :bd<CR>
+
+" open ctrlp in buffer mode with <leader>b
+map <silent> <leader>b :CtrlPBuffer<CR>
 
 " show whitespace with <leader>s
 set listchars=tab:——,trail:·,space:·,eol:$
@@ -306,4 +326,6 @@ if executable('ag')
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
+
+  let g:ackprg = 'ag --vimgrep'
 endif
