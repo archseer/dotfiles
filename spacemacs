@@ -31,6 +31,7 @@ values."
      git
      ruby
      html
+     javascript
      ;; markdown
      ;; org
      ;; (shell :variables
@@ -199,6 +200,8 @@ values."
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
+  (setq-default js2-basic-offset 2
+                js-indent-level 2)
   )
 
 (defun dotspacemacs/user-config ()
