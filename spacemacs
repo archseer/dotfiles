@@ -212,6 +212,7 @@ layers configuration. You are free to put any user code."
   ;; 2-space indent
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 2)
+  (setq-default css-indent-offset 2) ; css-mode
   (add-hook 'alchemist-mode-hook 'company-mode)
 )
 
