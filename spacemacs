@@ -209,6 +209,9 @@ user code."
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (global-linum-mode) ; Show line numbers by default
+  ;; 2-space indent
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 2)
   (add-hook 'alchemist-mode-hook 'company-mode)
 )
 
