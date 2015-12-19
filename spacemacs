@@ -200,8 +200,6 @@ values."
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
-  (setq-default js2-basic-offset 2
-                js-indent-level 2)
   )
 
 (defun dotspacemacs/user-config ()
@@ -212,7 +210,14 @@ layers configuration. You are free to put any user code."
   ;; 2-space indent
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 2)
-  (setq-default css-indent-offset 2) ; css-mode
+  ;; web development
+  (setq-default javascript-indent-level 2 ; javascript-mode
+                js-indent-level 2 ; js-mode
+                js2-basic-offset 2 ; js2-mode
+                web-mode-markup-indent-offset 2 ; web-mode, html tag in html file
+                web-mode-css-indent-offset 2 ; web-mode, css in html file
+                web-mode-code-indent-offset 2 ; web-mode, js code in html file
+                css-indent-offset 2) ; css-mode
   (add-hook 'alchemist-mode-hook 'company-mode)
 )
 
