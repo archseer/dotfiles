@@ -71,10 +71,10 @@ syntax on                 " Switch on syntax highlighting.
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " true color!
 "set t_Co=256             " Fix colors in the terminal
 set background=dark
-"colorscheme base16-paraiso
+colorscheme base16-paraiso
 
 if has('nvim')
-  colors dracula
+  "colors dracula
 endif
 " ----------------------------------------------------------------------------
 "  UI

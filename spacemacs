@@ -219,6 +219,8 @@ layers configuration. You are free to put any user code."
                 web-mode-css-indent-offset 2 ; web-mode, css in html file
                 web-mode-code-indent-offset 2 ; web-mode, js code in html file
                 css-indent-offset 2) ; css-mode
+
+  (fset 'evil-visual-update-x-selection 'ignore) ; fix my clipboards
   (add-hook 'alchemist-mode-hook 'company-mode)
 )
 
