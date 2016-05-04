@@ -12,7 +12,7 @@ Plug 'tpope/vim-endwise'
 Plug 'Raimondi/delimitMate'
 if has('nvim')
   "Plug 'awetzel/vim-elixir', {'branch': 'nvim-rplugin'}
-  Plug 'archSeer/elixir.nvim'
+  "Plug 'archSeer/elixir.nvim'
 endif
 Plug 'vim-ruby/vim-ruby'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
@@ -23,6 +23,7 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/syntastic'
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/echodoc.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
@@ -34,6 +35,7 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
+Plug 'junegunn/vim-easy-align'
 
 runtime macros/matchit.vim
 
@@ -292,7 +294,13 @@ cmap w!! w !sudo tee > /dev/null %
 imap <c-e> <c-y><leader>
 
 " toggle highlighting
-nnoremap <silent> <leader>h :set invhlsearch<CR>
+nnoremap <silent> <leader>h :set invhlsearch<CR>-1-1
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " ----------------------------------------------------------------------------
 " Text objects
