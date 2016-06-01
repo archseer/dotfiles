@@ -69,3 +69,6 @@
 
 [branch]
     autosetuprebase = always
+
+[rebase]
+	autostash = true
