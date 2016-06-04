@@ -13,6 +13,10 @@ Plug 'Raimondi/delimitMate'
 if has('nvim')
   "Plug 'awetzel/vim-elixir', {'branch': 'nvim-rplugin'}
   "Plug 'archSeer/elixir.nvim'
+
+  " Improve ctrlp matching (better matches)
+  Plug 'nixprime/cpsm', { 'do': './install.sh' }
+  let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
 endif
 Plug 'vim-ruby/vim-ruby'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
