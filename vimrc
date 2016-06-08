@@ -267,10 +267,10 @@ nnoremap td :tabclose<CR>
 nnoremap ts <C-w>T
 
 " Easy buffer navigation
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 noremap <leader>v <C-w>v
 
@@ -298,7 +298,8 @@ cmap w!! w !sudo tee > /dev/null %
 imap <c-e> <c-y><leader>
 
 " toggle highlighting
-nnoremap <silent> <leader>h :set invhlsearch<CR>-1-1
+" nnoremap <silent> <leader>h :set invhlsearch<CR>-1-1
+nnoremap <silent> <leader>h :noh<cr>
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
