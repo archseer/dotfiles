@@ -31,7 +31,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/echodoc.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
-  Plug 'zenorocha/dracula-theme', {'rtp': 'vim'}
+  Plug 'dracula/vim'
 elseif has('lua')
   Plug 'Shougo/neocomplete.vim'
 endif
