@@ -316,9 +316,9 @@ nmap ga <Plug>(EasyAlign)
 
 " jk | Escaping!
 inoremap jk <Esc>
-xnoremap jk <Esc>
-cnoremap jk <C-c>
-
+" xnoremap jk <Esc>
+" cnoremap jk <C-c>
+ 
 " ----------------------------------------------------------------------------
 " <tab> / <s-tab> | Circular windows navigation
 " ----------------------------------------------------------------------------
