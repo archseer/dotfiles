@@ -21,7 +21,7 @@ endif
 Plug 'vim-ruby/vim-ruby'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
 Plug 'fatih/vim-go'
-Plug 'othree/yajs.vim'
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'mattn/emmet-vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'sheerun/vim-polyglot'
@@ -172,18 +172,16 @@ if has('nvim')
   " Use smartcase.
   let g:deoplete#enable_smart_case = 1
 
-  let g:deoplete#sources = {}
-  let g:deoplete#sources._ = ['buffer', 'tag']
-  let g:deoplete#sources.elixir = ['elixir']
-
   " <C-h>, <BS>: close popup and delete backword char.
   inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+  "inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
   " <CR>: close popup and save indent.
   inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
   function! s:my_cr_function()
-    return deoplete#mappings#close_popup() . "\<CR>"
+    return neosnippet#expandable_or_jumpable() ?
+          \ neosnippet#mappings#expand_or_jump_impl()
+          \ : pumvisible() ? deoplete#mappings#close_popup() : "\<CR>"
   endfunction
   let g:deoplete#omni#input_patterns = {}
   let g:deoplete#omni#input_patterns.ruby =
@@ -201,11 +199,12 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
+imap <expr><TAB> pumvisible() ? "\<C-n>"
+      \: neosnippet#jumpable() ?
+      \ "\<Plug>(neosnippet_jump)"
+      \:  "\<TAB>"
+smap <expr><TAB> neosnippet#jumpable() ?
+\ "\<Plug>(neosnippet_jump)"
 \: "\<TAB>"
 
 let g:go_snippet_engine = "neosnippet"
@@ -233,6 +232,11 @@ inoremap <Up> <NOP>
 inoremap <Down> <NOP>
 inoremap <Left> <NOP>
 inoremap <Right> <NOP>
+
+
+" Make arrow keys work properly in popup
+inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<NOP>"
+inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<NOP>"
 
 nnoremap <F1> <nop>
 nnoremap Q <nop>
