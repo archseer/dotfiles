@@ -206,6 +206,10 @@ imap <expr><TAB> pumvisible() ? "\<C-n>"
 smap <expr><TAB> neosnippet#jumpable() ?
 \ "\<Plug>(neosnippet_jump)"
 \: "\<TAB>"
+" For conceal markers. (neosnippet)
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 let g:go_snippet_engine = "neosnippet"
 let g:go_fmt_command = "goimports"
