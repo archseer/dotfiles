@@ -40,6 +40,7 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'janko-m/vim-test'
 
 runtime macros/matchit.vim
 
@@ -222,6 +223,22 @@ let g:rustfmt_autosave = 1
 " don't check handlebars with html tidy...
 let g:syntastic_filetype_map = { "html.handlebars": "handlebars" }
 
+
+let test#strategy = "neovim"
+function! s:cat(filename) abort
+  return system('cat '.a:filename)
+endfunction
+function! VagrantTransform(cmd) abort
+  return 'vagrant ssh --command '.shellescape('cd /vagrant; '.a:cmd)
+endfunction
+
+let g:test#custom_transformations = {'vagrant': function('VagrantTransform')}
+let g:test#transformation = 'vagrant'
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 " ---------------------------------------------------------------------------
 "  Mappings
 " ---------------------------------------------------------------------------
