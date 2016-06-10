@@ -140,6 +140,7 @@ set formatoptions+=n       " support for numbered/bullet lists
 set textwidth=80           " wrap at 80 chars by default
 set colorcolumn=+1
 set virtualedit=block      " allow virtual edit in visual block ..
+set nojoinspaces           " Use one space, not two, after punctuation.
 
 set formatoptions+=1
 if has('patch-7.3.541')
