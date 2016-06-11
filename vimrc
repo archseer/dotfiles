@@ -42,6 +42,18 @@ Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'janko-m/vim-test'
 
+Plug 'xolox/vim-misc' " Required by vim-easytags
+" Manage tags index in ~/.vimtags filder
+Plug 'xolox/vim-easytags'
+let g:easytags_always_enabled = 1
+let g:easytags_async = 1
+set tags=tags
+let g:easytags_dynamic_files = 2
+let g:easytags_auto_highlight = 0
+" to generate on a new project: ag -l | ctags --links=no -L-
+" Enter is go to definition (ctags)
+nnoremap <Return> <C-]>
+
 runtime macros/matchit.vim
 
 call plug#end()

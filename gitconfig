@@ -8,6 +8,7 @@
 
 [core]
 	whitespace = space-before-tab, trailing-space
+	excludesfile = /Users/speed/.gitignore
 
 [diff]
 	enames = copies
