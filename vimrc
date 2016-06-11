@@ -47,7 +47,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'xolox/vim-misc' " Required by vim-easytags
 " Manage tags index in ~/.vimtags filder
-Plug 'xolox/vim-easytags'
+Plug 'Wraul/vim-easytags', { 'branch': 'fix-universal-detection' }
 let g:easytags_always_enabled = 1
 let g:easytags_async = 1
 set tags=tags
@@ -361,7 +361,7 @@ nnoremap <Leader>b :Buffers<CR>
 " Switch buffers
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>e :History<CR>
-nnoremap <Leader>y :Lines<CR>
+"nnoremap <Leader>y :Lines<CR>
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Customize fzf colors to match your color scheme
@@ -618,3 +618,18 @@ augroup vimrcEx
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 augroup END
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
