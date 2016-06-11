@@ -306,7 +306,11 @@ map <silent> <leader>x :bd<CR>
 map <silent> <leader>b :CtrlPBuffer<CR>
 
 " show whitespace with <leader>s
-set listchars=tab:——,trail:·,space:·,eol:$
+set listchars=tab:——,trail:·,eol:$
+if has('patch-7.4.710')
+  " show normal spaces too if possible
+  set listchars+=space:·
+endif
 nmap <silent> <leader>s :set nolist!<CR>
 
 " practical vim: use c-p, c-n with filtered command history
