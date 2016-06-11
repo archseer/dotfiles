@@ -105,3 +105,5 @@ alias grep='grep -G'  # colorized grep
 alias mm='middleman'
 
 alias vim='nvim'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

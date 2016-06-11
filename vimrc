@@ -42,6 +42,9 @@ Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'janko-m/vim-test'
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 Plug 'xolox/vim-misc' " Required by vim-easytags
 " Manage tags index in ~/.vimtags filder
 Plug 'xolox/vim-easytags'
@@ -352,7 +355,27 @@ nmap ga <Plug>(EasyAlign)
 inoremap jk <Esc>
 " xnoremap jk <Esc>
 " cnoremap jk <C-c>
- 
+"
+
+nnoremap <Leader>b :Buffers<CR>
+" Switch buffers
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>e :History<CR>
+nnoremap <Leader>y :Lines<CR>
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Customize fzf colors to match your color scheme
+
+" these colors are for dark
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  let g:fzf_nvim_statusline = 0
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
 " ----------------------------------------------------------------------------
 " <tab> / <s-tab> | Circular windows navigation
 " ----------------------------------------------------------------------------
