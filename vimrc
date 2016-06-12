@@ -59,7 +59,10 @@ let g:gutentags_cache_dir="~/.vim/tags"
 let g:gutentags_exclude=["node_modules","plugged","tmp","temp","log","vendor","**/db/migrate/*","bower_components","dist","build","coverage","spec","public","app/assets","*.json"]
 
 " Enter is go to definition (ctags)
-nnoremap <Return> <C-]>
+nnoremap <CR> <C-]>
+" In the quickfix window, <CR> is used to jump to the error under the
+" cursor, so undefine the mapping there.
+autocmd FileType qf nnoremap <buffer> <CR> <CR>
 
 runtime macros/matchit.vim
 
