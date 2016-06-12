@@ -243,8 +243,19 @@ let g:go_highlight_structs = 1
 " gofmt style auto-format rust on save
 let g:rustfmt_autosave = 1
 
+" Syntastic
 " don't check handlebars with html tidy...
 let g:syntastic_filetype_map = { "html.handlebars": "handlebars" }
+
+let g:syntastic_shell                    = '/bin/zsh'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list            = 2 " if 1, :lclose
+let g:syntastic_check_on_open            = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_ruby_checkers = ["mri", "reek"]
+let g:syntastic_style_error_symbol = "\u2717"
+let g:syntastic_style_warning_symbol = "\u26A0"
 
 
 let test#strategy = "neovim"
