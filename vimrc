@@ -45,15 +45,19 @@ Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'xolox/vim-misc' " Required by vim-easytags
-" Manage tags index in ~/.vimtags filder
-Plug 'Wraul/vim-easytags', { 'branch': 'fix-universal-detection' }
-let g:easytags_always_enabled = 1
-let g:easytags_async = 1
-set tags=tags
-let g:easytags_dynamic_files = 2
-let g:easytags_auto_highlight = 0
-" to generate on a new project: ag -l | ctags --links=no -L-
+Plug 'ludovicchabant/vim-gutentags'
+"setting tags directory
+set tags="~/.vim/tags"
+"set tags=tags
+"set one location for tags
+let g:gutentags_cache_dir="~/.vim/tags"
+
+"set ctags executable for go
+"let g:gutentags_ctags_executable_go="$GOPATH/bin/gotags"
+
+"set list of directories to exclude when generating tags
+let g:gutentags_exclude=["node_modules","plugged","tmp","temp","log","vendor","**/db/migrate/*","bower_components","dist","build","coverage","spec","public","app/assets","*.json"]
+
 " Enter is go to definition (ctags)
 nnoremap <Return> <C-]>
 
