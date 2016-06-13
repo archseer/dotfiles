@@ -37,6 +37,7 @@ elseif has('lua')
 endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
@@ -233,6 +234,10 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#scope_aliases = {}
+let g:neosnippet#scope_aliases['ruby'] = 'ruby,rails'
 
 let g:go_snippet_engine = "neosnippet"
 let g:go_fmt_command = "goimports"
