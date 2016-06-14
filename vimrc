@@ -311,8 +311,8 @@ nnoremap p p'[v']=
 nnoremap P P'[v']=
 
 " Copy/paste system buffer
-map <leader>y "*y
-map <leader>p "*p
+nnoremap <leader>y "*y
+nnoremap <leader>p "*p
 
 " Blank lines without insert
 nnoremap <leader>o o<Esc>
