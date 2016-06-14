@@ -42,6 +42,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'janko-m/vim-test'
+Plug 'tpope/vim-rails'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
