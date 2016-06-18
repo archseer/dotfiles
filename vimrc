@@ -6,7 +6,7 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 "Plug 'godlygeek/csapprox'
-Plug 'chriskempson/base16-vim'
+"Plug 'chriskempson/base16-vim'
 "Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-endwise'
 Plug 'Raimondi/delimitMate'
@@ -105,6 +105,7 @@ set background=dark
 colorscheme base16-paraiso
 
 if has('nvim')
+  "set termguicolors
   "colors dracula
 endif
 " ----------------------------------------------------------------------------
@@ -189,6 +190,8 @@ endif
 
 " ruby private/protected indentation
 let g:ruby_indent_access_modifier_style = 'outdent'
+" highlight operators
+let ruby_operators = 1
 
 set noshowmode " I use airline anyway + it tampers with echodoc.
 let g:echodoc_enable_at_startup = 1
@@ -399,6 +402,15 @@ function! s:fzf_statusline()
   let g:fzf_nvim_statusline = 0
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
+
+" ----------------------------------------------------------------------------
+" HL | Find out syntax group
+" ----------------------------------------------------------------------------
+function! s:hl()
+  " echo synIDattr(synID(line('.'), col('.'), 0), 'name')
+  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
+endfunction
+command! HL call <SID>hl()
 
 " ----------------------------------------------------------------------------
 " <tab> / <s-tab> | Circular windows navigation

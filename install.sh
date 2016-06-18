@@ -7,7 +7,7 @@ cd $(dirname $BASH_SOURCE)
 BASE="~/.dotfiles" # $(pwd)
 
 # RC files
-for rc in *rc *profile tmux.conf gitconfig spacemacs; do
+for rc in *rc *profile tmux.conf gitconfig spacemacs vim/colors; do
   mkdir -pv bak
   [ -e ~/.$rc ] && mv -v ~/.$rc bak/.$rc
   ln -sfv $BASE/$rc ~/.$rc
