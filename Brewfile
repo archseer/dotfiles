@@ -15,6 +15,9 @@ brew 'massren'
 brew 'the_silver_searcher'
 brew 'jq'
 
+brew 'git'
+brew 'diff-so-fancy'
+
 tap 'thoughtbot/formulae'
 brew 'thoughtbot/formulae/gitsh'
 brew 'thoughtbot/formulae/rcm'
