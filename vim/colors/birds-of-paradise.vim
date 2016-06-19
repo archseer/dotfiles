@@ -124,7 +124,8 @@ call s:HL('Title', 'foreground', '', 'bold')
 call s:HL('ErrorMsg', 'red', 'none', 'bold')
 call s:HL('WarningMsg', 'ocra', 'none')
 call s:HL('ModeMsg', 'blue', 'none')
-" MoreMsg, Question
+call s:HL('Question', 'blue', 'none')
+" MoreMsg
 
 " ctags tag
 call s:HL('Tag',  'ocra', '')
@@ -157,8 +158,8 @@ call s:HL('Special', 'foreground', '', 'none')
 " next up, comments
 call s:HL('Comment', 'comment', '', 'italic')
 " SpecialComment
-call s:HL('Todo', 'yellow', '', 'italic')
-call s:HL('Error', 'red', '')
+call s:HL('Todo', 'yellow', 'line', 'italic')
+call s:HL('Error', 'red', 'line')
 
 call s:HL('String', 'yellow', '', 'italic')
 
