@@ -38,6 +38,7 @@ let s:birds.blue =  ["#6c99bb", 67]
 "   ["#40302d", 58] // shade2 " double copy as above? (nil for cterm)
 let s:birds.cyan =  ["#7daf9c", 109]
 let s:birds.purple =  ["#8856d2", 98]
+let s:birds.lpurple = ["#BE73FD", 135]
 "   ["#86b4bb", 109] // cyan2
 
 " }}}
@@ -216,6 +217,7 @@ hi rubyInclude ctermfg=203 ctermbg=NONE cterm=NONE guifg=#ef5d32 guibg=NONE gui=
 hi rubyGlobalVariable ctermfg=109 ctermbg=NONE cterm=NONE guifg=#7daf9c guibg=NONE gui=NONE
 hi rubyRegexp ctermfg=98 ctermbg=NONE cterm=NONE guifg=#8856d2 guibg=NONE gui=NONE
 hi rubyRegexpDelimiter ctermfg=98 ctermbg=NONE cterm=NONE guifg=#8856d2 guibg=NONE gui=NONE
+call s:HL('rubyRegexpSpecial', 'lpurple', '', 'none')
 hi rubyEscape ctermfg=67 ctermbg=NONE cterm=NONE guifg=#6c99bb guibg=NONE gui=NONE
 hi rubyControl ctermfg=203 ctermbg=NONE cterm=NONE guifg=#ef5d32 guibg=NONE gui=NONE
 hi rubyClassVariable ctermfg=109 ctermbg=NONE cterm=NONE guifg=#7daf9c guibg=NONE gui=NONE
