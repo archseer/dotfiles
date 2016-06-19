@@ -26,8 +26,6 @@ Plug 'mattn/emmet-vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/syntastic'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/echodoc.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
@@ -107,6 +105,7 @@ colorscheme base16-paraiso
 if has('nvim')
   "set termguicolors
   "colors dracula
+  colors birds-of-paradise
 endif
 " ----------------------------------------------------------------------------
 "  UI
@@ -404,6 +403,66 @@ function! s:fzf_statusline()
 endfunction
 
 " ----------------------------------------------------------------------------
+" Statusline
+" ----------------------------------------------------------------------------
+
+function StatusHighlight(mode, active)
+    hi StatusWarning ctermbg=136 ctermfg=235 term=none cterm=none
+
+    if a:active == 0
+        hi StatusMode ctermbg=235 ctermfg=240 term=bold cterm=bold
+        return '      '
+
+    elseif a:mode == 'n' || a:mode == 'c'
+        hi StatusMode ctermbg=148 ctermfg=22 term=bold cterm=bold guifg=#005f00 guibg=#ffffff
+        return 'NORMAL'
+
+    elseif a:mode == 'i'
+        hi StatusMode ctermbg=231 ctermfg=23 term=bold cterm=bold guifg=#005f5f guibg=#afd700
+        return 'INSERT'
+
+    elseif a:mode == 'R' || a:mode == 't'
+        hi StatusMode ctermbg=160 ctermfg=231 term=bold cterm=bold guifg=#ffffff guibg=#d70000
+        return a:mode == 'R' ? 'REPLACE' : 'TERMINAL' 
+
+      elseif a:mode =~# '\v(v|V||s|S|)'
+        hi StatusMode ctermbg=208 ctermfg=88 term=bold cterm=bold guifg=#080808 guibg=#ffaf00
+        return a:mode == 'v' ? 'VISUAL' : a:mode == 'V' ? 'V-LINE' : 'V-BLOCK'
+
+    else
+        return a:mode
+    endif
+endfunction
+
+function Status(active)
+    let status = ''
+    if a:active != 0
+      let status .= '%#StatusMode# %{StatusHighlight(mode(), ' .a:active .')} %*'
+    endif
+    let status .= ' %{fnamemodify(expand(''%''), '':~:.'')}%w%q%h%r%<%m '
+
+    let status .= &paste? '[paste]':''
+
+    if &filetype != 'netrw' && &filetype != 'undotree'
+        let status .= '%=' .' %{&fileencoding} | %{&fileformat} '
+                    \  .' %{&filetype} '
+                    \  .' %l:%c '
+                    \  .'%#errormsg#%{SyntasticStatuslineFlag()}%*'
+    endif
+
+    return status
+endfunction
+
+function StatusUpdate()
+    for n in range(1, winnr('$'))
+        let s = winnr('$') == 1 ? [Status(1)] : [Status(1), Status(0)]
+        call setwinvar(n, '&statusline', s[n!=winnr()])
+    endfor
+endfunction
+
+autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call StatusUpdate()
+
+" ----------------------------------------------------------------------------
 " HL | Find out syntax group
 " ----------------------------------------------------------------------------
 function! s:hl()
@@ -592,37 +651,6 @@ endfunction
 
 nmap _$ :call StripTrailingWhitespace()<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
-
-" ----------------------------------------------------------------------------
-" Airline
-" ----------------------------------------------------------------------------
-
-let g:airline_theme = 'powerlineish'
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_left_sep = '»'
-let g:airline_left_sep = ''
-let g:airline_right_sep = '«'
-let g:airline_right_sep = ''
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.whitespace = 'Ξ'
-
-" Enable airline tabline!
-let g:airline#extensions#tabline#enabled = 1
-" only show the tabline when we have more than one tab
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#tab_min_count = 2
-" flat separators, no arrows
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-" disable the GUI close button
-let g:airline#extensions#tabline#show_close_button = 0
-let g:airline#extensions#tabline#show_tab_type = 0
 
 " The Silver Searcher
 if executable('ag')
