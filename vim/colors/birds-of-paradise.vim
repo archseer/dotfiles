@@ -30,16 +30,15 @@ let s:birds.red =  ["#ef5d32", 203] " magenta
 let s:birds.ocra =  ["#efac32", 215]
 let s:birds.yellow = ["#d9d762", 185]
 let s:birds.green = ["#49830c", 64]
-"   ["#8e0807", 88] // dark red (diff)
 let s:birds.blue =  ["#6c99bb", 67]
-"   ["#2c3956", 23] // dblue (info text)
-"   ["#204a87", 24] // ldblue (diff text)
-"   ["#42302d", 58] // shade
-"   ["#40302d", 58] // shade2 " double copy as above? (nil for cterm)
 let s:birds.cyan =  ["#7daf9c", 109]
 let s:birds.purple =  ["#8856d2", 98]
 let s:birds.lpurple = ["#BE73FD", 135]
 "   ["#86b4bb", 109] // cyan2
+
+let s:birds.diff_green = ["#8CFF8C", 120]
+let s:birds.diff_red = ["#FF7575", 210]
+let s:birds.dblue = ["#204a87", 23] " dblue (info text) #2c3956
 
 " }}}
 " Highlighting Function: {{{
@@ -120,11 +119,10 @@ call s:HL('Directory', 'blue', '', 'none')
 
 call s:HL('Title', 'foreground', '', 'bold')
 
-"hi ErrorMsg ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi ErrorMsg ctermfg=188 ctermbg=23 cterm=NONE guifg=#e6e1c4 guibg=#2c3956 gui=NONE
-"hi WarningMsg ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-hi WarningMsg ctermfg=188 ctermbg=23 cterm=NONE guifg=#e6e1c4 guibg=#2c3956 gui=NONE
-" MoreMsg, ModeMsg, Question
+call s:HL('ErrorMsg', 'red', 'none', 'bold')
+call s:HL('WarningMsg', 'ocra', 'none')
+call s:HL('ModeMsg', 'blue', 'none')
+" MoreMsg, Question
 
 " ctags tag
 call s:HL('Tag',  'ocra', '')
@@ -139,16 +137,16 @@ call s:HL('Search',    'background', 'yellow', 'none')
 call s:HL('IncSearch', 'background', 'yellow', 'none')
 
 " Tildes below buffer
-hi NonText ctermfg=58 ctermbg=NONE cterm=NONE guifg=#42302d guibg=#40302d gui=NONE
+call s:HL('NonText', 'comment', '', 'none')
 
 " Special keys, e.g. some of the chars in 'listchars'. See ':h listchars'.
-hi SpecialKey ctermfg=58 ctermbg=59 cterm=NONE guifg=#42302d guibg=#493a35 gui=NONE
+call s:HL('SpecialKey', 'selection', '', 'none')
 
 " - Diffs
-call s:HL('DiffAdd', 'background', 'green', 'bold')
-hi DiffDelete ctermfg=88 ctermbg=NONE cterm=NONE guifg=#8e0807 guibg=NONE gui=NONE
-hi DiffChange ctermfg=188 ctermbg=23 cterm=NONE guifg=#e6e1c4 guibg=#2c3956 gui=NONE
-hi DiffText ctermfg=188 ctermbg=24 cterm=bold guifg=#e6e1c4 guibg=#204a87 gui=bold
+call s:HL('DiffAdd', 'diff_green', 'line', 'bold')
+call s:HL('DiffDelete', 'diff_red', 'line', '')
+call s:HL('DiffChange', 'foreground', 'dblue', '')
+call s:HL('DiffText', 'foreground', 'purple', 'bold')
 
 " -----> Syntax
 " start simple
@@ -157,9 +155,8 @@ call s:HL('Special', 'foreground', '', 'none')
 " next up, comments
 call s:HL('Comment', 'comment', '', 'italic')
 " SpecialComment
-"hi Todo ctermfg=59 ctermbg=NONE cterm=inverse,bold guifg=#6b4e32 guibg=NONE gui=inverse,bold,italic
-hi Todo ctermfg=185 ctermbg=59 cterm=NONE guifg=#d9d762 guibg=#493a35 gui=NONE
-" hi Error (for Syntastic too?)
+call s:HL('Todo', 'yellow', '', 'italic')
+call s:HL('Error', 'red', '')
 
 call s:HL('String', 'yellow', '', 'italic')
 
@@ -209,7 +206,6 @@ hi rubyFunction ctermfg=215 ctermbg=NONE cterm=NONE guifg=#efac32 guibg=NONE gui
 hi rubyInterpolationDelimiter ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
 hi rubySymbol ctermfg=67 ctermbg=NONE cterm=NONE guifg=#6c99bb guibg=NONE gui=NONE
 hi rubyConstant ctermfg=215 ctermbg=NONE cterm=NONE guifg=#efac32 guibg=NONE gui=NONE
-"hi rubyConstant ctermfg=188 ctermbg=NONE cterm=NONE guifg=#e6e1c4 guibg=NONE gui=NONE
 hi rubyStringDelimiter ctermfg=185 ctermbg=NONE cterm=NONE guifg=#d9d762 guibg=NONE gui=italic
 hi rubyBlockParameter ctermfg=109 ctermbg=NONE cterm=NONE guifg=#7daf9c guibg=NONE gui=NONE
 hi rubyInstanceVariable ctermfg=109 ctermbg=NONE cterm=NONE guifg=#7daf9c guibg=NONE gui=NONE
