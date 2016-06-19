@@ -102,7 +102,9 @@ call s:HL('CursorLine',   '',           'line',      'none')
 call s:HL('CursorColumn', '',           'line',      'none')
 call s:HL('ColorColumn',  '',           'line',      'none')
 
-" TabLine, TabLineFill, TabLineSel
+call s:HL('Tabline',     'foreground', 'line',   'bold')
+call s:HL('TablineFill', 'foreground', 'window', 'bold')
+call s:HL('TablineSel',  '',           '',       'inverse')
 
 " - Gutter
 call s:HL('LineNr',       'border',     'line',      'none')
