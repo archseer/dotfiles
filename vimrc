@@ -406,9 +406,7 @@ endfunction
 " Statusline
 " ----------------------------------------------------------------------------
 
-function StatusHighlight(mode, active)
-    hi StatusWarning ctermbg=136 ctermfg=235 term=none cterm=none
-
+function! StatusHighlight(mode, active)
     if a:active == 0
         hi StatusMode ctermbg=235 ctermfg=240 term=bold cterm=bold
         return '      '
@@ -434,7 +432,7 @@ function StatusHighlight(mode, active)
     endif
 endfunction
 
-function Status(active)
+function! Status(active)
     let status = ''
     if a:active != 0
       let status .= '%#StatusMode# %{StatusHighlight(mode(), ' .a:active .')} %*'
@@ -453,7 +451,7 @@ function Status(active)
     return status
 endfunction
 
-function StatusUpdate()
+function! StatusUpdate()
     for n in range(1, winnr('$'))
         let s = winnr('$') == 1 ? [Status(1)] : [Status(1), Status(0)]
         call setwinvar(n, '&statusline', s[n!=winnr()])
