@@ -52,6 +52,8 @@ function! s:HL(group, fg, ...)
     if strlen(a:fg)
         if a:fg == 'fg'
             let highlightString .= 'guifg=fg ctermfg=fg '
+        elseif a:fg == 'none'
+            let highlightString .= 'guifg=NONE ctermfg=NONE '
         else
             let color = get(s:birds, a:fg)
             let highlightString .= 'guifg=' . color[0] . ' ctermfg=' . color[1] . ' '
@@ -62,6 +64,8 @@ function! s:HL(group, fg, ...)
     if a:0 >= 1 && strlen(a:1)
         if a:1 == 'bg'
             let highlightString .= 'guibg=bg ctermbg=bg '
+        elseif a:1 == 'none'
+          let highlightString .= 'guibg=NONE ctermbg=NONE '
         else
             let color = get(s:birds, a:1)
             let highlightString .= 'guibg=' . color[0] . ' ctermbg=' . color[1] . ' '
@@ -125,8 +129,8 @@ hi WarningMsg ctermfg=188 ctermbg=23 cterm=NONE guifg=#e6e1c4 guibg=#2c3956 gui=
 call s:HL('Tag',  'ocra', '')
 
 " - Completion menu
-call s:HL('Pmenu',    'ocra', '', 'none')
-call s:HL('PmenuSel', '',     'selection')
+call s:HL('Pmenu',    'border', 'line', 'none')
+call s:HL('PmenuSel', '', 'selection', 'none')
 
 call s:HL('Underlined', '', '', 'underline')
 
@@ -154,6 +158,7 @@ call s:HL('Comment', 'comment', '', 'italic')
 " SpecialComment
 "hi Todo ctermfg=59 ctermbg=NONE cterm=inverse,bold guifg=#6b4e32 guibg=NONE gui=inverse,bold,italic
 hi Todo ctermfg=185 ctermbg=59 cterm=NONE guifg=#d9d762 guibg=#493a35 gui=NONE
+" hi Error (for Syntastic too?)
 
 call s:HL('String', 'yellow', '', 'italic')
 
