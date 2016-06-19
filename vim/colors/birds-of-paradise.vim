@@ -111,7 +111,7 @@ call s:HL('LineNr',       'border',     'line',      'none')
 call s:HL('SignColumn',   'border',     'line',      'none')
 call s:HL('FoldColumn',   'border',     'line',      'none')
 
-call s:HL('MatchParen',   'red', '',   'underline')
+call s:HL('MatchParen',   '', '',   'inverse')
 
 call s:HL('StatusLine',   'foreground', 'line',   'bold')
 call s:HL('StatusLineNC', 'foreground', 'window', 'none')
