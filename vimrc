@@ -129,6 +129,7 @@ set sidescrolloff=7
 set sidescroll=1
 set splitbelow             " splits that make more sense
 set splitright
+set synmaxcol=300          " Boost performance of rendering long lines
 
 " augroup CursorLine
 "   au!
@@ -255,6 +256,9 @@ let g:rustfmt_autosave = 1
 " don't check handlebars with html tidy...
 let g:syntastic_filetype_map = { "html.handlebars": "handlebars" }
 
+let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]' " TODO: show red dot and yellow dot with cound
+let g:syntastic_stl_format = '[E: %e, W: %w]'
+
 let g:syntastic_shell                    = '/bin/zsh'
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list            = 2 " if 1, :lclose
@@ -262,9 +266,16 @@ let g:syntastic_check_on_open            = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_ruby_checkers = ["mri", "reek"]
-let g:syntastic_style_error_symbol = "\u2717"
-let g:syntastic_style_warning_symbol = "\u26A0"
 
+let g:syntastic_style_error_symbol = "\u25B6"
+let g:syntastic_style_warning_symbol = "\u25B6"
+let g:syntastic_error_symbol = "\u25B6"
+let g:syntastic_warning_symbol = "\u25B6"
+
+let g:syntastic_style_error_symbol = "●"
+let g:syntastic_style_warning_symbol = "●"
+let g:syntastic_error_symbol = "●"
+let g:syntastic_warning_symbol = "●"
 
 let test#strategy = "neovim"
 function! s:cat(filename) abort
@@ -412,7 +423,7 @@ function! StatusHighlight(mode, active)
         return '      '
 
     elseif a:mode == 'n' || a:mode == 'c'
-        hi StatusMode ctermbg=148 ctermfg=22 term=bold cterm=bold guifg=#005f00 guibg=#ffffff
+        hi StatusMode ctermbg=148 ctermfg=22 term=bold cterm=bold guifg=#080808 guibg=#ffffff
         return 'NORMAL'
 
     elseif a:mode == 'i'
