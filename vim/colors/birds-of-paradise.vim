@@ -42,11 +42,14 @@ let s:birds.blue        = ["#6c99bb", 67]
 let s:birds.cyan        = ["#7daf9c", 109]
 let s:birds.purple      = ["#8856d2", 98]
 let s:birds.lpurple     = ["#BE73FD", 135]
-"   ["#86b4bb", 109] // cyan2
+let s:birds.cyan2       = ["#86b4bb", 109]
 
 let s:birds.diff_green  = ["#8CFF8C", 120]
 let s:birds.diff_red    = ["#FF7575", 210]
 let s:birds.dblue       = ["#204a87", 23] " dblue (info text) #2c3956
+
+let s:birds.error       = ["#f47868", "NONE"]
+let s:birds.todo        = ["#ffcd1c", "NONE"]
 
 " }}}
 " Highlighting Function: {{{
@@ -174,12 +177,15 @@ call s:HL('Comment', 'comment', '', 'italic')
 call s:HL('Todo', 'yellow', 'line', 'italic')
 call s:HL('Error', 'red', 'line')
 
+call s:HL('Todo', 'todo', 'line', 'italic')
+call s:HL('Error', 'error', 'line')
+
 call s:HL('String', 'yellow', '', 'italic')
 
 " --> Keywords
 " generic statement
 call s:HL('Statement',  'red', '', 'none')
-" if, then, else, endif, swicth, etc.
+" if, then, else, endif, switch, etc.
 call s:HL('Conditional', 'red', '', 'none')
 " sizeof, "+", "*", etc.
 call s:HL('Operator',    'red', '', 'none')
@@ -250,14 +256,20 @@ call s:HL('rubyRailsMethod',      'ocra',       '', 'none')
 call s:HL('elixirStringDelimiter',        'yellow', '', 'italic')
 call s:HL('elixirInterpolationDelimiter', 'cyan',   '', '')
 
-hi htmlTag ctermfg=109 ctermbg=NONE cterm=NONE guifg=#86b4bb guibg=NONE gui=NONE
-hi htmlEndTag ctermfg=109 ctermbg=NONE cterm=NONE guifg=#86b4bb guibg=NONE gui=NONE
-hi htmlTagName ctermfg=109 ctermbg=NONE cterm=NONE guifg=#86b4bb guibg=NONE gui=NONE
-hi htmlArg ctermfg=109 ctermbg=NONE cterm=NONE guifg=#86b4bb guibg=NONE gui=NONE
-hi htmlSpecialChar ctermfg=67 ctermbg=NONE cterm=NONE guifg=#6c99bb guibg=NONE gui=NONE
+" --> HTML
+call s:HL('htmlTag',         'cyan2', '', '')
+call s:HL('htmlEndTag',      'cyan2', '', '')
+call s:HL('htmlTagName',     'cyan2', '', '')
+call s:HL('htmlArg',         'cyan2', '', '')
+call s:HL('htmlSpecialChar', 'blue',  '', '')
 
-hi javaScriptFunction ctermfg=203 ctermbg=NONE cterm=NONE guifg=#ef5d32 guibg=NONE gui=NONE
-hi javaScriptRailsFunction ctermfg=215 ctermbg=NONE cterm=NONE guifg=#efac32 guibg=NONE gui=NONE
+
+" YAJS
+call s:HL('javascriptImport', 'red',  '', '')
+call s:HL('javascriptExport', 'red',  '', '')
+call s:HL('javascriptIdentifier', 'blue',  '', '')
+call s:HL('javascriptIdentifierName', 'blue',  '', '')
+call s:HL('javascriptObjectLabel', 'ocra',  '', '')
 hi javaScriptBraces ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
 
 hi yamlKey ctermfg=215 ctermbg=NONE cterm=NONE guifg=#efac32 guibg=NONE gui=NONE

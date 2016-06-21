@@ -257,7 +257,7 @@ let g:rustfmt_autosave = 1
 let g:syntastic_filetype_map = { "html.handlebars": "handlebars" }
 
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]' " TODO: show red dot and yellow dot with cound
-let g:syntastic_stl_format = '[E: %e, W: %w]'
+let g:syntastic_stl_format = '%E{%#error# ● %e %*}%W{%#todo# ● %w %*}'
 
 let g:syntastic_shell                    = '/bin/zsh'
 let g:syntastic_always_populate_loc_list = 1
@@ -436,7 +436,7 @@ function! StatusHighlight(mode, active)
 
       elseif a:mode =~# '\v(v|V||s|S|)'
         hi StatusMode ctermbg=208 ctermfg=88 term=bold cterm=bold guifg=#080808 guibg=#ffaf00
-        return a:mode == 'v' ? 'VISUAL' : a:mode == 'V' ? 'V-LINE' : 'V-BLOCK'
+        return a:mode == 'v' ? 'V' : a:mode == 'VISUAL' ? 'V-LINE' : 'V-BLOCK'
 
     else
         return a:mode
@@ -453,10 +453,11 @@ function! Status(active)
     let status .= &paste? '[paste]':''
 
     if &filetype != 'netrw' && &filetype != 'undotree'
-        let status .= '%=' .' %{&fileencoding} | %{&fileformat} '
+        let status .= '%=' 
+                    \  .' %{&fileencoding} | %{&fileformat} '
                     \  .' %{&filetype} '
                     \  .' %l:%c '
-                    \  .'%#errormsg#%{SyntasticStatuslineFlag()}%*'
+                    \  .SyntasticStatuslineFlag()
     endif
 
     return status
