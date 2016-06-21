@@ -262,6 +262,9 @@ call s:HL('htmlEndTag',      'cyan2', '', '')
 call s:HL('htmlTagName',     'cyan2', '', '')
 call s:HL('htmlArg',         'cyan2', '', '')
 call s:HL('htmlSpecialChar', 'blue',  '', '')
+call s:HL('htmlSpecialTagName', 'ocra',  '', '')
+call s:HL('jsFuncArgs', 'blue',  '', '')
+call s:HL('jsFuncCall', 'ocra',  '', '')
 
 
 " YAJS
@@ -270,7 +273,7 @@ call s:HL('javascriptExport', 'red',  '', '')
 call s:HL('javascriptIdentifier', 'blue',  '', '')
 call s:HL('javascriptIdentifierName', 'blue',  '', '')
 call s:HL('javascriptObjectLabel', 'ocra',  '', '')
-hi javaScriptBraces ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
+call s:HL('javascriptBraces', 'foreground',  '', '')
 
 hi yamlKey ctermfg=215 ctermbg=NONE cterm=NONE guifg=#efac32 guibg=NONE gui=NONE
 hi yamlAnchor ctermfg=109 ctermbg=NONE cterm=NONE guifg=#7daf9c guibg=NONE gui=NONE
