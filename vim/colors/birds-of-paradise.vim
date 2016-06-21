@@ -26,18 +26,19 @@ let s:birds.cursor      = ["#DBF5F3", 253]
 let s:birds.cursor      = ["#865C38", 253]
 let s:birds.line        = ["#493a35", 59]
 "let s:birds.line = ["#654D4D", 52]
-let s:birds.line = ["#513636", 52]
-let s:birds.line = ["#4c3b3b", 52]
+let s:birds.line = ["#513636", 59]
+let s:birds.line = ["#4c3b3b", 59]
 let s:birds.border      = ["#8f8475", 102]
-"let s:birds.border = ["#654D4D", 102] " white-3
+"let s:birds.border = ["#654D4D", 59] " white-3
 let s:birds.window      = ["#6a5d53", 59] " statusline (inactive)
 let s:birds.comment     = ["#6b4e32", 59] " brown -> #865C38
-let s:birds.comment     = ["#865C38", 59] " brown
+let s:birds.comment     = ["#865C38", 95] " brown
 
 let s:birds.red         = ["#ef5d32", 203] " magenta
 let s:birds.ocra        = ["#efac32", 215]
 let s:birds.yellow      = ["#d9d762", 185]
-let s:birds.green       = ["#49830c", 64]
+"let s:birds.green      = ["#889b4a", 107]
+"let s:birds.green       = ["#49830c", 64] " old
 let s:birds.blue        = ["#6c99bb", 67]
 let s:birds.cyan        = ["#7daf9c", 109]
 let s:birds.purple      = ["#8856d2", 98]
@@ -48,8 +49,8 @@ let s:birds.diff_green  = ["#8CFF8C", 120]
 let s:birds.diff_red    = ["#FF7575", 210]
 let s:birds.dblue       = ["#204a87", 23] " dblue (info text) #2c3956
 
-let s:birds.error       = ["#f47868", "NONE"]
-let s:birds.todo        = ["#ffcd1c", "NONE"]
+let s:birds.error       = ["#f47868", 209]
+let s:birds.todo        = ["#ffcd1c", 220]
 
 " }}}
 " Highlighting Function: {{{
@@ -170,6 +171,7 @@ call s:HL('DiffText', 'foreground', 'purple', 'bold')
 " -----> Syntax
 " start simple
 call s:HL('Special', 'foreground', '', 'none')
+"call s:HL('Special', 'ocra', '', 'none') TODO: simplify stuff by using special
 
 " next up, comments
 call s:HL('Comment', 'comment', '', 'italic')
@@ -250,7 +252,6 @@ call s:HL('rubyPseudoVariable',   'cyan',    '', 'none')
 
 call s:HL('rubyRailsUserClass',   'foreground', '', 'none')
 call s:HL('rubyRailsMethod',      'ocra',       '', 'none')
-"hi erubyDelimiter ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
 
 " --> Elixir
 call s:HL('elixirStringDelimiter',        'yellow', '', 'italic')
