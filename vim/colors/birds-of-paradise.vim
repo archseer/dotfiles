@@ -225,8 +225,6 @@ call s:HL('StorageClass', 'red', '', 'none')
 " Structure, Typedef
 
 " --> Ruby
-call s:HL('rubyClass', 'red', '', 'none')
-call s:HL('rubyFunction', 'ocra', '', 'none')
 call s:HL('rubyInterpolation', 'none', '', 'none') " TODO: remove (defaults to Delimiter => Special)
 call s:HL('rubyInterpolationDelimiter', 'cyan', '', 'none')
 "call s:HL('Delimiter', 'cyan', '', 'none') " TODO: ?
@@ -236,15 +234,12 @@ call s:HL('rubySymbol',           'blue',    '', 'none')
 call s:HL('rubyConstant',         'ocra',    '', 'none')
 call s:HL('rubyStringDelimiter',  'yellow',  '', 'italic')
 call s:HL('rubyIdentifier',       'cyan',    '', 'none')
-call s:HL('rubyInclude',          'red',     '', 'none')
+call s:HL('rubyPredefinedIdentifier', 'red', '', 'none')
 call s:HL('rubyRegexp',           'purple',  '', 'none')
 call s:HL('rubyRegexpDelimiter',  'purple',  '', 'none')
 call s:HL('rubyRegexpSpecial',    'lpurple', '', 'none')
 call s:HL('rubyEscape',           'blue',    '', 'none')
-call s:HL('rubyControl',          'red',     '', 'none')
-call s:HL('rubyOperator',         'red',     '', 'none')
 call s:HL('rubyException',        'red',     '', 'none')
-call s:HL('rubyPseudoVariable',   'cyan',    '', 'none')
 
 call s:HL('rubyRailsUserClass',   'foreground', '', 'none')
 call s:HL('rubyRailsMethod',      'ocra',       '', 'none')
