@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
 
 "Plug 'godlygeek/csapprox'
 "Plug 'chriskempson/base16-vim'
+Plug 'flazz/vim-colorschemes'
 "Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-endwise'
 Plug 'Raimondi/delimitMate'
@@ -436,7 +437,7 @@ function! StatusHighlight(mode, active)
 
       elseif a:mode =~# '\v(v|V||s|S|)'
         hi StatusMode ctermbg=208 ctermfg=88 term=bold cterm=bold guifg=#080808 guibg=#ffaf00
-        return a:mode == 'v' ? 'V' : a:mode == 'VISUAL' ? 'V-LINE' : 'V-BLOCK'
+        return a:mode == 'v' ? 'VISUAL' : a:mode == 'V' ? 'V-LINE' : 'V-BLOCK'
 
     else
         return a:mode
