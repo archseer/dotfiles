@@ -225,20 +225,19 @@ call s:HL('StorageClass', 'red', '', 'none')
 " Structure, Typedef
 
 " --> Ruby
-call s:HL('rubyInterpolation', 'none', '', 'none') " TODO: remove (defaults to Delimiter => Special)
-call s:HL('rubyInterpolationDelimiter', 'cyan', '', 'none')
 "call s:HL('Delimiter', 'cyan', '', 'none') " TODO: ?
 
-" all of these except regex (& block param, self keyword, string delimiter) technically useless
 call s:HL('rubySymbol',           'blue',    '', 'none')
 call s:HL('rubyConstant',         'ocra',    '', 'none')
 call s:HL('rubyStringDelimiter',  'yellow',  '', 'italic')
 call s:HL('rubyIdentifier',       'cyan',    '', 'none')
 call s:HL('rubyPredefinedIdentifier', 'red', '', 'none')
+call s:HL('rubyInterpolation', 'none', '', 'none') " TODO: remove (defaults to Delimiter => Special)
+call s:HL('rubyInterpolationDelimiter', 'cyan', '', 'none')
 call s:HL('rubyRegexp',           'purple',  '', 'none')
 call s:HL('rubyRegexpDelimiter',  'purple',  '', 'none')
 call s:HL('rubyRegexpSpecial',    'lpurple', '', 'none')
-call s:HL('rubyEscape',           'blue',    '', 'none')
+call s:HL('rubyEscape',           'blue',    '', 'none') " TODO: this also defaults to Special
 call s:HL('rubyException',        'red',     '', 'none')
 
 call s:HL('rubyRailsUserClass',   'foreground', '', 'none')
@@ -266,6 +265,10 @@ call s:HL('javascriptIdentifier', 'blue',  '', '')
 call s:HL('javascriptIdentifierName', 'blue',  '', '')
 call s:HL('javascriptObjectLabel', 'ocra',  '', '')
 call s:HL('javascriptBraces', 'foreground',  '', '')
+
+" Typescript
+call s:HL('typescriptBraces', 'foreground',  '', '')
+call s:HL('typescriptEndColons', 'foreground',  '', '')
 
 hi yamlKey ctermfg=215 ctermbg=NONE cterm=NONE guifg=#efac32 guibg=NONE gui=NONE
 hi yamlAnchor ctermfg=109 ctermbg=NONE cterm=NONE guifg=#7daf9c guibg=NONE gui=NONE
