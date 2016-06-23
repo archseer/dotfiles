@@ -455,10 +455,15 @@ function! Status(active)
 
     if &filetype != 'netrw' && &filetype != 'undotree'
         let status .= '%=' 
-                    \  .' %{&fileencoding} | %{&fileformat} '
+        if a:active != 0
+          " we can't wrap it in %{} because that kills the colors, but if we
+          " don't, it will return the data for the active window. So, don't
+          " display it on other windows.
+          let status .= SyntasticStatuslineFlag()
+        endif
+        let status .=  ' %{&fileencoding} | %{&fileformat} '
                     \  .' %{&filetype} '
                     \  .' %l:%c '
-                    \  .SyntasticStatuslineFlag()
     endif
 
     return status

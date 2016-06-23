@@ -71,7 +71,7 @@ export LC_CTYPE="en_US.UTF-8"
 # else
 #   export EDITOR='mvim'
 # fi
-export EDITOR='vim'
+export EDITOR='nvim'
 export TERM='screen-256color'
 
 # Compilation flags
