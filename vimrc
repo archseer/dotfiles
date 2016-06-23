@@ -444,22 +444,23 @@ function! StatusHighlight(mode, active)
     endif
 endfunction
 
-function! Status(active)
+function! Status(winnr)
+  	let active = a:winnr == winnr() || winnr('$') == 1
     let status = ''
-    if a:active != 0
-      let status .= '%#StatusMode# %{StatusHighlight(mode(), ' .a:active .')} %*'
+    if active != 0
+      let status .= '%#StatusMode# %{StatusHighlight(mode(), ' .active .')} %*'
     endif
     let status .= ' %{fnamemodify(expand(''%''), '':~:.'')}%w%q%h%r%<%m '
 
-    let status .= &paste? '[paste]':''
+    let status .= '%{&paste?''[paste]'':''''}'
 
     if &filetype != 'netrw' && &filetype != 'undotree'
         let status .= '%=' 
-        if a:active != 0
+        if active != 0
           " we can't wrap it in %{} because that kills the colors, but if we
           " don't, it will return the data for the active window. So, don't
           " display it on other windows.
-          let status .= SyntasticStatuslineFlag()
+          let status .= '%{SyntasticStatuslineFlag()}'
         endif
         let status .=  ' %{&fileencoding} | %{&fileformat} '
                     \  .' %{&filetype} '
@@ -470,9 +471,8 @@ function! Status(active)
 endfunction
 
 function! StatusUpdate()
-    for n in range(1, winnr('$'))
-        let s = winnr('$') == 1 ? [Status(1)] : [Status(1), Status(0)]
-        call setwinvar(n, '&statusline', s[n!=winnr()])
+    for winnr in range(1, winnr('$'))
+        call setwinvar(winnr, '&statusline', '%!Status(' . winnr . ')')
     endfor
 endfunction
 
