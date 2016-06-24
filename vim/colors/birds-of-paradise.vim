@@ -270,10 +270,11 @@ call s:HL('javascriptBraces', 'foreground',  '', '')
 call s:HL('typescriptBraces', 'foreground',  '', '')
 call s:HL('typescriptEndColons', 'foreground',  '', '')
 
-hi yamlKey ctermfg=215 ctermbg=NONE cterm=NONE guifg=#efac32 guibg=NONE gui=NONE
-hi yamlAnchor ctermfg=109 ctermbg=NONE cterm=NONE guifg=#7daf9c guibg=NONE gui=NONE
-hi yamlAlias ctermfg=109 ctermbg=NONE cterm=NONE guifg=#7daf9c guibg=NONE gui=NONE
-hi yamlDocumentHeader ctermfg=185 ctermbg=NONE cterm=NONE guifg=#d9d762 guibg=NONE gui=italic
+" YAML
+call s:HL('yamlKey', 'ocra',  '', '')
+call s:HL('yamlAnchor', 'cyan',  '', '')
+call s:HL('yamlAlias', 'cyan',  '', '')
+call s:HL('yamlDocumentHeader', 'yellow',  '', '')
 
 hi cssURL ctermfg=109 ctermbg=NONE cterm=NONE guifg=#7daf9c guibg=NONE gui=NONE
 hi cssFunctionName ctermfg=215 ctermbg=NONE cterm=NONE guifg=#efac32 guibg=NONE gui=NONE
