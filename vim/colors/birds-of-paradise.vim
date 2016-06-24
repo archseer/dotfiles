@@ -276,11 +276,12 @@ call s:HL('yamlAnchor', 'cyan',  '', '')
 call s:HL('yamlAlias', 'cyan',  '', '')
 call s:HL('yamlDocumentHeader', 'yellow',  '', '')
 
-hi cssURL ctermfg=109 ctermbg=NONE cterm=NONE guifg=#7daf9c guibg=NONE gui=NONE
-hi cssFunctionName ctermfg=215 ctermbg=NONE cterm=NONE guifg=#efac32 guibg=NONE gui=NONE
-hi cssColor ctermfg=67 ctermbg=NONE cterm=NONE guifg=#6c99bb guibg=NONE gui=NONE
-hi cssPseudoClassId ctermfg=215 ctermbg=NONE cterm=NONE guifg=#efac32 guibg=NONE gui=NONE
-hi cssClassName ctermfg=215 ctermbg=NONE cterm=NONE guifg=#efac32 guibg=NONE gui=NONE
-hi cssValueLength ctermfg=67 ctermbg=NONE cterm=NONE guifg=#6c99bb guibg=NONE gui=NONE
-hi cssCommonAttr ctermfg=67 ctermbg=NONE cterm=NONE guifg=#6c99bb guibg=NONE gui=NONE
-hi cssBraces ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
+" CSS
+call s:HL('cssURL',           'cyan',       '', '')
+call s:HL('cssFunctionName',  'ocra',       '', '')
+call s:HL('cssColor',         'blue',       '', '')
+call s:HL('cssPseudoClassId', 'ocra',       '', '')
+call s:HL('cssClassName',     'ocra',       '', '')
+call s:HL('cssValueLength',   'blue',       '', '')
+call s:HL('cssCommonAttr',    'blue',       '', '')
+call s:HL('cssBraces',        'foreground', '', '')
