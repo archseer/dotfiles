@@ -278,10 +278,11 @@ call s:HL('yamlDocumentHeader', 'yellow',  '', '')
 
 " CSS
 call s:HL('cssURL',           'cyan',       '', '')
-call s:HL('cssFunctionName',  'ocra',       '', '')
 call s:HL('cssColor',         'blue',       '', '')
 call s:HL('cssPseudoClassId', 'ocra',       '', '')
 call s:HL('cssClassName',     'ocra',       '', '')
 call s:HL('cssValueLength',   'blue',       '', '')
 call s:HL('cssCommonAttr',    'blue',       '', '')
+call s:HL('cssUnitDecorators','red',       '', '')
+call s:HL('cssProp','cyan',       '', '')
 call s:HL('cssBraces',        'foreground', '', '')
