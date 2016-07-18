@@ -168,6 +168,10 @@ call s:HL('DiffDelete', 'diff_red', 'line', '')
 call s:HL('DiffChange', 'foreground', 'dblue', '')
 call s:HL('DiffText', 'foreground', 'purple', 'bold')
 
+call s:HL('DiffAdded', 'diff_green', '', 'bold')
+call s:HL('DiffRemoved', 'diff_red', '', '')
+call s:HL('DiffChanged', 'foreground', 'dblue', '')
+
 " -----> Syntax
 " start simple
 call s:HL('Special', 'foreground', '', 'none')
