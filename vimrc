@@ -377,7 +377,7 @@ nnoremap <leader><leader> <c-^>
 cmap w!! w !sudo tee > /dev/null %
 
 " Shortcut for emmet
-imap <c-e> <c-y><leader>
+imap <c-e> <c-y>,
 
 " toggle highlighting
 " nnoremap <silent> <leader>h :set invhlsearch<CR>-1-1
