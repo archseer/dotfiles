@@ -94,4 +94,8 @@
 	oldNormal = red bold
 	oldHighlight = "red bold 52"
 	newNormal = "green bold"
-	newHighlight = "green bold 22"
+    newHighlight = "green bold 22"
+
+[diff-so-fancy]
+	stripLeadingSymbols = false
+    markEmptyLines = false
