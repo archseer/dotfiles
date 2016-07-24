@@ -91,6 +91,9 @@ PATH="$HOME/bin:$PATH"
 export GOPATH="$HOME/src/go"
 export PATH="${GOPATH//://bin:}/bin:$PATH"
 
+
+export PATH="$HOME/src/moon/bin:$PATH"
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
