@@ -418,12 +418,8 @@ endfunction
 " Statusline
 " ----------------------------------------------------------------------------
 
-function! StatusHighlight(mode, active)
-    if a:active == 0
-        hi StatusMode ctermbg=235 ctermfg=240 term=bold cterm=bold
-        return '      '
-
-    elseif a:mode == 'n' || a:mode == 'c'
+function! StatusHighlight(mode)
+    if a:mode == 'n' || a:mode == 'c'
         hi StatusMode ctermbg=148 ctermfg=22 term=bold cterm=bold guifg=#080808 guibg=#ffffff
         return 'NORMAL'
 
@@ -448,7 +444,7 @@ function! Status(winnr)
   	let active = a:winnr == winnr() || winnr('$') == 1
     let status = ''
     if active != 0
-      let status .= '%#StatusMode# %{StatusHighlight(mode(), ' .active .')} %*'
+      let status .= '%#StatusMode# %{StatusHighlight(mode())} %*'
     endif
     let status .= ' %{fnamemodify(expand(''%''), '':~:.'')}%w%q%h%r%<%m '
 
