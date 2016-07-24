@@ -175,7 +175,7 @@ endif
 
 " Change cursor shape in insert mode
 if has('nvim')
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  "let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 else
   if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
