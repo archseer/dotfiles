@@ -317,6 +317,9 @@ nnoremap <F1> <nop>
 nnoremap Q <nop>
 nnoremap K <nop>
 
+" Save the file (if it has been modified)
+nnoremap <leader>w :up<CR>
+
 " Make Y behave like other capitals
 nnoremap Y y$
 
