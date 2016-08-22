@@ -160,6 +160,7 @@ set smartindent            " be smart about it
 set nowrap                 " do not wrap lines
 set softtabstop=2          " yep, two
 set shiftwidth=2           " ..
+set shiftround             " Round indent shift to multiple of shiftwidth
 set tabstop=4
 set expandtab              " expand tabs to spaces
 set formatoptions+=n       " support for numbered/bullet lists
