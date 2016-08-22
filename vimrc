@@ -64,6 +64,8 @@ nnoremap <CR> <C-]>
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
 autocmd FileType qf nnoremap <buffer> <CR> <CR>
+" fix it for terminals as well
+autocmd TermOpen * nnoremap <buffer> <CR> <CR>
 
 runtime macros/matchit.vim
 
