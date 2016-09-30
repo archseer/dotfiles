@@ -108,6 +108,7 @@ alias grep='grep -G'  # colorized grep
 alias mm='middleman'
 
 alias vim='nvim'
+alias v='vim'
 
 export FZF_DEFAULT_COMMAND='ag -Q -l --hidden --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
