@@ -29,6 +29,7 @@
 [alias]
 	a	= add
 	ap	= add --patch
+	b	= branch
 	bd	= branch -d
 	bdd = branch -D
 	c	= commit -v
@@ -46,7 +47,7 @@
 	m	= merge
 	mm	= merge origin/master
 	p	= push
-	pf	= push --force
+	pf	= push --force-with-lease
 #	pm	= push origin master
 #	pms = push origin master:staging
 #	pmp = push origin master:production
