@@ -129,7 +129,7 @@ call s:HL('FoldColumn',   'border',     'line',      'none')
 "call s:HL('FoldColumn',   'border',     'background',      'none')
 
 "call s:HL('MatchParen',   'window', '',   'inverse')
-call s:HL('MatchParen',   '', '',   'inverse')
+call s:HL('MatchParen',   'ocra', 'line',   'inverse')
 
 call s:HL('StatusLine',   'foreground', 'line',   'bold')
 call s:HL('StatusLineNC', 'foreground', 'window', 'none')
