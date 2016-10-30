@@ -150,6 +150,9 @@ set ignorecase smartcase   " ignore case for searches without capital letters
 set hlsearch               " highlight searches
 set incsearch              " do incremental searching
 set visualbell             " shut the fuck up
+if exists('&belloff')
+  set belloff=all          " never ring the bell for any reason
+endif
 set cpoptions+=$           " in the change mode, show an $ at the end
 
 " ----------------------------------------------------------------------------
