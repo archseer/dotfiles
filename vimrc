@@ -42,6 +42,7 @@ Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-rails'
+Plug 'tpope/vim-abolish' " keepcase when replacing stuff
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -83,6 +84,7 @@ set encoding=utf-8
 
 set hidden                " allow buffer switching without saving
 set diffopt+=iwhite       " Add ignorance of whitespace to diff
+set diffopt+=vertical     " Allways diff vertically
 
 set nobackup              " do not keep backups after close
 set nowritebackup         " do not keep a backup while working
