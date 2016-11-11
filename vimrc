@@ -18,7 +18,11 @@ if has('nvim')
   " Improve ctrlp matching (better matches)
   Plug 'nixprime/cpsm', { 'do': './install.sh' }
   let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
+
+  " Disable arrow keys
+  let g:ctrlp_prompt_mappings = { 'PrtSelectMove("j")': ['<c-j>'], 'PrtSelectMove("k")': ['<c-k>'] }
 endif
+Plug 'elixir-lang/vim-elixir'
 Plug 'vim-ruby/vim-ruby'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
 Plug 'fatih/vim-go'
