@@ -137,7 +137,7 @@ set sidescrolloff=7
 set sidescroll=1
 set splitbelow             " splits that make more sense
 set splitright
-set synmaxcol=300          " Boost performance of rendering long lines
+set synmaxcol=200          " Boost performance of rendering long lines
 
 " augroup CursorLine
 "   au!
