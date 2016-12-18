@@ -1,16 +1,18 @@
 " Vim color file
-" Converted from Textmate theme Birds of Paradise using Coloration v0.3.2 (http://github.com/sickill/coloration)
+" Author: Blaž Hrastnik
+"
+" Note:
+" Original Birds of Paradise theme created by Joe Bergantine for Coda.
+" Some tweaks included from the emacs version (https://github.com/jimeh/birds-of-paradise-plus-theme.el)
+" But mostly me, recoding it from scratch.
 
+" Bootstrap: 
+
+hi clear
+if exists("syntax_on") | syntax reset | endif
 set background=dark
-highlight clear
-
-if exists("syntax_on")
-  syntax reset
-endif
-
 let g:colors_name = "birds-of-paradise"
 
-" }}}
 " Palette: {{{
 
 " setup palette dictionary
@@ -53,7 +55,7 @@ let s:birds.error       = ["#f47868", 209]
 let s:birds.todo        = ["#ffcd1c", 220]
 
 " }}}
-" Highlighting Function: {{{
+" Helpers: {{{
 
 function! s:HL(group, fg, ...)
     " Arguments: group, guifg, guibg, gui, guisp
