@@ -167,6 +167,9 @@ set cpoptions+=$           " in the change mode, show an $ at the end
 
 set autoindent             " automatic indent new lines
 set smartindent            " be smart about it
+if exists('&breakindent')
+  set breakindent          " when wrapping, indent the lines
+endif
 set nowrap                 " do not wrap lines
 set softtabstop=2          " yep, two
 set shiftwidth=2           " ..
