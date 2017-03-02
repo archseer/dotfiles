@@ -58,7 +58,7 @@ export ZSH_THEME_GIT_PROMPT_SUFFIX="]%{$reset_color%}"
 PS1=$'%{$fg[blue]%}┌─%{$fg[magenta]%}%n@%m%{$fg[green]%}[%c]$(git_prompt_info)%{$reset_color%}\n %{$fg[blue]%}└─ λ%{$reset_color%} '
 #PS1=$'%{$fg[blue]%}──%{$fg[magenta]%}%m%{$fg[green]%}[%c]%{$reset_color%}$(git_prompt_info) %{$fg[blue]%}λ%{$reset_color%} '
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/usr/texbin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/usr/texbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -113,3 +113,5 @@ alias v='vim'
 export FZF_DEFAULT_COMMAND='ag -Q -l --hidden --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$HOME/.yarn/bin:$PATH"
