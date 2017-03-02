@@ -62,7 +62,7 @@ let g:gutentags_cache_dir="~/.vim/tags"
 "let g:gutentags_ctags_executable_go="$GOPATH/bin/gotags"
 
 "set list of directories to exclude when generating tags
-let g:gutentags_exclude=["node_modules","plugged","tmp","temp","log","vendor","**/db/migrate/*","bower_components","dist","build","coverage","spec","public","app/assets","*.json"]
+let g:gutentags_ctags_exclude=["node_modules","plugged","tmp","temp","log","vendor","**/db/migrate/*","bower_components","dist","build","coverage","spec","public","app/assets","*.json"]
 
 " Enter is go to definition (ctags)
 nnoremap <CR> <C-]>
