@@ -51,6 +51,8 @@ Plug 'tpope/vim-abolish' " keepcase when replacing stuff
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+Plug 'slashmili/alchemist.vim'
+
 Plug 'ludovicchabant/vim-gutentags'
 "setting tags directory
 set tags="~/.vim/tags"
@@ -227,9 +229,9 @@ if has('nvim')
           \ neosnippet#mappings#expand_or_jump_impl()
           \ : pumvisible() ? deoplete#mappings#close_popup() : "\<CR>"
   endfunction
-  let g:deoplete#omni#input_patterns = {}
-  let g:deoplete#omni#input_patterns.ruby =
-        \ ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+  "let g:deoplete#omni#input_patterns = {}
+  "let g:deoplete#omni#input_patterns.ruby =
+  "      \ ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
 else
   " Enable Neocomplete
   let g:neocomplete#enable_at_startup = 1
