@@ -11,17 +11,6 @@ Plug 'flazz/vim-colorschemes'
 "Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-endwise'
 Plug 'Raimondi/delimitMate'
-if has('nvim')
-  "Plug 'awetzel/vim-elixir', {'branch': 'nvim-rplugin'}
-  "Plug 'archSeer/elixir.nvim'
-
-  " Improve ctrlp matching (better matches)
-  Plug 'nixprime/cpsm', { 'do': './install.sh' }
-  let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
-
-  " Disable arrow keys
-  let g:ctrlp_prompt_mappings = { 'PrtSelectMove("j")': ['<c-j>'], 'PrtSelectMove("k")': ['<c-k>'] }
-endif
 Plug 'elixir-lang/vim-elixir'
 Plug 'vim-ruby/vim-ruby'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
@@ -41,7 +30,6 @@ endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'janko-m/vim-test'
@@ -374,9 +362,6 @@ noremap <leader>v <C-w>v
 " close current buffer with <leader>x
 map <silent> <leader>x :bd<CR>
 
-" open ctrlp in buffer mode with <leader>b
-map <silent> <leader>b :CtrlPBuffer<CR>
-
 " show whitespace with <leader>s
 set listchars=tab:——,trail:·,eol:$
 if has('patch-7.4.710')
@@ -414,12 +399,23 @@ inoremap jk <Esc>
 " cnoremap jk <C-c>
 "
 
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+command! ProjectFiles execute 'Files' s:find_git_root()
+
+nnoremap <C-p> :ProjectFiles<CR>
+
 nnoremap <Leader>b :Buffers<CR>
 " Switch buffers
-nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>f :ProjectFiles<CR>
 nnoremap <Leader>e :History<CR>
 "nnoremap <Leader>y :Lines<CR>
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 " Customize fzf colors to match your color scheme
 
@@ -687,12 +683,6 @@ nmap _= :call Preserve("normal gg=G")<CR>
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag -Q -l --nocolor -g "" %s'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
 
   let g:ackprg = 'ag --vimgrep'
 endif
