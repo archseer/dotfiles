@@ -39,6 +39,8 @@ Plug 'tpope/vim-abolish' " keepcase when replacing stuff
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+Plug 'lambdalisue/vim-gita'
+
 Plug 'slashmili/alchemist.vim'
 
 Plug 'ludovicchabant/vim-gutentags'
@@ -61,6 +63,10 @@ nnoremap <CR> <C-]>
 autocmd FileType qf nnoremap <buffer> <CR> <CR>
 " fix it for terminals as well
 autocmd TermOpen * nnoremap <buffer> <CR> <CR>
+
+" alchemist should also bind to enter.
+let g:alchemist_tag_map = '<CR>'
+let g:alchemist_tag_stack_map = '<C-T>'
 
 runtime macros/matchit.vim
 
