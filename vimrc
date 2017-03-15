@@ -289,15 +289,15 @@ let g:syntastic_error_symbol = "●"
 let g:syntastic_warning_symbol = "●"
 
 let test#strategy = "neovim"
-function! s:cat(filename) abort
-  return system('cat '.a:filename)
-endfunction
-function! VagrantTransform(cmd) abort
-  return 'vagrant ssh --command '.shellescape('cd /vagrant; '.a:cmd)
-endfunction
-
-let g:test#custom_transformations = {'vagrant': function('VagrantTransform')}
-let g:test#transformation = 'vagrant'
+"function! s:cat(filename) abort
+"  return system('cat '.a:filename)
+"endfunction
+"function! VagrantTransform(cmd) abort
+"  return 'vagrant ssh --command '.shellescape('cd /vagrant; '.a:cmd)
+"endfunction
+"
+"let g:test#custom_transformations = {'vagrant': function('VagrantTransform')}
+"let g:test#transformation = 'vagrant'
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
