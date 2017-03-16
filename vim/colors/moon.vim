@@ -77,42 +77,50 @@ function! s:HL(group, fg, ...)
   execute highlightString
 endfunction
 
+call s:HL("Normal", 'foreground', 'background', "none")
+
 call s:HL('VertSplit', 'background_light', 'background_light', "")
+
+"call s:HL('Cursor',       'background', 'cursor',    'none') " vCursor, iCursor
+call s:HL('Visual',       '',           'keyword', 'none')
 
 call s:HL("CursorLine", "", 'background_light', "none")
 call s:HL("CursorColumn", "", 'background_light', "none")
 call s:HL("ColorColumn", "", 'background_light', "none")
 
-call s:HL("Normal", 'foreground', 'background', "none")
+" - Gutter
+call s:HL("LineNr", 'background_light', "", "")
+call s:HL("StatusLine", 'background_light', 'foreground', "")
+call s:HL("StatusLineNC", 'background_light', 'foreground_dark', "")
 
+" --> Syntax
 call s:HL("Identifier", 'builtin', "", "")
 call s:HL("Function", 'func', "", "")
 
-call s:HL("Keyword", 'keyword', "", "")
-call s:HL("Conditional", 'keyword', "", "")
-call s:HL("Repeat", 'keyword', "", "")
+" Keywords
 call s:HL("Statement", 'keyword', "", "")
+call s:HL("Conditional", 'keyword', "", "")
+call s:HL("Keyword", 'keyword', "", "")
+call s:HL("Operator", 'punct', "", "")
+call s:HL("Repeat", 'keyword', "", "")
 
 call s:HL("Comment", 'comment', "", "")
 call s:HL("Todo", 'comment', "", "")
 
-call s:HL("Operator", 'punct', "", "")
+" Preprocessor
 call s:HL("PreProc", 'punct', "", "")
 call s:HL("Define", 'keyword', "", "")
 
+" Constants
 call s:HL("Boolean", 'bool', "", "")
-
-call s:HL("Type", 'proper', "", "")
-call s:HL("Structure", 'proper', "", "")
 call s:HL("Constant", 'proper', "", "")
+call s:HL("Structure", 'proper', "", "")
+call s:HL("Type", 'proper', "", "")
 
 call s:HL("String", 'string', "", "")
+
 call s:HL("Number", 'number', "", "")
 call s:HL("Float", 'number', "", "")
-
-call s:HL("LineNr", 'background_light', "", "")
-call s:HL("StatusLine", 'background_light', 'foreground', "")
-call s:HL("StatusLineNC", 'background_light', 'foreground_dark', "")
 
 call s:HL("Title", 'foreground', "", "bold")
 
@@ -124,10 +132,14 @@ call s:HL("Title", 'foreground', "", "bold")
 " Ruby
 call s:HL("rubySymbol", 'punct', "", "")
 call s:HL("rubyConstant", 'proper', "", "") " same as constant
-call s:HL("rubyStringDelimiter", 'string', "", "")
+call s:HL("rubyStringDelimiter", 'string', "", 'italic')
 call s:HL("rubyIdentifier", 'proper', "", "")
 
 call s:HL("rubyRailsMethod", 'proper', "", "")
+
+" --> Elixir
+call s:HL('elixirStringDelimiter',        'string', '', 'italic')
+call s:HL('elixirInterpolationDelimiter', 'punct',   '', '')
 
 " HTML
 call s:HL("htmlTag",     'keyword', "", "")
