@@ -105,6 +105,8 @@ endfunction
 
 call s:HL("Normal", 'foreground', 'background', "none")
 
+call s:HL('Folded',    'comment',  'background_light',     'none')
+
 call s:HL('VertSplit', 'window', 'window', '')
 
 "call s:HL('Cursor',       'background', 'cursor',    'none') " vCursor, iCursor
@@ -129,6 +131,20 @@ call s:HL('WarningMsg', 'warning', 'none')
 call s:HL('Pmenu',    'foreground', 'window', 'none')
 "call s:HL('Pmenu',    'active', 'linenr', 'none')
 call s:HL('PmenuSel', 'active', 'background_dark', 'none')
+
+" - Diffs
+let s:colibri.diff_green  = ["#35BF86", 1]
+let s:colibri.diff_red  = ["#F22C86", 1]
+let s:colibri.diff_change = ["#69A0F3", 1]
+let s:colibri.dblue   = ["#3B0FBF", 1] " 2CD5F2 
+call s:HL('DiffAdd', 'diff_green', 'background_light', 'bold')
+call s:HL('DiffDelete', 'diff_red', 'background_light', '')
+call s:HL('DiffChange', 'foreground', 'dblue', '')
+call s:HL('DiffText', 'dblue', 'diff_change', 'bold')
+
+call s:HL('DiffAdded', 'diff_green', '', 'bold')
+call s:HL('DiffRemoved', 'diff_red', '', '')
+call s:HL('DiffChanged', 'foreground', 'dblue', '')
 
 " --> Syntax
 call s:HL("Identifier", 'builtin', '', '')
