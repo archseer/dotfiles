@@ -111,6 +111,7 @@ alias vim='nvim'
 alias v='vim'
 
 export FZF_DEFAULT_COMMAND='ag -Q -l --hidden --ignore .git -g ""'
+#export FZF_DEFAULT_COMMAND='rg --files --hidden --smartcase --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

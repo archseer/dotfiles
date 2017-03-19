@@ -9,21 +9,22 @@ call plug#begin('~/.vim/plugged')
 "Plug 'chriskempson/base16-vim'
 Plug 'flazz/vim-colorschemes'
 "Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-endwise'
-Plug 'Raimondi/delimitMate'
+" languages
 Plug 'elixir-lang/vim-elixir'
 Plug 'vim-ruby/vim-ruby'
-Plug 'nsf/gocode', {'rtp': 'vim/'}
-Plug 'fatih/vim-go'
+Plug 'nsf/gocode', {'rtp': 'vim/', 'for': 'go'}
+Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
-Plug 'mattn/emmet-vim'
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'tpope/vim-rails'
 Plug 'sheerun/vim-polyglot'
+Plug 'slashmili/alchemist.vim'
+
+Plug 'mattn/emmet-vim'
 Plug 'scrooloose/syntastic'
 Plug 'Shougo/echodoc.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
-  Plug 'dracula/vim'
 elseif has('lua')
   Plug 'Shougo/neocomplete.vim'
 endif
@@ -33,15 +34,19 @@ Plug 'honza/vim-snippets'
 Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'janko-m/vim-test'
-Plug 'tpope/vim-rails'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish' " keepcase when replacing stuff
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'Raimondi/delimitMate'
+
+Plug 'osyo-manga/vim-over'
+Plug 'junegunn/vim-peekaboo'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 Plug 'lambdalisue/vim-gita'
-
-Plug 'slashmili/alchemist.vim'
 
 Plug 'ludovicchabant/vim-gutentags'
 "setting tags directory
@@ -163,8 +168,11 @@ set cpoptions+=$           " in the change mode, show an $ at the end
 
 set autoindent             " automatic indent new lines
 set smartindent            " be smart about it
-if exists('&breakindent')
+if has('patch-7.4.338')
+  let &showbreak = '↳ '
   set breakindent          " when wrapping, indent the lines
+
+  set breakindentopt=sbr
 endif
 set nowrap                 " do not wrap lines
 set softtabstop=2          " yep, two
@@ -277,11 +285,6 @@ let g:syntastic_check_on_open            = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_ruby_checkers = ["mri", "reek"]
-
-let g:syntastic_style_error_symbol = "\u25B6"
-let g:syntastic_style_warning_symbol = "\u25B6"
-let g:syntastic_error_symbol = "\u25B6"
-let g:syntastic_warning_symbol = "\u25B6"
 
 let g:syntastic_style_error_symbol = "●"
 let g:syntastic_style_warning_symbol = "●"
@@ -399,12 +402,6 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" jk | Escaping!
-inoremap jk <Esc>
-" xnoremap jk <Esc>
-" cnoremap jk <C-c>
-"
-
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
@@ -434,6 +431,24 @@ function! s:fzf_statusline()
   let g:fzf_nvim_statusline = 0
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
+
+" Default peekaboo window
+let g:peekaboo_window = 'vertical botright 60new'
 
 " ----------------------------------------------------------------------------
 " Statusline
@@ -709,18 +724,3 @@ augroup vimrcEx
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 augroup END
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
