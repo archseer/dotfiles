@@ -108,8 +108,8 @@ colorscheme base16-paraiso
 
 if has('nvim')
   set termguicolors
-  "colors dracula
   colors birds-of-paradise
+  colors colibri
 endif
 " ----------------------------------------------------------------------------
 "  UI
@@ -204,7 +204,7 @@ let g:ruby_indent_access_modifier_style = 'outdent'
 " highlight operators
 let ruby_operators = 1
 
-set noshowmode " I use airline anyway + it tampers with echodoc.
+set noshowmode " it tampers with echodoc.
 let g:echodoc_enable_at_startup = 1
 if has('nvim')
   " Use deoplete.
