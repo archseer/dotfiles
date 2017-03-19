@@ -3,7 +3,7 @@
 "
 " Note:
 
-" Bootstrap: 
+" Bootstrap:
 
 hi clear
 if exists("syntax_on") | syntax reset | endif
@@ -136,7 +136,7 @@ call s:HL('PmenuSel', 'active', 'background_dark', 'none')
 let s:colibri.diff_green  = ["#35BF86", 1]
 let s:colibri.diff_red  = ["#F22C86", 1]
 let s:colibri.diff_change = ["#69A0F3", 1]
-let s:colibri.dblue   = ["#3B0FBF", 1] " 2CD5F2 
+let s:colibri.dblue   = ["#3B0FBF", 1] " 2CD5F2
 call s:HL('DiffAdd', 'diff_green', 'background_light', 'bold')
 call s:HL('DiffDelete', 'diff_red', 'background_light', '')
 call s:HL('DiffChange', 'foreground', 'dblue', '')
