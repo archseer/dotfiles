@@ -26,9 +26,9 @@ let s:colibri.background      = ["#3b224c", 1]
 let s:colibri.background_light = ["#452859", 1]
 
 " ui tones
-let s:colibri.disabled = ["#a4a0e8", 1]
+let s:colibri.disabled = s:colibri.foreground
 let s:colibri.active = ["#dbbfef", 1]
-let s:colibri.window = ["#452859", 1]
+let s:colibri.window = s:colibri.background_light
 let s:colibri.linenr = ["#5a5977", 1]
 let s:colibri.highlight  = ["#00CCCC", 1] " is like a blueish neon 00CCCC
 let s:colibri.highlight  = ["#802F00", 1]
@@ -105,8 +105,6 @@ endfunction
 
 call s:HL("Normal", 'foreground', 'background', "none")
 
-call s:HL('Folded',    'comment',  'background_light',     'none')
-
 call s:HL('VertSplit', 'window', 'window', '')
 
 "call s:HL('Cursor',       'background', 'cursor',    'none') " vCursor, iCursor
@@ -116,21 +114,40 @@ call s:HL("CursorLine", '', 'window', "none")
 call s:HL("CursorColumn", '', 'window', "none")
 call s:HL("ColorColumn", '', 'window', "none")
 
+" TODO: Tabline
+
 " - Gutter
 call s:HL("LineNr", 'linenr', '', '')
 " CursorLineNr
-call s:HL("StatusLine", 'background_dark', 'active', '')
-call s:HL("StatusLineNC", 'background_dark', 'disabled', '')
 call s:HL('SignColumn',   'active',  'window',      'none')
 call s:HL('FoldColumn',   'active',  'window',      'none')
+call s:HL('Folded',    'comment',  'background_light',     'none')
+
+" TODO: MatchParen
+
+call s:HL("StatusLine", 'background_dark', 'active', '')
+call s:HL("StatusLineNC", 'background_dark', 'disabled', '')
+
+" TODO: Directory
+
+call s:HL("Title", 'foreground', '', "bold")
 
 call s:HL('ErrorMsg', 'error', 'none', 'bold')
 call s:HL('WarningMsg', 'warning', 'none')
+" TODO: ModeMsg, Question, MoreMsg
+
+" TODO: Tag
 
 " - Completion menu
 call s:HL('Pmenu',    'foreground', 'window', 'none')
 "call s:HL('Pmenu',    'active', 'linenr', 'none')
 call s:HL('PmenuSel', 'active', 'background_dark', 'none')
+
+" Tildes below buffer
+call s:HL('NonText', 'window', '', 'none')
+
+" Special keys, e.g. some of the chars in 'listchars'. See ':h listchars'.
+" TODO: SpecialKey
 
 " - Diffs
 let s:colibri.diff_green  = ["#35BF86", 1]
@@ -147,51 +164,69 @@ call s:HL('DiffRemoved', 'diff_red', '', '')
 call s:HL('DiffChanged', 'foreground', 'dblue', '')
 
 " --> Syntax
-call s:HL("Identifier", 'builtin', '', '')
-call s:HL("Function", 'func', '', '')
+" start simple
+"call s:HL('Special', 'foreground', '', 'none')
 
-" Keywords
-call s:HL("Statement", 'keyword', '', '')
-call s:HL("Conditional", 'keyword', '', '')
-call s:HL("Keyword", 'keyword', '', '')
-call s:HL("Operator", 'punct', '', '')
-call s:HL("Repeat", 'keyword', '', '')
-
+" next up, comments
 call s:HL("Comment", 'comment', '', '')
+"SpecialComment
 call s:HL("Todo", 'warning', "window", "italic")
 call s:HL('Error', 'error', 'window')
 
+" -> Keywords
+" generic statement
+call s:HL("Statement", 'keyword', '', '')
+" if, then, else, endif, switch, etc.
+call s:HL("Conditional", 'keyword', '', '')
+" sizeof, "+", "*", etc.
+call s:HL("Operator", 'punct', '', '')
+" Repeat (for, do, while, etc.)
+call s:HL("Repeat", 'keyword', '', '')
+" try, catch, throw
+" Exception
+" any other keyword
+call s:HL("Keyword", 'keyword', '', '')
+
+" Functions and variable declarations
+call s:HL("Identifier", 'builtin', '', '')
+call s:HL("Function", 'func', '', '')
+
 " Preprocessor
 call s:HL("PreProc", 'punct', '', '')
+" Include
 call s:HL("Define", 'keyword', '', '')
+" Macro, PreCondit
 
 " Constants
-call s:HL("Boolean", 'bool', '', '')
 call s:HL("Constant", 'constant', '', '')
-call s:HL("Structure", 'proper', '', '')
-call s:HL("Type", 'proper', '', '')
-
-call s:HL("String", 'string', '', '')
-
+" character constant: 'c', '/n'
+" Character
+call s:HL("Boolean", 'bool', '', '')
 call s:HL("Number", 'number', '', '')
 call s:HL("Float", 'number', '', '')
+call s:HL("String", 'string', '', '')
 
-call s:HL("Title", 'foreground', '', "bold")
+" --> Types
+" generic
+call s:HL("Type", 'proper', '', '')
+" static, register, volatile, etc
+" StorageClass
+" struct, union, enum, etc.
+call s:HL("Structure", 'proper', '', '')
+" Typedef
 
-" TODO:
-" call s:HL("Error", '', '', '')
-" call s:HL("SpecialChar", '', '', '')
-"
+" --> Language specifics
 
 " Ruby
 call s:HL("rubySymbol", 'punct', '', '')
-call s:HL("rubyConstant", 'constant', '', '') " same as constant
+" same as constant
+hi! link rubyConstant Constant
 call s:HL("rubyStringDelimiter", 'string', '', 'italic')
 call s:HL("rubyIdentifier", 'proper', '', '')
 
 call s:HL("rubyRailsMethod", 'proper', '', '')
 
-" --> Elixir
+" Elixir
 call s:HL('elixirStringDelimiter',        'string', '', 'italic')
 call s:HL('elixirInterpolationDelimiter', 'punct',   '', '')
 
@@ -209,6 +244,7 @@ call s:HL("javascriptIdentifierName", 'proper', '', '')
 call s:HL("javascriptObjectLabel", 'punct', '', '')
 " javascriptBraces
 " typescriptBraces
+" typescriptEndColons
 
 " YAML
 

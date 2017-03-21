@@ -105,8 +105,6 @@ endfunction
 "hi Normal ctermfg=188 ctermbg=NONE cterm=NONE guifg=#e6e1c4 guibg=#372725 gui=NONE
 call s:HL('Normal', 'foreground', 'background2', 'none')
 
-call s:HL('Folded',    'comment',  'background',     'none')
-
 call s:HL('VertSplit',    'line',       'line',      'none')
 "call s:HL('VertSplit',    'line',       'background',      'none')
 
@@ -129,6 +127,7 @@ call s:HL('SignColumn',   'border',     'line',      'none')
 call s:HL('FoldColumn',   'border',     'line',      'none')
 "call s:HL('SignColumn',   'border',     'background',      'none')
 "call s:HL('FoldColumn',   'border',     'background',      'none')
+call s:HL('Folded',    'comment',  'background',     'none')
 
 "call s:HL('MatchParen',   'window', '',   'inverse')
 call s:HL('MatchParen',   'ocra', 'line',   'inverse')
@@ -201,6 +200,8 @@ call s:HL('Operator',    'red', '', 'none')
 call s:HL('Label',       'yellow', '', 'none')
 " Repeat (for, do, while, etc.)
 " hi Repeat
+" try, catch, throw
+" hi Exception
 " Any other keyword
 call s:HL('Keyword',     'red', '', 'none')
 
