@@ -50,6 +50,8 @@ let s:colibri.keyword  = ["#ECCDBA", 1]
 let s:colibri.comment  = ["#697C81", 1]
 let s:colibri.number   = ["#E8DCA0", 1]
 
+let s:colibri.special  = ["#EFBA5D", 1]
+
 "let s:colibri.foreground    = ["#ffffff", 1]
 "let s:colibri.builtin  = ["#a4a0e8", 1]
 "let s:colibri.proper   = ["#a4a0e8", 1]
@@ -165,7 +167,7 @@ call s:HL('DiffChanged', 'foreground', 'dblue', '')
 
 " --> Syntax
 " start simple
-"call s:HL('Special', 'foreground', '', 'none')
+call s:HL('Special', 'special', '', 'none')
 
 " next up, comments
 call s:HL("Comment", 'comment', '', '')
@@ -244,7 +246,8 @@ call s:HL("javascriptIdentifierName", 'proper', '', '')
 call s:HL("javascriptObjectLabel", 'punct', '', '')
 " javascriptBraces
 " typescriptBraces
-" typescriptEndColons
+"call s:HL('javascriptEndColons', 'foreground',  '', '')
+"call s:HL('typescriptEndColons', 'foreground',  '', '')
 
 " YAML
 
