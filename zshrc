@@ -108,7 +108,16 @@ alias grep='grep -G'  # colorized grep
 alias mm='middleman'
 
 alias vim='nvim'
-alias v='vim'
+alias v='nvim'
+alias vim='echo'
+
+alias g='/usr/local/bin/git'
+alias git='echo'
+
+# OSX is turning into shit, askpass isn't working so I copied it from
+# https://github.com/markcarver/mac-ssh-askpass/blob/master/ssh-askpass
+# into ~/bin/ssh-askpass
+export SSH_ASKPASS="ssh-askpass"
 
 export FZF_DEFAULT_COMMAND='ag -Q -l --hidden --ignore .git -g ""'
 #export FZF_DEFAULT_COMMAND='rg --files --hidden --smartcase --glob "!.git/*"'
@@ -129,5 +138,8 @@ gh() {
 
 zle -N gh
 bindkey '^g^h' gh
+
+# autocomplete kubectl
+source <(kubectl completion zsh)
 
 export PATH="$HOME/.yarn/bin:$PATH"
