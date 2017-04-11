@@ -21,7 +21,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'slashmili/alchemist.vim'
 
 Plug 'mattn/emmet-vim'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
 Plug 'Shougo/echodoc.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
@@ -46,7 +47,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'lambdalisue/vim-gita'
+Plug 'lambdalisue/gina.vim', { 'branch': 'issue66' }
 
 Plug 'ludovicchabant/vim-gutentags'
 "setting tags directory
@@ -273,23 +274,31 @@ let g:rustfmt_autosave = 1
 
 " Syntastic
 " don't check handlebars with html tidy...
-let g:syntastic_filetype_map = { "html.handlebars": "handlebars" }
+"let g:syntastic_filetype_map = { "html.handlebars": "handlebars" }
+"
+"let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]' " TODO: show red dot and yellow dot with cound
+"let g:syntastic_stl_format = '%E{%#error# ● %e %*}%W{%#todo# ● %w %*}'
+"
+"let g:syntastic_shell                    = '/bin/zsh'
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list            = 2 " if 1, :lclose
+"let g:syntastic_check_on_open            = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_aggregate_errors = 1
+"let g:syntastic_ruby_checkers = ["mri", "reek"]
+"
+"let g:syntastic_style_error_symbol = "●"
+"let g:syntastic_style_warning_symbol = "●"
+"let g:syntastic_error_symbol = "●"
+"let g:syntastic_warning_symbol = "●"
 
-let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]' " TODO: show red dot and yellow dot with cound
-let g:syntastic_stl_format = '%E{%#error# ● %e %*}%W{%#todo# ● %w %*}'
+" Ale
+let g:ale_statusline_format = ['⨉ %d', '● %d', '']
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
 
-let g:syntastic_shell                    = '/bin/zsh'
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list            = 2 " if 1, :lclose
-let g:syntastic_check_on_open            = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_ruby_checkers = ["mri", "reek"]
-
-let g:syntastic_style_error_symbol = "●"
-let g:syntastic_style_warning_symbol = "●"
-let g:syntastic_error_symbol = "●"
-let g:syntastic_warning_symbol = "●"
+let g:ale_open_list = 0
+let g:ale_linters = {'elixir': ['dogma']}
 
 let test#strategy = "neovim"
 "function! s:cat(filename) abort
@@ -492,7 +501,8 @@ function! Status(winnr)
           " we can't wrap it in %{} because that kills the colors, but if we
           " don't, it will return the data for the active window. So, don't
           " display it on other windows.
-          let status .= '%{SyntasticStatuslineFlag()}'
+          "let status .= '%{SyntasticStatuslineFlag()}'
+          let status .= '%#error#%{ALEGetStatusLine()}%*'
         endif
         let status .=  ' %{&fileencoding} | %{&fileformat} '
                     \  .' %{&filetype} '
