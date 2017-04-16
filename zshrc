@@ -114,6 +114,10 @@ alias vim='echo'
 alias g='/usr/local/bin/git'
 alias git='echo'
 
+alias k='kubectl'
+alias h='helm'
+alias f='fly -t ci'
+
 # OSX is turning into shit, askpass isn't working so I copied it from
 # https://github.com/markcarver/mac-ssh-askpass/blob/master/ssh-askpass
 # into ~/bin/ssh-askpass
