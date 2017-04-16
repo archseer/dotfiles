@@ -17,6 +17,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tpope/vim-rails'
+Plug 'stephenway/postcss.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'slashmili/alchemist.vim'
 

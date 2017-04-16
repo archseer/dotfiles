@@ -81,7 +81,7 @@
 	autostash = true
 
 [interactive]
-	diffFilter = diff-so-fancy
+	diffFilter = diff-so-fancy --patch
 
 [color]
 	ui = always
