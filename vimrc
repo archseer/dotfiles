@@ -8,7 +8,7 @@ call plug#begin('~/.vim/plugged')
 "Plug 'godlygeek/csapprox'
 "Plug 'chriskempson/base16-vim'
 Plug 'flazz/vim-colorschemes'
-"Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " languages
 Plug 'elixir-lang/vim-elixir'
 Plug 'vim-ruby/vim-ruby'
@@ -18,8 +18,9 @@ Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tpope/vim-rails'
 Plug 'stephenway/postcss.vim'
-Plug 'sheerun/vim-polyglot'
 Plug 'slashmili/alchemist.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'Shougo/vinarise.vim'
 
 Plug 'mattn/emmet-vim'
 "Plug 'scrooloose/syntastic'
@@ -300,6 +301,16 @@ let g:ale_lint_on_text_changed = 0
 
 let g:ale_open_list = 0
 let g:ale_linters = {'elixir': ['dogma']}
+
+" vinarise
+let g:vinarise_enable_auto_detect = 1
+" Enable with -b option
+autocmd BufReadPre   *.bin let &binary =1
+autocmd BufReadPost  * if &binary | Vinarise
+autocmd BufWritePre  * if &binary | Vinarise | endif
+autocmd BufWritePost * if &binary | Vinarise
+
+" vim-test
 
 let test#strategy = "neovim"
 "function! s:cat(filename) abort
