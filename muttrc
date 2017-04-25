@@ -26,8 +26,8 @@ set delete 				# don't ask before purging
 set forward_format="Fwd: %s"
 set crypt_replysignencrypted=yes 	# reply S&E to Encrypted mail
 set fcc_clear = yes 			# save sent mail unencrypted
-set sort_aux = last-date-received	# sort by newest message in a thread
-set editor="vim +':set textwidth=76'"	# have vim insert hard breaks
+set text_flowed
+#set EDITOR="v"	# have vim insert hard breaks
 ignore User-Agent			# hide unwanted headers
 ignore X-Mailer
 #set help=no				# hide the menubar
@@ -38,13 +38,15 @@ ignore X-Mailer
 # Folder hooks
 folder-hook 'gmail' 'source ~/.mutt/gmail'
 folder-hook 'outlook365' 'source ~/.mutt/outlook365'
+folder-hook 'fastmail' 'source ~/.mutt/fastmail'
 
 # Default account
-source ~/.mutt/outlook365
+source ~/.mutt/fastmail
 
 # Macros for switching accounts
 macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/gmail<enter><change-folder>!<enter>'
 macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/outlook365<enter><change-folder>!<enter>'
+macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/fastmail<enter><change-folder>!<enter>'
 
 # Fetch mail shortcut
 bind index G imap-fetch-mail
@@ -56,6 +58,7 @@ set sort_aux = reverse-last-date-received  # like gmail
 set uncollapse_jump                        # don't collapse on an unread message
 #set sort_re                                # thread based on regex
 #set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+#set strict_threads
 
 bind index R        group-reply
 bind index <tab>    sync-mailbox

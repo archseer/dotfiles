@@ -719,6 +719,9 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
+au filetype mail setl tw=72
+au filetype mail setl fo=aw
+
 augroup vimrcEx
   autocmd!
 
