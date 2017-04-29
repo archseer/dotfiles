@@ -18,45 +18,45 @@ let s:colibri = {}
 " lighter foreground #dbbfef (active window)
 " #5a5977 neutral window tone
 "
-let s:colibri.foreground      = ["#a4a0e8", 1]
-let s:colibri.background_dark = ["#281733", 1]
-let s:colibri.background      = ["#3b224c", 1]
-"let s:colibri.background      = ["#311D40", 1] " HSB with B at 25 (instead of 30)
-"let s:colibri.background = ["#ffffff", 1]
-let s:colibri.background_light = ["#452859", 1]
+let s:colibri.foreground      = ["#a4a0e8", 146]
+let s:colibri.background_dark = ["#281733", 17]
+let s:colibri.background      = ["#3b224c", 53]
+"let s:colibri.background      = ["#311D40", 53] " HSB with B at 25 (instead of 30)
+"let s:colibri.background = ["#ffffff", 231]
+let s:colibri.background_light = ["#452859", 53]
 
 " ui tones
 let s:colibri.disabled = s:colibri.foreground
-let s:colibri.active = ["#dbbfef", 1]
+let s:colibri.active = ["#dbbfef", 183]
 let s:colibri.window = s:colibri.background_light
-let s:colibri.linenr = ["#5a5977", 1]
-let s:colibri.highlight  = ["#00CCCC", 1] " is like a blueish neon 00CCCC
-let s:colibri.highlight  = ["#802F00", 1]
+let s:colibri.linenr = ["#5a5977", 60]
+let s:colibri.highlight  = ["#00CCCC", 44] " is like a blueish neon 00CCCC
+let s:colibri.highlight  = ["#802F00", 88]
 
 " #D7F4A8?
 let s:colibri.error     = ["#f47868", 209]
 let s:colibri.warning   = ["#ffcd1c", 220]
 
-let s:colibri.builtin  = ["#FFFFFF", 1]
-let s:colibri.string   = ["#cccccc", 1]
-let s:colibri.proper = ["#FFFFFF", 1]
-let s:colibri.constant   = ["#9FF28F", 1] " 81EECF / 7FB998 / 9FF28F! -- 5fe7b7
-let s:colibri.bool     = ["#FFFFFF", 1]
-let s:colibri.func     = ["#FFFFFF", 1]
-let s:colibri.punct    = ["#dbbfef", 1]
-"let s:colibri.keyword  = ["#5fe7b7", 1]
-"let s:colibri.keyword  = ["#77B56B", 1]
-let s:colibri.keyword  = ["#ECCDBA", 1]
-let s:colibri.comment  = ["#697C81", 1]
-let s:colibri.number   = ["#E8DCA0", 1]
+let s:colibri.builtin  = ["#FFFFFF", 231]
+let s:colibri.string   = ["#cccccc", 188]
+let s:colibri.proper = ["#FFFFFF", 231]
+let s:colibri.constant   = ["#9FF28F", 156] " 81EECF / 7FB998 / 9FF28F! -- 5fe7b7
+let s:colibri.bool     = ["#FFFFFF", 231]
+let s:colibri.func     = ["#FFFFFF", 231]
+let s:colibri.punct    = ["#dbbfef", 183]
+"let s:colibri.keyword  = ["#5fe7b7", 79]
+"let s:colibri.keyword  = ["#77B56B", 107]
+let s:colibri.keyword  = ["#ECCDBA", 223]
+let s:colibri.comment  = ["#697C81", 66]
+let s:colibri.number   = ["#E8DCA0", 187]
 
-let s:colibri.special  = ["#EFBA5D", 1]
+let s:colibri.special  = ["#EFBA5D", 215]
 
-"let s:colibri.foreground    = ["#ffffff", 1]
-"let s:colibri.builtin  = ["#a4a0e8", 1]
-"let s:colibri.proper   = ["#a4a0e8", 1]
-"let s:colibri.bool     = ["#a4a0e8", 1]
-"let s:colibri.func     = ["#a4a0e8", 1]
+"let s:colibri.foreground    = ["#ffffff", 231]
+"let s:colibri.builtin  = ["#a4a0e8", 146]
+"let s:colibri.proper   = ["#a4a0e8", 146]
+"let s:colibri.bool     = ["#a4a0e8", 146]
+"let s:colibri.func     = ["#a4a0e8", 146]
 " }}}
 " Helpers: {{{
 
