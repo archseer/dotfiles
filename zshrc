@@ -143,6 +143,9 @@ gh() {
 zle -N gh
 bindkey '^g^h' gh
 
+# erlang shell history
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 # autocomplete kubectl
 source <(kubectl completion zsh)
 
