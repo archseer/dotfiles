@@ -18,11 +18,6 @@
 [push]
 	default = simple
 
-[color]
-	status = auto
-	diff = auto
-	branch = auto
-
 [merge]
 	conflictstyle = diff3
 
@@ -84,7 +79,7 @@
 	diffFilter = diff-so-fancy --patch
 
 [color]
-	ui = always
+	ui = auto
 [color "diff"]
 	meta = yellow bold
 	commit = green bold
