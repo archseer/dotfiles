@@ -16,7 +16,6 @@ Plug 'nsf/gocode', {'rtp': 'vim/', 'for': 'go'}
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'tpope/vim-rails'
 Plug 'stephenway/postcss.vim'
 Plug 'slashmili/alchemist.vim'
 Plug 'sheerun/vim-polyglot'
@@ -34,14 +33,14 @@ endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
-Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish' " keepcase when replacing stuff
-Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'Raimondi/delimitMate'
+Plug 'machakann/vim-sandwich'
 
 Plug 'osyo-manga/vim-over'
 Plug 'junegunn/vim-peekaboo'
@@ -471,6 +470,7 @@ let g:fzf_colors =
 " Default peekaboo window
 let g:peekaboo_window = 'vertical botright 60new'
 
+let g:vue_disable_pre_processors=1
 " ----------------------------------------------------------------------------
 " Statusline
 " ----------------------------------------------------------------------------
@@ -565,97 +565,32 @@ noremap         <Plug>(TOC) <nop>
 inoremap <expr> <Plug>(TOC) exists('#textobj_undo_empty_change')?"\<esc>":''
 
 " ----------------------------------------------------------------------------
-" ?ii / ?ai | indent-object
-" ?io       | strictly-indent-object
-" ----------------------------------------------------------------------------
-function! s:indent_len(str)
-  return type(a:str) == 1 ? len(matchstr(a:str, '^\s*')) : 0
-endfunction
-
-function! s:indent_object(op, skip_blank, b, e, bd, ed)
-  let i = min([s:indent_len(getline(a:b)), s:indent_len(getline(a:e))])
-  let x = line('$')
-  let d = [a:b, a:e]
-
-  if i == 0 && empty(getline(a:b)) && empty(getline(a:e))
-    let [b, e] = [a:b, a:e]
-    while b > 0 && e <= line('$')
-      let b -= 1
-      let e += 1
-      let i = min(filter(map([b, e], 's:indent_len(getline(v:val))'), 'v:val != 0'))
-      if i > 0
-        break
-      endif
-    endwhile
-  endif
-
-  for triple in [[0, 'd[o] > 1', -1], [1, 'd[o] < x', +1]]
-    let [o, ev, df] = triple
-
-    while eval(ev)
-      let line = getline(d[o] + df)
-      let idt = s:indent_len(line)
-
-      if eval('idt '.a:op.' i') && (a:skip_blank || !empty(line)) || (a:skip_blank && empty(line))
-        let d[o] += df
-      else | break | end
-    endwhile
-  endfor
-  execute printf('normal! %dGV%dG', max([1, d[0] + a:bd]), min([x, d[1] + a:ed]))
-endfunction
-xnoremap <silent> ii :<c-u>call <SID>indent_object('>=', 1, line("'<"), line("'>"), 0, 0)<cr>
-onoremap <silent> ii :<c-u>call <SID>indent_object('>=', 1, line('.'), line('.'), 0, 0)<cr>
-xnoremap <silent> ai :<c-u>call <SID>indent_object('>=', 1, line("'<"), line("'>"), -1, 1)<cr>
-onoremap <silent> ai :<c-u>call <SID>indent_object('>=', 1, line('.'), line('.'), -1, 1)<cr>
-xnoremap <silent> io :<c-u>call <SID>indent_object('==', 0, line("'<"), line("'>"), 0, 0)<cr>
-onoremap <silent> io :<c-u>call <SID>indent_object('==', 0, line('.'), line('.'), 0, 0)<cr>
-
-" ----------------------------------------------------------------------------
 " <Leader>I/A | Prepend/Append to all adjacent lines with same indentation
 " ----------------------------------------------------------------------------
 nmap <silent> <leader>I ^vio<C-V>I
 nmap <silent> <leader>A ^vio<C-V>$A
 
 " ----------------------------------------------------------------------------
-" ?i_ ?a_ ?i. ?a. ?i, ?a, ?i/
+" vim-sandwich
 " ----------------------------------------------------------------------------
-function! s:between_the_chars(incll, inclr, char, vis)
-  let cursor = col('.')
-  let line   = getline('.')
-  let before = line[0 : cursor - 1]
-  let after  = line[cursor : -1]
-  let [b, e] = [cursor, cursor]
+"
+" closest surround
+xmap iss <Plug>(textobj-sandwich-auto-i)
+xmap ass <Plug>(textobj-sandwich-auto-a)
+omap iss <Plug>(textobj-sandwich-auto-i)
+omap ass <Plug>(textobj-sandwich-auto-a)
 
-  try
-    let i = stridx(join(reverse(split(before, '\zs')), ''), a:char)
-    if i < 0 | throw 'exit' | end
-    let b = len(before) - i + (a:incll ? 0 : 1)
+" in middle (of)
+" {'_'  '.' ',' '/' '-')
+xmap im <Plug>(textobj-sandwich-literal-query-i)
+xmap am <Plug>(textobj-sandwich-literal-query-a)
+omap im <Plug>(textobj-sandwich-literal-query-i)
+omap am <Plug>(textobj-sandwich-literal-query-a)
 
-    let i = stridx(after, a:char)
-    if i < 0 | throw 'exit' | end
-    let e = cursor + i + 1 - (a:inclr ? 0 : 1)
-
-    execute printf("normal! 0%dlhv0%dlh", b, e)
-  catch 'exit'
-    call s:textobj_cancel()
-    if a:vis
-      normal! gv
-    endif
-  finally
-    " Cleanup command history
-    if histget(':', -1) =~ '<SNR>[0-9_]*between_the_chars('
-      call histdel(':', -1)
-    endif
-    echo
-  endtry
-endfunction
-
-for [s:c, s:l] in items({'_': 0, '.': 0, ',': 0, '/': 1, '-': 0})
-  execute printf("xmap <silent> i%s :<C-U>call <SID>between_the_chars(0,  0, '%s', 1)<CR><Plug>(TOC)", s:c, s:c)
-  execute printf("omap <silent> i%s :<C-U>call <SID>between_the_chars(0,  0, '%s', 0)<CR><Plug>(TOC)", s:c, s:c)
-  execute printf("xmap <silent> a%s :<C-U>call <SID>between_the_chars(%s, 1, '%s', 1)<CR><Plug>(TOC)", s:c, s:l, s:c)
-  execute printf("omap <silent> a%s :<C-U>call <SID>between_the_chars(%s, 1, '%s', 0)<CR><Plug>(TOC)", s:c, s:l, s:c)
-endfor
+xmap i_ im_
+xmap a_ im_
+omap i_ im_
+omap a_ am_
 
 " ----------------------------------------------------------------------------
 " ?il | inner line
