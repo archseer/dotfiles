@@ -312,6 +312,7 @@ autocmd BufWritePost * if &binary | Vinarise
 " vim-test
 
 let test#strategy = "neovim"
+let test#filename_modifier = ":p"
 "function! s:cat(filename) abort
 "  return system('cat '.a:filename)
 "endfunction
