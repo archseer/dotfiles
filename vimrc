@@ -115,7 +115,7 @@ colorscheme base16-paraiso
 
 if has('nvim')
   set termguicolors
-  colors birds-of-paradise
+  "colors birds-of-paradise
   colors colibri
 endif
 " ----------------------------------------------------------------------------
