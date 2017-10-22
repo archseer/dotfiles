@@ -494,7 +494,7 @@ function! Status(winnr)
           "let status .= '%{SyntasticStatuslineFlag()}'
           let status .= '%#error#%{ALEGetStatusLine()}%*'
         endif
-        let status .=  ' %{&fileencoding} | %{&fileformat} '
+        let status .=  ' %{&fileencoding} |'
                     \  .' %{&filetype} '
                     \  .' %l:%c '
     endif
