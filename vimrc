@@ -526,23 +526,6 @@ nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
 
 " ----------------------------------------------------------------------------
-" Text objects
-" ----------------------------------------------------------------------------
-
-function! s:textobj_cancel()
-  if v:operator == 'c'
-    augroup textobj_undo_empty_change
-      autocmd InsertLeave <buffer> execute 'normal! u'
-            \| execute 'autocmd! textobj_undo_empty_change'
-            \| execute 'augroup! textobj_undo_empty_change'
-    augroup END
-  endif
-endfunction
-
-noremap         <Plug>(TOC) <nop>
-inoremap <expr> <Plug>(TOC) exists('#textobj_undo_empty_change')?"\<esc>":''
-
-" ----------------------------------------------------------------------------
 " <Leader>I/A | Prepend/Append to all adjacent lines with same indentation
 " ----------------------------------------------------------------------------
 nmap <silent> <leader>I ^vio<C-V>I
@@ -575,39 +558,6 @@ omap a_ am_
 " ----------------------------------------------------------------------------
 xnoremap <silent> il <Esc>^vg_
 onoremap <silent> il :<C-U>normal! ^vg_<CR>
-
-" ----------------------------------------------------------------------------
-" ?i# | inner comment
-" ----------------------------------------------------------------------------
-function! s:inner_comment(vis)
-  if synIDattr(synID(line('.'), col('.'), 0), 'name') !~? 'comment'
-    call s:textobj_cancel()
-    if a:vis
-      normal! gv
-    endif
-    return
-  endif
-
-  let origin = line('.')
-  let lines = []
-  for dir in [-1, 1]
-    let line = origin
-    let line += dir
-    while line >= 1 && line <= line('$')
-      execute 'normal!' line.'G^'
-      if synIDattr(synID(line('.'), col('.'), 0), 'name') !~? 'comment'
-        break
-      endif
-      let line += dir
-    endwhile
-    let line -= dir
-    call add(lines, line)
-  endfor
-
-  execute 'normal!' lines[0].'GV'.lines[1].'G'
-endfunction
-xmap <silent> i# :<C-U>call <SID>inner_comment(1)<CR><Plug>(TOC)
-omap <silent> i# :<C-U>call <SID>inner_comment(0)<CR><Plug>(TOC)
 
 " ----------------------------------------------------------------------------
 " Functions
