@@ -6,7 +6,6 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 "Plug 'godlygeek/csapprox'
-"Plug 'chriskempson/base16-vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'airblade/vim-gitgutter'
 " languages
@@ -22,13 +21,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/vinarise.vim'
 
 Plug 'mattn/emmet-vim'
-"Plug 'scrooloose/syntastic'
 Plug 'w0rp/ale'
 Plug 'Shougo/echodoc.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
-elseif has('lua')
-  Plug 'Shougo/neocomplete.vim'
 endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
@@ -219,7 +215,6 @@ let g:echodoc_enable_at_startup = 1
 if has('nvim')
   " Use deoplete.
   let g:deoplete#enable_at_startup = 1
-  " Use smartcase.
   let g:deoplete#enable_smart_case = 1
 
   " <C-h>, <BS>: close popup and delete backword char.
@@ -233,13 +228,6 @@ if has('nvim')
           \ neosnippet#mappings#expand_or_jump_impl()
           \ : pumvisible() ? deoplete#mappings#close_popup() : "\<CR>"
   endfunction
-  "let g:deoplete#omni#input_patterns = {}
-  "let g:deoplete#omni#input_patterns.ruby =
-  "      \ ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
-else
-  " Enable Neocomplete
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#max_list = 15
 endif
 set completeopt+=menuone
 set completeopt-=preview
@@ -261,8 +249,7 @@ if has('conceal')
 endif
 
 let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#scope_aliases = {}
-let g:neosnippet#scope_aliases['ruby'] = 'ruby,rails'
+let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
 
 let g:go_snippet_engine = "neosnippet"
 let g:go_fmt_command = "goimports"
@@ -273,26 +260,13 @@ let g:go_highlight_structs = 1
 " gofmt style auto-format rust on save
 let g:rustfmt_autosave = 1
 
-" Syntastic
-" don't check handlebars with html tidy...
-"let g:syntastic_filetype_map = { "html.handlebars": "handlebars" }
-"
-"let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]' " TODO: show red dot and yellow dot with cound
-"let g:syntastic_stl_format = '%E{%#error# ● %e %*}%W{%#todo# ● %w %*}'
-"
 "let g:syntastic_shell                    = '/bin/zsh'
 "let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_auto_loc_list            = 2 " if 1, :lclose
 "let g:syntastic_check_on_open            = 1
-"let g:syntastic_check_on_wq = 0
 "let g:syntastic_aggregate_errors = 1
 "let g:syntastic_ruby_checkers = ["mri", "reek"]
 "
-"let g:syntastic_style_error_symbol = "●"
-"let g:syntastic_style_warning_symbol = "●"
-"let g:syntastic_error_symbol = "●"
-"let g:syntastic_warning_symbol = "●"
-
 " Ale
 let g:ale_statusline_format = ['⨉ %d', '● %d', '']
 let g:ale_lint_on_save = 1
@@ -300,6 +274,9 @@ let g:ale_lint_on_text_changed = 0
 
 let g:ale_open_list = 0
 let g:ale_linters = {'elixir': ['dogma']}
+
+let g:ale_sign_error = "●"
+let g:ale_sign_warning = "●"
 
 " vinarise
 let g:vinarise_enable_auto_detect = 1
@@ -653,7 +630,6 @@ endfunction
 function! StripTrailingWhitespace()
   call Preserve("%s/\\s\\+$//e")
 endfunction
-
 
 nmap _$ :call StripTrailingWhitespace()<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
