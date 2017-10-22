@@ -12,9 +12,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'elixir-lang/vim-elixir'
 Plug 'vim-ruby/vim-ruby'
 Plug 'nsf/gocode', {'rtp': 'vim/', 'for': 'go'}
-Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
-Plug 'mustache/vim-mustache-handlebars'
 Plug 'stephenway/postcss.vim'
 Plug 'slashmili/alchemist.vim'
 Plug 'sheerun/vim-polyglot'
@@ -44,7 +43,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'lambdalisue/gina.vim', { 'branch': 'issue66' }
+Plug 'lambdalisue/gina.vim'
 
 Plug 'ludovicchabant/vim-gutentags'
 "setting tags directory
@@ -79,6 +78,7 @@ call plug#end()
 " General
 " ---------------------------------------------------------------------------
 let mapleader=" "
+let maplocalleader="\\"
 
 set history=1000          " keep some stuff in the history
 set autoread              " reload files (no local changes only)
@@ -96,9 +96,6 @@ set noswapfile            " don't keep swp files either
 if has('nvim')
   "set clipboard+=unnamedplus " fix my nvim <leader>y action
 endif
-
-" file-specific indentation
-au FileType go setl noet ts=4 sw=4 sts=4
 
 " ---------------------------------------------------------------------------
 " Colors / Theme
@@ -251,6 +248,8 @@ endif
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
 
+" vim-go
+au FileType go setl noet ts=4 sw=4 sts=4
 let g:go_snippet_engine = "neosnippet"
 let g:go_fmt_command = "goimports"
 let g:go_highlight_functions = 1
