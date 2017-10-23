@@ -573,12 +573,12 @@ endfunction
 nmap _$ :call StripTrailingWhitespace()<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
 
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
+" ripgrep
+if executable('rg')
+  " Use rg over grep
+  set grepprg=rg\ --vimgrep\ --no-heading
 
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'rg --vimgrep --no-heading'
 endif
 
 au filetype mail setl tw=72
