@@ -350,19 +350,6 @@ nnoremap <leader>O O<Esc>
 nnoremap <leader>- <C-w>t<C-w>H
 nnoremap <leader>\ <C-w>t<C-w>K
 
-" Tab navigation
-nnoremap tt :tabnew<CR>
-nnoremap tm :tabm<Space>
-nnoremap td :tabclose<CR>
-" split pane into new tab
-nnoremap ts <C-w>T
-
-" Easy buffer navigation
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-
 noremap <leader>v <C-w>v
 
 " close current buffer with <leader>x
@@ -448,6 +435,15 @@ let g:fzf_colors =
 let g:peekaboo_window = 'vertical botright 60new'
 
 let g:vue_disable_pre_processors=1
+
+" ----------------------------------------------------------------------------
+" Quickfix
+" ----------------------------------------------------------------------------
+nnoremap ]q :cnext<cr>zz
+nnoremap [q :cprev<cr>zz
+nnoremap ]l :lnext<cr>zz
+nnoremap [l :lprev<cr>zz
+
 " ----------------------------------------------------------------------------
 " Statusline
 " ----------------------------------------------------------------------------
