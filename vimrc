@@ -529,12 +529,6 @@ nmap <silent> <leader>A ^vio<C-V>$A
 " ----------------------------------------------------------------------------
 " vim-sandwich
 " ----------------------------------------------------------------------------
-"
-" closest surround
-xmap iss <Plug>(textobj-sandwich-auto-i)
-xmap ass <Plug>(textobj-sandwich-auto-a)
-omap iss <Plug>(textobj-sandwich-auto-i)
-omap ass <Plug>(textobj-sandwich-auto-a)
 
 " in middle (of)
 " {'_'  '.' ',' '/' '-')
