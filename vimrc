@@ -119,7 +119,7 @@ set synmaxcol=200          " Boost performance of rendering long lines
 " Visual Cues
 " ----------------------------------------------------------------------------
 set showmatch              " brackets/braces that is
-set mat=5                  " duration to show matching brace (1/10 sec)
+set mat=2                  " duration to show matching brace (1/10 sec)
 set laststatus=2           " always show the status line
 set ignorecase smartcase   " ignore case for searches without capital letters
 set hlsearch               " highlight searches
