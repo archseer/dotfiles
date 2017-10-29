@@ -145,6 +145,7 @@ bindkey '^g^h' gh
 
 # erlang shell history
 export ERL_AFLAGS="-kernel shell_history enabled"
+export ELIXIR_EDITOR="vi +__LINE__ __FILE__"
 
 # autocomplete kubectl
 source <(kubectl completion zsh)
