@@ -20,7 +20,7 @@ let s:colibri = {}
 "
 let s:colibri.foreground      = ["#a4a0e8", 146]
 let s:colibri.background_dark = ["#281733", 17]
-let s:colibri.background      = ["#3b224c", 53]
+let s:colibri.background      = ["#3b224c", 17]
 "let s:colibri.background      = ["#311D40", 53] " HSB with B at 25 (instead of 30)
 "let s:colibri.background = ["#ffffff", 231]
 let s:colibri.background_light = ["#452859", 53]
