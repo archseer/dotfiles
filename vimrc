@@ -274,16 +274,6 @@ nmap <silent> <leader>g :TestVisit<CR>
 " ---------------------------------------------------------------------------
 "  Mappings
 " ---------------------------------------------------------------------------
-" Disable arrow keys
-nnoremap <Up> <NOP>
-nnoremap <Down> <NOP>
-nnoremap <Left> <NOP>
-nnoremap <Right> <NOP>
-inoremap <Up> <NOP>
-inoremap <Down> <NOP>
-inoremap <Left> <NOP>
-inoremap <Right> <NOP>
-
 " Dump ex mode for formatting
 noremap Q gq
 
