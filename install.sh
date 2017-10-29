@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# sudo apt-get install -y silversearcher-ag
+# sudo apt-get install -y ripgrep silversearcher-ag
 git clone https://github.com/archSeer/dotfiles ~/.dotfiles
 
 cd $(dirname $BASH_SOURCE)
@@ -30,4 +30,4 @@ mkdir -p ~/.config/nvim/autoload
 ln -sf $BASE/vimrc ~/.config/nvim/init.vim
 ln -sf ~/.vim/autoload/plug.vim ~/.config/nvim/autoload/
 
-vim +PlugInstall +qall # +GoInstallBinaries +qall!
+vim +PlugInstall +qall
