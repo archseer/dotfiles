@@ -5,74 +5,53 @@
 set nocompatible
 call plug#begin('~/.vim/plugged')
 
-"Plug 'godlygeek/csapprox'
-Plug 'flazz/vim-colorschemes'
-Plug 'airblade/vim-gitgutter'
-" languages
+" Plug 'flazz/vim-colorschemes' gotham256 for 256 color terminals
+" Languages
 Plug 'elixir-lang/vim-elixir'
-Plug 'vim-ruby/vim-ruby'
-Plug 'nsf/gocode', {'rtp': 'vim/', 'for': 'go'}
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'stephenway/postcss.vim'
-Plug 'slashmili/alchemist.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/vinarise.vim'
 
-Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-speeddating' " orgmode dep
+Plug 'jceb/vim-orgmode'
+let g:FerretMap=0
+Plug 'wincent/ferret'
+" Lint
 Plug 'w0rp/ale'
+" Completion
 Plug 'Shougo/echodoc.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
 endif
+Plug 'slashmili/alchemist.vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
+" Code manipulation
 Plug 'junegunn/vim-easy-align'
-Plug 'janko-m/vim-test'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish' " keepcase when replacing stuff
-"Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
-Plug 'Raimondi/delimitMate'
 Plug 'machakann/vim-sandwich'
+Plug 'Raimondi/delimitMate'
+Plug 'mattn/emmet-vim'
 
 Plug 'osyo-manga/vim-over'
+Plug 'janko-m/vim-test'
 Plug 'junegunn/vim-peekaboo'
-
+" File finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
+" Git
 Plug 'lambdalisue/gina.vim'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'ludovicchabant/vim-gutentags'
-"setting tags directory
-set tags="~/.vim/tags"
-"set tags=tags
-"set one location for tags
-let g:gutentags_cache_dir="~/.vim/tags"
-
-"set ctags executable for go
-"let g:gutentags_ctags_executable_go="$GOPATH/bin/gotags"
-
-"set list of directories to exclude when generating tags
-let g:gutentags_ctags_exclude=["node_modules","plugged","tmp","temp","log","vendor","**/db/migrate/*","bower_components","dist","build","coverage","spec","public","app/assets","*.json"]
-
-" Enter is go to definition (ctags)
-nnoremap <CR> <C-]>
-" In the quickfix window, <CR> is used to jump to the error under the
-" cursor, so undefine the mapping there.
-autocmd FileType qf nnoremap <buffer> <CR> <CR>
-" fix it for terminals as well
-autocmd TermOpen * nnoremap <buffer> <CR> <CR>
-
-" alchemist should also bind to enter.
-let g:alchemist_tag_map = '<CR>'
-let g:alchemist_tag_stack_map = '<C-T>'
-
-runtime macros/matchit.vim
 
 call plug#end()
+
+runtime macros/matchit.vim
 
 " ---------------------------------------------------------------------------
 " General
@@ -170,8 +149,8 @@ if has('patch-7.4.338')
   set breakindentopt=sbr
 endif
 set nowrap                 " do not wrap lines
-set softtabstop=2          " yep, two
-set shiftwidth=2           " ..
+set shiftwidth=2           " yep, two
+set softtabstop=-1         " equal to shiftwidth
 set shiftround             " Round indent shift to multiple of shiftwidth
 set tabstop=4
 set expandtab              " expand tabs to spaces
@@ -186,18 +165,33 @@ if has('patch-7.3.541')
   set formatoptions+=j     " be smart about joining lines with comments
 endif
 
-" Change cursor shape in insert mode
-if has('nvim')
-  "let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-else
-  if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-  else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-  endif
-endif
+" ---------------------------------------------------------------------------
+"  Gutentags / go to definition
+" ---------------------------------------------------------------------------
+
+"setting tags directory
+set tags="~/.vim/tags"
+"set one location for tags
+let g:gutentags_cache_dir="~/.vim/tags"
+
+"set ctags executable for go
+"let g:gutentags_ctags_executable_go="$GOPATH/bin/gotags"
+
+"set list of directories to exclude when generating tags
+let g:gutentags_ctags_exclude=["node_modules","plugged","tmp","temp","log","vendor","**/db/migrate/*","bower_components","dist","build","coverage","spec","public","app/assets","*.json"]
+
+" Enter is go to definition (ctags)
+nnoremap <CR> <C-]>
+" In the quickfix window, <CR> is used to jump to the error under the
+" cursor, so undefine the mapping there.
+autocmd FileType qf nnoremap <buffer> <CR> <CR>
+" fix it for terminals as well
+autocmd TermOpen * nnoremap <buffer> <CR> <CR>
+
+" alchemist should also bind to enter.
+let g:alchemist_tag_map = '<CR>'
+let g:alchemist_tag_stack_map = '<C-T>'
+
 " ---------------------------------------------------------------------------
 "  Neocomplete
 " ---------------------------------------------------------------------------
@@ -268,11 +262,11 @@ let g:rustfmt_autosave = 1
 "
 " Ale
 let g:ale_statusline_format = ['⨉ %d', '● %d', '']
+let g:ale_lint_on_text_changed = "never"
 let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 0
 
 let g:ale_open_list = 0
-let g:ale_linters = {'elixir': ['dogma']}
+let g:ale_linters = {'elixir': ['credo']}
 
 let g:ale_sign_error = "●"
 let g:ale_sign_warning = "●"
@@ -571,7 +565,6 @@ function! StripTrailingWhitespace()
 endfunction
 
 nmap _$ :call StripTrailingWhitespace()<CR>
-nmap _= :call Preserve("normal gg=G")<CR>
 
 " ripgrep
 if executable('rg')
