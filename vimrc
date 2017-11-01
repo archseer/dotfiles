@@ -186,6 +186,7 @@ let g:alchemist_tag_stack_map = '<C-T>'
 " ---------------------------------------------------------------------------
 set noshowmode " it tampers with echodoc.
 let g:echodoc_enable_at_startup = 1
+let g:delimitMate_expand_cr = 2
 if has('nvim')
   " Use deoplete.
   let g:deoplete#enable_at_startup = 1
@@ -200,7 +201,9 @@ if has('nvim')
   function! s:my_cr_function()
     return neosnippet#expandable_or_jumpable() ?
           \ neosnippet#mappings#expand_or_jump_impl()
-          \ : pumvisible() ? deoplete#mappings#close_popup() : "\<CR>"
+          \ : pumvisible() ? deoplete#mappings#close_popup()
+          \ : delimitMate#WithinEmptyPair() ?
+             \ delimitMate#ExpandReturn() : "\<CR>"
   endfunction
 endif
 set completeopt+=menuone
