@@ -60,7 +60,7 @@ let maplocalleader="\\"
 
 set history=1000          " keep some stuff in the history
 set autoread              " reload files (no local changes only)
-
+set title
 set encoding=utf-8
 
 set hidden                " allow buffer switching without saving
@@ -69,6 +69,8 @@ set diffopt+=vertical     " Allways diff vertically
 
 set nobackup              " do not keep backups after close
 set noswapfile            " don't keep swp files either
+set undofile
+set undodir=/tmp/undo//   " undo files
 
 if has('nvim')
   "set clipboard+=unnamedplus " fix my nvim <leader>y action
@@ -124,6 +126,7 @@ set laststatus=2           " always show the status line
 set ignorecase smartcase   " ignore case for searches without capital letters
 set hlsearch               " highlight searches
 set incsearch              " do incremental searching
+set gdefault               " replace all occurences by default
 set visualbell             " shut the fuck up
 if exists('&belloff')
   set belloff=all          " never ring the bell for any reason
@@ -138,7 +141,6 @@ set smartindent            " be smart about it
 if has('patch-7.4.338')
   let &showbreak = '↳ '
   set breakindent          " when wrapping, indent the lines
-
   set breakindentopt=sbr
 endif
 set nowrap                 " do not wrap lines
@@ -147,12 +149,12 @@ set softtabstop=-1         " equal to shiftwidth
 set shiftround             " Round indent shift to multiple of shiftwidth
 set tabstop=4
 set expandtab              " expand tabs to spaces
-set formatoptions+=n       " support for numbered/bullet lists
 set textwidth=80           " wrap at 80 chars by default
 set colorcolumn=+1
 set virtualedit=block      " allow virtual edit in visual block ..
 set nojoinspaces           " Use one space, not two, after punctuation.
 
+set formatoptions+=n       " support for numbered/bullet lists
 set formatoptions+=1
 if has('patch-7.3.541')
   set formatoptions+=j     " be smart about joining lines with comments
@@ -248,8 +250,6 @@ let g:vue_disable_pre_processors=1
 let g:ale_statusline_format = ['⨉ %d', '● %d', '']
 let g:ale_lint_on_text_changed = "never"
 let g:ale_lint_on_save = 1
-
-let g:ale_open_list = 0
 let g:ale_linters = {'elixir': ['credo']}
 
 let g:ale_sign_error = "●"
@@ -264,7 +264,6 @@ autocmd BufWritePre  * if &binary | Vinarise | endif
 autocmd BufWritePost * if &binary | Vinarise
 
 " vim-test
-let test#strategy = "neovim"
 let test#filename_modifier = ":p"
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -499,8 +498,5 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
-  " Set syntax highlighting for specific file types
-  autocmd BufRead,BufNewFile Appraisals set filetype=ruby
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 augroup END
