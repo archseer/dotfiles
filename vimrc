@@ -277,7 +277,8 @@ nmap <silent> <leader>g :TestVisit<CR>
 "  Mappings
 " ---------------------------------------------------------------------------
 " Dump ex mode for formatting
-noremap Q gq
+nnoremap Q gqip
+vnoremap Q gq
 
 " Save the file (if it has been modified)
 nnoremap <leader>w :up<CR>
