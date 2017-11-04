@@ -137,7 +137,8 @@ set cpoptions+=$           " in the change mode, show an $ at the end
 " Text Formatting
 " ----------------------------------------------------------------------------
 set autoindent             " automatic indent new lines
-set smartindent            " be smart about it
+"set smartindent           " Note: 'smartindent' is deprecated by 'cindent' and 'indentexpr'.
+filetype plugin indent on
 if has('patch-7.4.338')
   let &showbreak = '↳ '
   set breakindent          " when wrapping, indent the lines
