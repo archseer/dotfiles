@@ -145,11 +145,10 @@ if has('patch-7.4.338')
   set breakindentopt=sbr
 endif
 set nowrap                 " do not wrap lines
-set shiftwidth=2           " yep, two
-set softtabstop=-1         " equal to shiftwidth
+" Don't mess with 'tabstop', with 'expandtab' it isn't used.
+" Instead set softtabstop=-1, then 'shiftwidth' is used.
+set expandtab shiftwidth=2 softtabstop=-1
 set shiftround             " Round indent shift to multiple of shiftwidth
-set tabstop=4
-set expandtab              " expand tabs to spaces
 set textwidth=80           " wrap at 80 chars by default
 set colorcolumn=+1
 set virtualedit=block      " allow virtual edit in visual block ..
