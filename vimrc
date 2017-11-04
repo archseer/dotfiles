@@ -409,50 +409,49 @@ omap a_ am_
 " Statusline
 " ----------------------------------------------------------------------------
 function! StatusHighlight(mode)
-    if a:mode == 'n' || a:mode == 'c'
-        hi StatusMode ctermbg=148 ctermfg=22 term=bold cterm=bold guifg=#080808 guibg=#ffffff
-        return 'NORMAL'
-    elseif a:mode == 'i'
-        hi StatusMode ctermbg=231 ctermfg=23 term=bold cterm=bold guifg=#005f5f guibg=#afd700
-        return 'INSERT'
-    elseif a:mode == 'R' || a:mode == 't'
-        hi StatusMode ctermbg=160 ctermfg=231 term=bold cterm=bold guifg=#ffffff guibg=#d70000
-        return a:mode == 'R' ? 'REPLACE' : 'TERMINAL' 
-      elseif a:mode =~# '\v(v|V||s|S|)'
-        hi StatusMode ctermbg=208 ctermfg=88 term=bold cterm=bold guifg=#080808 guibg=#ffaf00
-        return a:mode == 'v' ? 'VISUAL' : a:mode == 'V' ? 'V-LINE' : 'V-BLOCK'
-    else
-        return a:mode
-    endif
+  if a:mode == 'n' || a:mode == 'c'
+    hi StatusMode ctermbg=148 ctermfg=22 term=bold cterm=bold guifg=#080808 guibg=#ffffff
+    return 'NORMAL'
+  elseif a:mode == 'i'
+    hi StatusMode ctermbg=231 ctermfg=23 term=bold cterm=bold guifg=#005f5f guibg=#afd700
+    return 'INSERT'
+  elseif a:mode == 'R' || a:mode == 't'
+    hi StatusMode ctermbg=160 ctermfg=231 term=bold cterm=bold guifg=#ffffff guibg=#d70000
+    return a:mode == 'R' ? 'REPLACE' : 'TERMINAL' 
+  elseif a:mode =~# '\v(v|V||s|S|)'
+    hi StatusMode ctermbg=208 ctermfg=88 term=bold cterm=bold guifg=#080808 guibg=#ffaf00
+    return a:mode == 'v' ? 'VISUAL' : a:mode == 'V' ? 'V-LINE' : 'V-BLOCK'
+  else
+    return a:mode
+  endif
 endfunction
 
 function! Status(winnr)
-  	let active = a:winnr == winnr() || winnr('$') == 1
-    let status = ''
-    if active != 0
-      let status .= '%#StatusMode# %{StatusHighlight(mode())} %*'
-    endif
-    let status .= ' %{fnamemodify(expand(''%''), '':~:.'')}%w%q%h%r%<%m '
-    let status .= '%{&paste?''[paste]'':''''}'
+  let active = a:winnr == winnr() || winnr('$') == 1
+  let status = ''
+  if active != 0
+    let status .= '%#StatusMode# %{StatusHighlight(mode())} %*'
+  endif
+  let status .= ' %{fnamemodify(expand(''%''), '':~:.'')}%w%q%h%r%<%m '
+  let status .= '%{&paste?''[paste]'':''''}'
 
-    if &filetype != 'netrw' && &filetype != 'undotree'
-        let status .= '%=' 
-        if active != 0
-          " we can't wrap it in %{} because that kills the colors, but if we
-          " don't, it will return the data for the active window. So, don't
-          " display it on other windows.
-          "let status .= '%{SyntasticStatuslineFlag()}'
-          let status .= '%#error#%{ALEGetStatusLine()}%*'
-        endif
-        let status .=  ' %{&fileencoding} | %{&filetype}  %l:%c '
+  if &filetype != 'netrw' && &filetype != 'undotree'
+    let status .= '%=' 
+    if active != 0
+      " we can't wrap it in %{} because that kills the colors, but if we
+      " don't, it will return the data for the active window. So, don't
+      " display it on other windows.
+      let status .= '%#error#%{ALEGetStatusLine()}%*'
     endif
-    return status
+    let status .=  ' %{&fileencoding} | %{&filetype}  %l:%c '
+  endif
+  return status
 endfunction
 
 function! StatusUpdate()
-    for winnr in range(1, winnr('$'))
-        call setwinvar(winnr, '&statusline', '%!Status(' . winnr . ')')
-    endfor
+  for winnr in range(1, winnr('$'))
+    call setwinvar(winnr, '&statusline', '%!Status(' . winnr . ')')
+  endfor
 endfunction
 
 autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call StatusUpdate()
@@ -461,7 +460,6 @@ autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call StatusUpdate()
 " HL | Find out syntax group
 " ----------------------------------------------------------------------------
 function! s:hl()
-  " echo synIDattr(synID(line('.'), col('.'), 0), 'name')
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction
 command! HL call <SID>hl()
