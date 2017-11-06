@@ -130,7 +130,8 @@ call s:HL('Folded',    'comment',  'background_light',     'none')
 call s:HL("StatusLine", 'background_dark', 'active', '')
 call s:HL("StatusLineNC", 'background_dark', 'disabled', '')
 
-" TODO: Directory
+" Directories (netrw, etc.)
+call s:HL("Directory", 'keyword', '', "bold")
 
 call s:HL("Title", 'foreground', '', "bold")
 
@@ -252,3 +253,7 @@ call s:HL("javascriptObjectLabel", 'punct', '', '')
 " YAML
 
 " CSS
+
+" ALE integration
+call s:HL('ALEWarningSign', 'warning', '')
+call s:HL('ALEErrorSign', 'error', '')
