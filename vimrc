@@ -4,7 +4,7 @@
 set nocompatible
 call plug#begin('~/.vim/plugged')
 
-" Plug 'flazz/vim-colorschemes' gotham256 for 256 color terminals
+" Plug 'whatyouhide/vim-gotham256' gotham256 for 256 color terminals
 " Languages
 Plug 'elixir-lang/vim-elixir'
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
@@ -261,10 +261,13 @@ let g:ale_sign_warning = "●"
 " vinarise
 let g:vinarise_enable_auto_detect = 1
 " Enable with -b option
-autocmd BufReadPre   *.bin let &binary =1
-autocmd BufReadPost  * if &binary | Vinarise
-autocmd BufWritePre  * if &binary | Vinarise | endif
-autocmd BufWritePost * if &binary | Vinarise
+augroup vinariseAuto
+  autocmd!
+  autocmd BufReadPre   *.bin let &binary =1
+  autocmd BufReadPost  * if &binary | Vinarise | endif
+  autocmd BufWritePre  * if &binary | Vinarise | endif
+  autocmd BufWritePost * if &binary | Vinarise | endif
+augroup END
 
 " vim-test
 let test#filename_modifier = ":p"
