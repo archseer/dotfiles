@@ -6,6 +6,7 @@ call plug#begin('~/.vim/plugged')
 
 " Plug 'whatyouhide/vim-gotham256' gotham256 for 256 color terminals
 " Languages
+Plug 'archseer/colibri.vim'
 Plug 'elixir-lang/vim-elixir'
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'stephenway/postcss.vim'
@@ -67,15 +68,10 @@ set hidden                " allow buffer switching without saving
 set diffopt+=iwhite       " Add ignorance of whitespace to diff
 set diffopt+=vertical     " Allways diff vertically
 
-set nobackup              " do not keep backups after close
+set nobackup              " do not keep backups
 set noswapfile            " don't keep swp files either
 set undofile
-set undodir=/tmp/undo//   " undo files
-
-if has('nvim')
-  "set clipboard+=unnamedplus " fix my nvim <leader>y action
-endif
-
+set undodir=/tmp/undo//   " undo files (persistent undo)
 " ---------------------------------------------------------------------------
 " Colors / Theme
 " ---------------------------------------------------------------------------
@@ -92,6 +88,7 @@ endif
 "  UI
 " ----------------------------------------------------------------------------
 set ruler                  " show the cursor position all the time
+set laststatus=2           " always show the status line
 set noshowcmd              " don't display incomplete commands
 set lazyredraw             " no redraws in macros
 set number                 " line numbers
@@ -101,6 +98,7 @@ set wildmode=list:longest,full
 set ch=2                   " command line height
 set backspace=2            " allow backspacing over everything in insert mode
 set shortmess=filtIoOA     " shorten messages
+if has('patch-7.4.314') | set shortmess+=c | endif
 set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
 set mousehide              " Hide the mouse pointer while typing
@@ -122,7 +120,6 @@ set synmaxcol=200          " Boost performance of rendering long lines
 " ----------------------------------------------------------------------------
 set showmatch              " brackets/braces that is
 set mat=2                  " duration to show matching brace (1/10 sec)
-set laststatus=2           " always show the status line
 set ignorecase smartcase   " ignore case for searches without capital letters
 set hlsearch               " highlight searches
 set incsearch              " do incremental searching
@@ -379,7 +376,7 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
-      \ { 'fg':      ['fg', 'Normal'],
+      \ { 'fg':    ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
       \ 'hl':      ['fg', 'Comment'],
       \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
@@ -413,13 +410,16 @@ function! StatusHighlight(mode)
     hi StatusMode ctermbg=148 ctermfg=22 term=bold cterm=bold guifg=#080808 guibg=#ffffff
     return 'NORMAL'
   elseif a:mode == 'i'
-    hi StatusMode ctermbg=231 ctermfg=23 term=bold cterm=bold guifg=#005f5f guibg=#afd700
+    hi StatusMode ctermbg=231 ctermfg=23 term=bold cterm=bold guifg=#005f5f guibg=#9FF28F
     return 'INSERT'
-  elseif a:mode == 'R' || a:mode == 't'
-    hi StatusMode ctermbg=160 ctermfg=231 term=bold cterm=bold guifg=#ffffff guibg=#d70000
-    return a:mode == 'R' ? 'REPLACE' : 'TERMINAL' 
+  elseif a:mode == 'R'
+    hi StatusMode ctermbg=160 ctermfg=231 term=bold cterm=bold guifg=#740000 guibg=#f47868
+    return 'REPLACE'
+  elseif a:mode == 't'
+    hi StatusMode ctermbg=160 ctermfg=231 term=bold cterm=bold guifg=#005f5f guibg=#00CCCC
+    return 'TERMINAL'
   elseif a:mode =~# '\v(v|V||s|S|)'
-    hi StatusMode ctermbg=208 ctermfg=88 term=bold cterm=bold guifg=#080808 guibg=#ffaf00
+    hi StatusMode ctermbg=208 ctermfg=88 term=bold cterm=bold guifg=#7f3a00 guibg=#efba5d
     return a:mode == 'v' ? 'VISUAL' : a:mode == 'V' ? 'V-LINE' : 'V-BLOCK'
   else
     return a:mode
@@ -436,7 +436,7 @@ function! Status(winnr)
   let status .= '%{&paste?''[paste]'':''''}'
 
   if &filetype != 'netrw' && &filetype != 'undotree'
-    let status .= '%=' 
+    let status .= '%='
     if active != 0
       " we can't wrap it in %{} because that kills the colors, but if we
       " don't, it will return the data for the active window. So, don't
