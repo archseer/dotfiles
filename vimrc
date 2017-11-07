@@ -93,7 +93,7 @@ endif
 " ----------------------------------------------------------------------------
 set ruler                  " show the cursor position all the time
 set noshowcmd              " don't display incomplete commands
-set nolazyredraw           " turn off lazy redraw
+set lazyredraw             " no redraws in macros
 set number                 " line numbers
 set numberwidth=5          " 3 digit line numbers don't get squashed
 set wildmenu               " turn on wild menu
