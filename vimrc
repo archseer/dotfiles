@@ -1,14 +1,14 @@
 " ---------------------------------------------------------------------------
 " Plugins
 " ---------------------------------------------------------------------------
-set nocompatible
 call plug#begin('~/.vim/plugged')
 
-" Plug 'whatyouhide/vim-gotham256' gotham256 for 256 color terminals
+Plug 'whatyouhide/vim-gotham' " gotham256 for 256 color terminals
+
 " Languages
 Plug 'archseer/colibri.vim'
 Plug 'elixir-lang/vim-elixir'
-Plug 'othree/yajs.vim', { 'for': 'javascript' }
+"Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'stephenway/postcss.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/vinarise.vim'
@@ -95,6 +95,8 @@ set number                 " line numbers
 set numberwidth=5          " 3 digit line numbers don't get squashed
 set wildmenu               " turn on wild menu
 set wildmode=list:longest,full
+" Ignore all automatic files and folders
+set wildignore=*.o,*~,*/.git,*/tmp/*,*/node_modules/*,*/_build/*,*/deps/*,*/target/*
 set ch=2                   " command line height
 set backspace=2            " allow backspacing over everything in insert mode
 set shortmess=filtIoOA     " shorten messages
@@ -489,6 +491,11 @@ endif
 
 au filetype mail setl tw=72
 au filetype mail setl fo=aw
+
+augroup postcss
+  autocmd!
+  autocmd BufNewFile,BufRead *.css set filetype=postcss
+augroup END
 
 augroup vimrcEx
   autocmd!
