@@ -1,6 +1,3 @@
-" ---------------------------------------------------------------------------
-" Plugins
-" ---------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')
 
 Plug 'whatyouhide/vim-gotham' " gotham256 for 256 color terminals
@@ -72,16 +69,20 @@ set nobackup              " do not keep backups
 set noswapfile            " don't keep swp files either
 set undofile
 set undodir=/tmp/undo//   " undo files (persistent undo)
+
+if executable('rg') " Use rg over grep
+  set grepprg=rg\ --vimgrep\ --no-heading
+  let g:ackprg = 'rg --vimgrep --no-heading'
+endif
 " ---------------------------------------------------------------------------
 " Colors / Theme
 " ---------------------------------------------------------------------------
-syntax on                 " Switch on syntax highlighting.
+syntax on
 set background=dark
 colorscheme base16-paraiso
 
-if has('nvim')
+if has('termguicolors')
   set termguicolors
-  "colors birds-of-paradise
   colors colibri
 endif
 " ----------------------------------------------------------------------------
@@ -110,13 +111,6 @@ set sidescroll=1
 set splitbelow             " splits that make more sense
 set splitright
 set synmaxcol=200          " Boost performance of rendering long lines
-
-" augroup CursorLine
-"   au!
-"   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-"   au WinLeave * setlocal nocursorline
-" augroup END
-
 " ----------------------------------------------------------------------------
 " Visual Cues
 " ----------------------------------------------------------------------------
@@ -131,7 +125,6 @@ if exists('&belloff')
   set belloff=all          " never ring the bell for any reason
 endif
 set cpoptions+=$           " in the change mode, show an $ at the end
-
 " ----------------------------------------------------------------------------
 " Text Formatting
 " ----------------------------------------------------------------------------
@@ -158,7 +151,6 @@ set formatoptions+=1
 if has('patch-7.3.541')
   set formatoptions+=j     " be smart about joining lines with comments
 endif
-
 " ---------------------------------------------------------------------------
 "  Gutentags / go to definition
 " ---------------------------------------------------------------------------
@@ -173,13 +165,14 @@ nnoremap <CR> <C-]>
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
 autocmd FileType qf nnoremap <buffer> <CR> <CR>
+" same for vim type windows (command-history, terminal, etc.)
+autocmd FileType vim nnoremap <buffer> <CR> <CR>
 " fix it for terminals as well
-autocmd TermOpen * nnoremap <buffer> <CR> <CR>
+"autocmd TermOpen * nnoremap <buffer> <CR> <CR>
 
 " alchemist should also bind to enter.
 let g:alchemist_tag_map = '<CR>'
 let g:alchemist_tag_stack_map = '<C-T>'
-
 " ---------------------------------------------------------------------------
 "  Completion / Snippets
 " ---------------------------------------------------------------------------
@@ -264,6 +257,13 @@ augroup vinariseAuto
   autocmd!
   autocmd BufReadPre   *.bin let &binary =1
   autocmd BufReadPost  * if &binary | Vinarise | endif
+augroup END
+
+au filetype mail setl tw=72 fo=aw
+
+augroup postcss
+  autocmd!
+  autocmd BufNewFile,BufRead *.css set filetype=postcss
 augroup END
 
 " vim-test
@@ -403,7 +403,6 @@ xmap i_ im_
 xmap a_ im_
 omap i_ im_
 omap a_ am_
-
 " ----------------------------------------------------------------------------
 " Statusline
 " ----------------------------------------------------------------------------
@@ -459,14 +458,6 @@ endfunction
 autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call StatusUpdate()
 
 " ----------------------------------------------------------------------------
-" HL | Find out syntax group
-" ----------------------------------------------------------------------------
-function! s:hl()
-  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
-endfunction
-command! HL call <SID>hl()
-
-" ----------------------------------------------------------------------------
 " Functions
 " ----------------------------------------------------------------------------
 " http://technotales.wordpress.com/2010/03/31/preserve-a-vim-function-that-keeps-your-state/
@@ -483,19 +474,11 @@ endfunction
 
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 
-" Use rg over grep
-if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading
-  let g:ackprg = 'rg --vimgrep --no-heading'
-endif
-
-au filetype mail setl tw=72
-au filetype mail setl fo=aw
-
-augroup postcss
-  autocmd!
-  autocmd BufNewFile,BufRead *.css set filetype=postcss
-augroup END
+" HL | Find out syntax group
+function! s:hl()
+  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
+endfunction
+command! HL call <SID>hl()
 
 augroup vimrcEx
   autocmd!
