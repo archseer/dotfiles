@@ -119,7 +119,6 @@ set mat=2                  " duration to show matching brace (1/10 sec)
 set ignorecase smartcase   " ignore case for searches without capital letters
 set hlsearch               " highlight searches
 set incsearch              " do incremental searching
-set gdefault               " replace all occurences by default
 set visualbell             " shut the fuck up
 if exists('&belloff')
   set belloff=all          " never ring the bell for any reason
