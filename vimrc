@@ -34,7 +34,6 @@ Plug 'machakann/vim-sandwich'
 Plug 'Raimondi/delimitMate'
 Plug 'mattn/emmet-vim'
 
-Plug 'osyo-manga/vim-over'
 Plug 'janko-m/vim-test'
 Plug 'junegunn/vim-peekaboo'
 " File finder
@@ -123,6 +122,9 @@ set visualbell             " shut the fuck up
 if exists('&belloff')
   set belloff=all          " never ring the bell for any reason
 endif
+if has("nvim")
+  set inccommand=split     " live substitution preview
+end
 set cpoptions+=$           " in the change mode, show an $ at the end
 " ----------------------------------------------------------------------------
 " Text Formatting
