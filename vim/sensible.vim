@@ -43,6 +43,12 @@ set hlsearch    " highlight search matches
 
 set autoread
 
+if exists('&belloff')
+  set belloff=all          " never ring the bell for any reason
+else
+  set visualbell
+endif
+
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim

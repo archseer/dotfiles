@@ -51,7 +51,6 @@ call plug#end()
 " General
 " ---------------------------------------------------------------------------
 let mapleader=" "
-let maplocalleader="\\"
 
 " load sensible neovim defaults on regular vim
 if !has('nvim')
@@ -59,15 +58,12 @@ if !has('nvim')
   silent! source ~/.vim/sensible.vim
 endif
 
-set title
-set hidden                " allow buffer switching without saving
-
-set diffopt+=iwhite       " Add ignorance of whitespace to diff
-set diffopt+=vertical     " Allways diff vertically
-
 set nobackup              " do not keep backups
 set noswapfile            " don't keep swp files either
 set undofile
+
+set diffopt+=iwhite       " Add ignorance of whitespace to diff
+set diffopt+=vertical     " Allways diff vertically
 
 if executable('rg') " Use rg over grep
   set grepprg=rg\ --vimgrep\ --no-heading
@@ -86,7 +82,9 @@ endif
 " ----------------------------------------------------------------------------
 "  UI
 " ----------------------------------------------------------------------------
-set noshowcmd              " don't display incomplete commands
+"set noshowcmd             " don't display incomplete commands
+set title
+set hidden                " allow buffer switching without saving
 set lazyredraw             " no redraws in macros
 set number                 " line numbers
 set numberwidth=5          " 3 digit line numbers don't get squashed
@@ -95,8 +93,7 @@ set wildmode=list:longest,full
 set wildignore=*.o,*~,*/.git,*/tmp/*,*/node_modules/*,*/_build/*,*/deps/*,*/target/*
 set fileignorecase
 set ch=2                   " command line height
-set shortmess=filtIoOA     " shorten messages
-if has('patch-7.4.314') | set shortmess+=c | endif
+set shortmess+=aAI         " shorten messages
 set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
 set mousehide              " Hide the mouse pointer while typing
@@ -110,29 +107,20 @@ set fillchars=diff:⣿,vert:│,fold:·
 " ----------------------------------------------------------------------------
 " Visual Cues
 " ----------------------------------------------------------------------------
-set showmatch              " brackets/braces that is
-set mat=2                  " duration to show matching brace (1/10 sec)
+set showmatch matchtime=2  " show matching brackets/braces (2*1/10 sec)
+set cpoptions+=$           " in the change mode, show an $ at the end
 set ignorecase smartcase   " ignore case for searches without capital letters
-if !has("nvim")
-  if exists('&belloff')
-    set belloff=all          " never ring the bell for any reason
-  else
-    set visualbell           " shut the fuck up
-  endif
-endif
 if has("nvim")
   set inccommand=nosplit   " live substitution preview
 end
-set cpoptions+=$           " in the change mode, show an $ at the end
-" ----------------------------------------------------------------------------
-" Text Formatting
-" ----------------------------------------------------------------------------
 if has('patch-7.4.338')
   let &showbreak = '↳ '
   set breakindent          " when wrapping, indent the lines
   set breakindentopt=sbr
 endif
-set nowrap                 " do not wrap lines
+" ----------------------------------------------------------------------------
+" Text Formatting
+" ----------------------------------------------------------------------------
 " Don't mess with 'tabstop', with 'expandtab' it isn't used.
 " Instead set softtabstop=-1, then 'shiftwidth' is used.
 set expandtab shiftwidth=2 softtabstop=-1
@@ -142,8 +130,9 @@ set colorcolumn=+1
 set virtualedit=block      " allow virtual edit in visual block ..
 set nojoinspaces           " Use one space, not two, after punctuation.
 
-set formatoptions+=n       " support for numbered/bullet lists
-set formatoptions+=1
+set linebreak
+set nowrap                 " do not wrap lines
+set formatoptions+=rno1l   " support for numbered/bullet lists, etc.
 " ---------------------------------------------------------------------------
 "  Gutentags / go to definition
 " ---------------------------------------------------------------------------
@@ -188,6 +177,7 @@ if has('nvim') " Use deoplete.
   endfunction
   set completeopt+=menuone
   set completeopt-=preview
+  if has('patch-7.4.314') | set shortmess+=c | endif
 endif
 " Neosnippet mappings
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -274,8 +264,6 @@ nnoremap <leader>w :up<CR>
 nnoremap Y y$
 
 " Easy block pasting with auto indentation
-"nnoremap <leader>p p
-"nnoremap <leader>P P
 nnoremap p p'[v']=
 nnoremap P P'[v']=
 " Copy/paste system buffer
@@ -441,16 +429,10 @@ autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call StatusUpdate()
 " ----------------------------------------------------------------------------
 " Functions
 " ----------------------------------------------------------------------------
-" http://technotales.wordpress.com/2010/03/31/preserve-a-vim-function-that-keeps-your-state/
-function! Preserve(command)
-  " Save search history and cursor position
-  let save_search = @/
-  let save_pos = getpos('.')
-  " Run the command
-  execute a:command
-  " Restore search and position
-  let @/ = save_search
-  call setpos('.', save_pos)
+function! Preserve(cmd)
+  let _s = @/ | let _pos = getpos('.') " Save search history and cursor position
+  execute a:cmd
+  let @/ = _s | call setpos('.', _pos) " Restore search and position
 endfunction
 
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
