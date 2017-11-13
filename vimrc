@@ -1,8 +1,7 @@
 call plug#begin('~/.vim/plugged')
-
-Plug 'whatyouhide/vim-gotham' " gotham256 for 256 color terminals
-
+" Colors
 Plug 'archseer/colibri.vim'
+Plug 'whatyouhide/vim-gotham' " gotham256 for 256 color terminals
 " Languages
 Plug 'elixir-lang/vim-elixir'
 "Plug 'othree/yajs.vim', { 'for': 'javascript' }
@@ -62,9 +61,6 @@ set nobackup              " do not keep backups
 set noswapfile            " don't keep swp files either
 set undofile
 
-set diffopt+=iwhite       " Add ignorance of whitespace to diff
-set diffopt+=vertical     " Allways diff vertically
-
 if executable('rg') " Use rg over grep
   set grepprg=rg\ --vimgrep\ --no-heading
   let g:ackprg = 'rg --vimgrep --no-heading'
@@ -84,7 +80,7 @@ endif
 " ----------------------------------------------------------------------------
 "set noshowcmd             " don't display incomplete commands
 set title
-set hidden                " allow buffer switching without saving
+set hidden                 " allow buffer switching without saving
 set lazyredraw             " no redraws in macros
 set number                 " line numbers
 set numberwidth=5          " 3 digit line numbers don't get squashed
@@ -102,6 +98,8 @@ set sidescrolloff=7
 set sidescroll=1
 set splitbelow             " splits that make more sense
 set splitright
+set diffopt+=iwhite        " Add ignorance of whitespace to diff
+set diffopt+=vertical      " Allways diff vertically
 set synmaxcol=200          " Boost performance of rendering long lines
 set fillchars=diff:⣿,vert:│,fold:·
 " ----------------------------------------------------------------------------
@@ -118,6 +116,12 @@ if has('patch-7.4.338')
   set breakindent          " when wrapping, indent the lines
   set breakindentopt=sbr
 endif
+" show whitespace with <leader>s
+set listchars=tab:——,trail:·,eol:$
+if has('patch-7.4.710')    " show normal spaces too if possible
+  set listchars+=space:·
+endif
+noremap <silent> <leader>s :set nolist!<CR>
 " ----------------------------------------------------------------------------
 " Text Formatting
 " ----------------------------------------------------------------------------
@@ -144,13 +148,10 @@ let g:gutentags_ctags_exclude=["node_modules","plugged","tmp","temp","log","vend
 
 " Enter is go to definition (ctags)
 nnoremap <CR> <C-]>
-" In the quickfix window, <CR> is used to jump to the error under the
-" cursor, so undefine the mapping there.
+" In the quickfix window, <CR> is used to jump to the error under the cursor, undef
 autocmd FileType qf nnoremap <buffer> <CR> <CR>
 " same for vim type windows (command-history, terminal, etc.)
 autocmd FileType vim nnoremap <buffer> <CR> <CR>
-" fix it for terminals as well
-"autocmd TermOpen * nnoremap <buffer> <CR> <CR>
 
 " alchemist should also bind to enter.
 let g:alchemist_tag_map = '<CR>'
@@ -158,28 +159,26 @@ let g:alchemist_tag_stack_map = '<C-T>'
 " ---------------------------------------------------------------------------
 "  Completion / Snippets
 " ---------------------------------------------------------------------------
-set noshowmode " it tampers with echodoc.
 let g:echodoc_enable_at_startup = 1
 let g:delimitMate_expand_cr = 2
 if has('nvim') " Use deoplete.
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#enable_smart_case = 1
 
-  " <CR>: close popup and save indent.
-  inoremap <expr><silent> <CR> <SID>my_cr_function()
-  function! s:my_cr_function()
+  inoremap <expr><silent> <CR> <SID>smart_cr()
+  function! s:smart_cr()
     " neosnippet || deoplete || delimitmate || vim-endwise
     return neosnippet#expandable_or_jumpable() ?
           \ neosnippet#mappings#expand_or_jump_impl()
           \ : pumvisible() ? deoplete#mappings#close_popup()
-          \ : delimitMate#WithinEmptyPair() ?
-             \ delimitMate#ExpandReturn() : "\<CR>\<Plug>DiscretionaryEnd"
+          \ : delimitMate#WithinEmptyPair() ? delimitMate#ExpandReturn()
+          \: "\<CR>\<Plug>DiscretionaryEnd"
   endfunction
   set completeopt+=menuone
   set completeopt-=preview
   if has('patch-7.4.314') | set shortmess+=c | endif
 endif
-" Neosnippet mappings
+" neosnippet mappings
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
@@ -208,22 +207,20 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 
-" gofmt style auto-format rust on save
+" auto-format rust on save
 let g:rustfmt_autosave = 1
 
 " ruby private/protected indentation
 let g:ruby_indent_access_modifier_style = 'outdent'
-" highlight operators
-let ruby_operators = 1
+let ruby_operators = 1 " highlight operators
 
 let g:vue_disable_pre_processors=1
 
 " Ale
 let g:ale_statusline_format = ['⨉ %d', '● %d', '']
-let g:ale_lint_on_text_changed = "never"
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
 let g:ale_linters = {'elixir': ['credo']}
-
 let g:ale_sign_error = "●"
 let g:ale_sign_warning = "●"
 
@@ -283,14 +280,6 @@ noremap <leader>v <C-w>v
 " close current buffer with <leader>x
 noremap <silent> <leader>x :bd<CR>
 
-" show whitespace with <leader>s
-set listchars=tab:——,trail:·,eol:$
-if has('patch-7.4.710')
-  " show normal spaces too if possible
-  set listchars+=space:·
-endif
-nmap <silent> <leader>s :set nolist!<CR>
-
 " practical vim: use c-p, c-n with filtered command history
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
@@ -329,21 +318,16 @@ endfunction
 command! ProjectFiles execute 'Files' s:find_git_root()
 
 nnoremap <C-p> :ProjectFiles<CR>
-
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>f :ProjectFiles<CR>
 nnoremap <Leader>e :History<CR>
-"nnoremap <Leader>y :Lines<CR>
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-function! s:fzf_statusline()
-  " Override statusline as you like
-  setlocal statusline=%#StatusLine#\ >\ fzf
-endfunction
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
+" Customize fzf statusline
+autocmd! User FzfStatusLine setlocal statusline=%#StatusLine#\ >\ fzf
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -425,6 +409,7 @@ function! StatusUpdate()
   endfor
 endfunction
 
+set noshowmode " we show it in the statusline
 autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call StatusUpdate()
 " ----------------------------------------------------------------------------
 " Functions
