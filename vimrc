@@ -183,32 +183,28 @@ let g:alchemist_tag_stack_map = '<C-T>'
 set noshowmode " it tampers with echodoc.
 let g:echodoc_enable_at_startup = 1
 let g:delimitMate_expand_cr = 2
-if has('nvim')
-  " Use deoplete.
+if has('nvim') " Use deoplete.
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#enable_smart_case = 1
 
-  " <C-h>, <BS>: close popup and delete backword char.
-  inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-  "inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-
   " <CR>: close popup and save indent.
-  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  inoremap <expr><silent> <CR> <SID>my_cr_function()
   function! s:my_cr_function()
+    " neosnippet || deoplete || delimitmate || vim-endwise
     return neosnippet#expandable_or_jumpable() ?
           \ neosnippet#mappings#expand_or_jump_impl()
           \ : pumvisible() ? deoplete#mappings#close_popup()
           \ : delimitMate#WithinEmptyPair() ?
-             \ delimitMate#ExpandReturn() : "\<CR>"
+             \ delimitMate#ExpandReturn() : "\<CR>\<Plug>DiscretionaryEnd"
   endfunction
 endif
 set completeopt+=menuone
 set completeopt-=preview
 
 " Neosnippet mappings
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 " SuperTab like snippets behavior.
 imap <expr><TAB>
  \ pumvisible() ? "\<C-n>" :
