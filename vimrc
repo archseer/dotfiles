@@ -47,28 +47,27 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()
-
-runtime macros/matchit.vim
-
 " ---------------------------------------------------------------------------
 " General
 " ---------------------------------------------------------------------------
 let mapleader=" "
 let maplocalleader="\\"
 
-set history=1000          " keep some stuff in the history
-set autoread              " reload files (no local changes only)
-set title
-set encoding=utf-8
+" load sensible neovim defaults on regular vim
+if !has('nvim')
+  set encoding=utf-8
+  silent! source ~/.vim/sensible.vim
+endif
 
+set title
 set hidden                " allow buffer switching without saving
+
 set diffopt+=iwhite       " Add ignorance of whitespace to diff
 set diffopt+=vertical     " Allways diff vertically
 
 set nobackup              " do not keep backups
 set noswapfile            " don't keep swp files either
 set undofile
-set undodir=/tmp/undo//   " undo files (persistent undo)
 
 if executable('rg') " Use rg over grep
   set grepprg=rg\ --vimgrep\ --no-heading
@@ -77,7 +76,6 @@ endif
 " ---------------------------------------------------------------------------
 " Colors / Theme
 " ---------------------------------------------------------------------------
-syntax on
 set background=dark
 colorscheme base16-paraiso
 
@@ -88,19 +86,15 @@ endif
 " ----------------------------------------------------------------------------
 "  UI
 " ----------------------------------------------------------------------------
-set ruler                  " show the cursor position all the time
-set laststatus=2           " always show the status line
 set noshowcmd              " don't display incomplete commands
 set lazyredraw             " no redraws in macros
 set number                 " line numbers
 set numberwidth=5          " 3 digit line numbers don't get squashed
-set wildmenu               " turn on wild menu
 set wildmode=list:longest,full
 " Ignore all automatic files and folders
 set wildignore=*.o,*~,*/.git,*/tmp/*,*/node_modules/*,*/_build/*,*/deps/*,*/target/*
 set fileignorecase
 set ch=2                   " command line height
-set backspace=2            " allow backspacing over everything in insert mode
 set shortmess=filtIoOA     " shorten messages
 if has('patch-7.4.314') | set shortmess+=c | endif
 set report=0               " tell us about changes
@@ -119,11 +113,12 @@ set fillchars=diff:⣿,vert:│,fold:·
 set showmatch              " brackets/braces that is
 set mat=2                  " duration to show matching brace (1/10 sec)
 set ignorecase smartcase   " ignore case for searches without capital letters
-set hlsearch               " highlight searches
-set incsearch              " do incremental searching
-set visualbell             " shut the fuck up
-if exists('&belloff')
-  set belloff=all          " never ring the bell for any reason
+if !has("nvim")
+  if exists('&belloff')
+    set belloff=all          " never ring the bell for any reason
+  else
+    set visualbell           " shut the fuck up
+  endif
 endif
 if has("nvim")
   set inccommand=nosplit   " live substitution preview
@@ -132,9 +127,6 @@ set cpoptions+=$           " in the change mode, show an $ at the end
 " ----------------------------------------------------------------------------
 " Text Formatting
 " ----------------------------------------------------------------------------
-set autoindent             " automatic indent new lines
-"set smartindent           " Note: 'smartindent' is deprecated by 'cindent' and 'indentexpr'.
-filetype plugin indent on
 if has('patch-7.4.338')
   let &showbreak = '↳ '
   set breakindent          " when wrapping, indent the lines
@@ -152,9 +144,6 @@ set nojoinspaces           " Use one space, not two, after punctuation.
 
 set formatoptions+=n       " support for numbered/bullet lists
 set formatoptions+=1
-if has('patch-7.3.541')
-  set formatoptions+=j     " be smart about joining lines with comments
-endif
 " ---------------------------------------------------------------------------
 "  Gutentags / go to definition
 " ---------------------------------------------------------------------------
@@ -285,8 +274,8 @@ nnoremap <leader>w :up<CR>
 nnoremap Y y$
 
 " Easy block pasting with auto indentation
-nnoremap <leader>p p
-nnoremap <leader>P P
+"nnoremap <leader>p p
+"nnoremap <leader>P P
 nnoremap p p'[v']=
 nnoremap P P'[v']=
 " Copy/paste system buffer
