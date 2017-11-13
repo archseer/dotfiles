@@ -111,6 +111,8 @@ alias vim='nvim'
 alias v='nvim'
 alias vim='echo'
 
+alias ag='rg'
+
 alias g='/usr/local/bin/git'
 alias git='echo'
 
