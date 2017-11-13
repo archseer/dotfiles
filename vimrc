@@ -19,7 +19,7 @@ Plug 'w0rp/ale'
 " Completion
 Plug 'Shougo/echodoc.vim'
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif
 Plug 'slashmili/alchemist.vim'
 Plug 'Shougo/neosnippet'
@@ -197,10 +197,9 @@ if has('nvim') " Use deoplete.
           \ : delimitMate#WithinEmptyPair() ?
              \ delimitMate#ExpandReturn() : "\<CR>\<Plug>DiscretionaryEnd"
   endfunction
+  set completeopt+=menuone
+  set completeopt-=preview
 endif
-set completeopt+=menuone
-set completeopt-=preview
-
 " Neosnippet mappings
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
