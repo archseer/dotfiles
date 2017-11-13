@@ -112,6 +112,7 @@ set sidescroll=1
 set splitbelow             " splits that make more sense
 set splitright
 set synmaxcol=200          " Boost performance of rendering long lines
+set fillchars=diff:⣿,vert:│,fold:·
 " ----------------------------------------------------------------------------
 " Visual Cues
 " ----------------------------------------------------------------------------
@@ -125,7 +126,7 @@ if exists('&belloff')
   set belloff=all          " never ring the bell for any reason
 endif
 if has("nvim")
-  set inccommand=split     " live substitution preview
+  set inccommand=nosplit   " live substitution preview
 end
 set cpoptions+=$           " in the change mode, show an $ at the end
 " ----------------------------------------------------------------------------
@@ -423,6 +424,7 @@ function! StatusHighlight(mode)
   endif
 endfunction
 
+hi StatusError ctermbg=17 ctermfg=209 guifg=#f47868 guibg=#281733
 function! Status(winnr)
   let active = a:winnr == winnr() || winnr('$') == 1
   let status = ''
@@ -438,7 +440,7 @@ function! Status(winnr)
       " we can't wrap it in %{} because that kills the colors, but if we
       " don't, it will return the data for the active window. So, don't
       " display it on other windows.
-      let status .= '%#error#%{ALEGetStatusLine()}%*'
+      let status .= '%#StatusError#%{ALEGetStatusLine()}%* '
     endif
     let status .=  ' %{&fileencoding} | %{&filetype}  %l:%c '
   endif
