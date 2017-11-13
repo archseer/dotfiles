@@ -2,8 +2,8 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'whatyouhide/vim-gotham' " gotham256 for 256 color terminals
 
-" Languages
 Plug 'archseer/colibri.vim'
+" Languages
 Plug 'elixir-lang/vim-elixir'
 "Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'stephenway/postcss.vim'
@@ -30,6 +30,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish' " keepcase when replacing stuff
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-unimpaired'
 Plug 'machakann/vim-sandwich'
 Plug 'Raimondi/delimitMate'
 Plug 'mattn/emmet-vim'
@@ -97,6 +98,7 @@ set wildmenu               " turn on wild menu
 set wildmode=list:longest,full
 " Ignore all automatic files and folders
 set wildignore=*.o,*~,*/.git,*/tmp/*,*/node_modules/*,*/_build/*,*/deps/*,*/target/*
+set fileignorecase
 set ch=2                   " command line height
 set backspace=2            " allow backspacing over everything in insert mode
 set shortmess=filtIoOA     " shorten messages
@@ -220,7 +222,6 @@ endif
 
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
-
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
 " ---------------------------------------------------------------------------
@@ -335,12 +336,6 @@ imap <c-e> <c-y>,
 
 " toggle highlighting
 nnoremap <silent> <leader>h :noh<cr>
-
-" Quickfix
-nnoremap ]q :cnext<cr>zz
-nnoremap [q :cprev<cr>zz
-nnoremap ]l :lnext<cr>zz
-nnoremap [l :lprev<cr>zz
 
 " ?il | inner line
 xnoremap <silent> il <Esc>^vg_
@@ -457,7 +452,6 @@ function! StatusUpdate()
 endfunction
 
 autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call StatusUpdate()
-
 " ----------------------------------------------------------------------------
 " Functions
 " ----------------------------------------------------------------------------
