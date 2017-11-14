@@ -387,15 +387,12 @@ function! Status(winnr)
   if active != 0
     let status .= '%#StatusMode# %{StatusHighlight(mode())} %*'
   endif
-  let status .= ' %{fnamemodify(expand(''%''), '':~:.'')}%w%q%h%r%<%m '
-  let status .= '%{&paste?''[paste]'':''''}'
+  let status .= ' %{fnamemodify(expand("%"), ":~:.")}%w%q%h%r%<%m '
+  let status .= '%{&paste?"[paste]":""}'
 
   if &filetype != 'netrw' && &filetype != 'undotree'
     let status .= '%='
-    if active != 0
-      " we can't wrap it in %{} because that kills the colors, but if we
-      " don't, it will return the data for the active window. So, don't
-      " display it on other windows.
+    if active != 0 " only show lint information in the active window
       let status .= '%#StatusError#%{ALEGetStatusLine()}%* '
     endif
     let status .=  ' %{&fileencoding} | %{&filetype}  %l:%c '
@@ -410,7 +407,10 @@ function! StatusUpdate()
 endfunction
 
 set noshowmode " we show it in the statusline
-autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call StatusUpdate()
+augroup status-update
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call StatusUpdate()
+augroup END
 " ----------------------------------------------------------------------------
 " Functions
 " ----------------------------------------------------------------------------
