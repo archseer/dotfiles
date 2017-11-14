@@ -319,7 +319,7 @@ endfunction
 
 command! ProjectFiles execute 'Files' s:find_git_root()
 
-nnoremap <C-p> :ProjectFiles<CR>
+"nnoremap <C-p> :ProjectFiles<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>f :ProjectFiles<CR>
 nnoremap <Leader>e :History<CR>
