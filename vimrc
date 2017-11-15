@@ -1,18 +1,18 @@
 call plug#begin('~/.vim/plugged')
 " Colors
 Plug 'archseer/colibri.vim'
-Plug 'whatyouhide/vim-gotham' " gotham256 for 256 color terminals
+"Plug 'whatyouhide/vim-gotham' " gotham256 for 256 color terminals
+Plug 'cocopon/colorswatch.vim'
 " Languages
 Plug 'elixir-lang/vim-elixir'
-"Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'stephenway/postcss.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/vinarise.vim'
 
-Plug 'tpope/vim-speeddating' " orgmode dep
-Plug 'jceb/vim-orgmode'
-let g:FerretMap=0
-Plug 'wincent/ferret'
+"Plug 'tpope/vim-speeddating' " orgmode dep
+"Plug 'jceb/vim-orgmode'
+"let g:FerretMap=0
+"Plug 'wincent/ferret'
 " Lint
 Plug 'w0rp/ale'
 " Completion
@@ -22,7 +22,6 @@ if has('nvim')
 endif
 Plug 'slashmili/alchemist.vim'
 Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 " Code manipulation
 Plug 'AndrewRadev/splitjoin.vim'
@@ -39,6 +38,8 @@ Plug 'mattn/emmet-vim'
 Plug 'janko-m/vim-test'
 Plug 'junegunn/vim-peekaboo'
 " File finder
+let g:loaded_netrwPlugin = 1 " unload netrw
+Plug 'justinmk/vim-dirvish'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Git
@@ -76,7 +77,7 @@ if has('termguicolors')
   set termguicolors
   colors colibri
 else
-  colorscheme base16-paraiso
+  colors base16-paraiso
 endif
 " ----------------------------------------------------------------------------
 "  UI
@@ -200,6 +201,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
+let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
 " ---------------------------------------------------------------------------
