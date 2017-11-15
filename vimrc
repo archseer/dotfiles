@@ -166,19 +166,22 @@ let g:delimitMate_expand_cr = 2
 if has('nvim') " Use deoplete.
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#enable_smart_case = 1
+  set completeopt+=menuone
+  set completeopt-=preview
+  if has('patch-7.4.314') | set shortmess+=c | endif
 
-  inoremap <expr><silent> <CR> <SID>smart_cr()
+  let g:endwise_no_mappings = 1 " don't override my map..
   function! s:smart_cr()
     " neosnippet || deoplete || delimitmate || vim-endwise
     return neosnippet#expandable_or_jumpable() ?
           \ neosnippet#mappings#expand_or_jump_impl()
           \ : pumvisible() ? deoplete#mappings#close_popup()
           \ : delimitMate#WithinEmptyPair() ? delimitMate#ExpandReturn()
-          \: "\<CR>\<Plug>DiscretionaryEnd"
+          \ : "\<CR>\<Plug>DiscretionaryEnd"
   endfunction
-  set completeopt+=menuone
-  set completeopt-=preview
-  if has('patch-7.4.314') | set shortmess+=c | endif
+  "inoremap <expr> <CR> <SID>smart_cr()
+  " needs recursion to expand <Plug>
+  imap <expr> <CR> <SID>smart_cr()
 endif
 " neosnippet mappings
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
