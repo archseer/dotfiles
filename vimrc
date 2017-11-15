@@ -242,6 +242,13 @@ augroup postcss
   autocmd BufNewFile,BufRead *.css set filetype=postcss
 augroup END
 
+" vim-gitgutter
+let g:gitgutter_sign_added = '▌'
+let g:gitgutter_sign_removed = '▖'
+let g:gitgutter_sign_removed_first_line = '▘'
+let g:gitgutter_sign_modified = '▐'
+let g:gitgutter_sign_modified_removed = '▞'
+
 " vim-test
 let test#filename_modifier = ":p"
 nmap <silent> <leader>t :TestNearest<CR>
@@ -257,7 +264,7 @@ nnoremap Q gqip
 vnoremap Q gq
 
 " Save the file (if it has been modified)
-nnoremap <leader>w :up<CR>
+nnoremap <silent> <leader>w :up<CR>
 
 " Make Y behave like other capitals
 nnoremap Y y$
