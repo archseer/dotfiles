@@ -71,11 +71,12 @@ endif
 " Colors / Theme
 " ---------------------------------------------------------------------------
 set background=dark
-colorscheme base16-paraiso
 
 if has('termguicolors')
   set termguicolors
   colors colibri
+else
+  colorscheme base16-paraiso
 endif
 " ----------------------------------------------------------------------------
 "  UI
