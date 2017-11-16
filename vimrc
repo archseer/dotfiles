@@ -179,11 +179,9 @@ if has('nvim') " Use deoplete.
           \ neosnippet#mappings#expand_or_jump_impl()
           \ : pumvisible() ? deoplete#mappings#close_popup()
           \ : delimitMate#WithinEmptyPair() ? delimitMate#ExpandReturn()
-          \ : "\<CR>\<Plug>DiscretionaryEnd"
+          \ : "\<CR>" . EndwiseDiscretionary()
   endfunction
-  "inoremap <expr> <CR> <SID>smart_cr()
-  " needs recursion to expand <Plug>
-  imap <expr> <CR> <SID>smart_cr()
+  inoremap <expr> <CR> <SID>smart_cr()
 endif
 " neosnippet mappings
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
