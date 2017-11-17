@@ -223,10 +223,12 @@ let ruby_operators = 1 " highlight operators
 let g:vue_disable_pre_processors=1
 
 " Ale
-let g:ale_statusline_format = ['⨉ %d', '● %d', '']
+let g:ale_statusline_format = ['⨉ %d', '● %d', '⬥ ok']
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
 let g:ale_linters = {'elixir': ['credo']}
+let g:ale_fixers = {'vue': ['eslint'], 'javascript': ['eslint']}
+let g:ale_fix_on_save = 1
 let g:ale_sign_error = "●"
 let g:ale_sign_warning = "●"
 
@@ -393,7 +395,9 @@ function! StatusHighlight(mode)
   endif
 endfunction
 
+"hi StatusError ctermbg=17 ctermfg=209 guibg=#F22C86 guifg=#281733
 hi StatusError ctermbg=17 ctermfg=209 guifg=#f47868 guibg=#281733
+hi StatusOk ctermbg=17 ctermfg=209 guifg=#ffffff guibg=#281733
 function! Status(winnr)
   let active = a:winnr == winnr() || winnr('$') == 1
   let status = ''
@@ -406,7 +410,9 @@ function! Status(winnr)
   if &filetype != 'netrw' && &filetype != 'undotree'
     let status .= '%='
     if active != 0 " only show lint information in the active window
-      let status .= '%#StatusError#%{ALEGetStatusLine()}%* '
+      let l:counts = ale#statusline#Count(bufnr(''))
+      let status .= l:counts.total == 0 ? '%#StatusOk#' : '%#StatusError#'
+      let status .= '%{ALEGetStatusLine()}%* '
     endif
     let status .=  ' %{&fileencoding} | %{&filetype}  %l:%c '
   endif
