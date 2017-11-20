@@ -100,8 +100,8 @@ set mousehide              " Hide the mouse pointer while typing
 set scrolloff=5            " minimum lines to keep above and below cursor
 set sidescrolloff=7
 set sidescroll=1
-set splitbelow             " splits that make more sense
-set splitright
+set splitbelow splitright  " splits that make more sense
+set switchbuf=useopen      " When buffer already open, jump to that window
 set diffopt+=iwhite        " Add ignorance of whitespace to diff
 set diffopt+=vertical      " Allways diff vertically
 set synmaxcol=200          " Boost performance of rendering long lines
@@ -122,6 +122,7 @@ if has('patch-7.4.338')
 endif
 " show whitespace with <leader>s
 set listchars=tab:——,trail:·,eol:$
+"set listchars+=extends:›,precedes:‹,nbsp:␣
 if has('patch-7.4.710')    " show normal spaces too if possible
   set listchars+=space:·
 endif
