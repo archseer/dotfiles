@@ -22,12 +22,12 @@ tmux source-file ~/.tmux.conf
 
 # vim-plug
 export GIT_SSL_NO_VERIFY=true
-mkdir -p ~/.vim/autoload
-curl --insecure -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim
+mkdir -p ~/.vim/pack/minpac/opt
+git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac
 
 # nvim
 mkdir -p ~/.config/nvim/autoload
 ln -sf $BASE/vimrc ~/.config/nvim/init.vim
-ln -sf ~/.vim/autoload/plug.vim ~/.config/nvim/autoload/
+#ln -sf ~/.vim/autoload/plug.vim ~/.config/nvim/autoload/
 
-vim +PlugInstall +qall
+vim -u ~/.vim/packages.vim +PackUpdate +qall

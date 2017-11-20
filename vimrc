@@ -1,64 +1,14 @@
-call plug#begin('~/.vim/plugged')
-" Colors
-Plug 'archseer/colibri.vim'
-"Plug 'whatyouhide/vim-gotham' " gotham256 for 256 color terminals
-Plug 'cocopon/colorswatch.vim'
-" Languages
-Plug 'elixir-lang/vim-elixir'
-Plug 'stephenway/postcss.vim'
-Plug 'sheerun/vim-polyglot'
-Plug 'Shougo/vinarise.vim'
-
-"Plug 'tpope/vim-speeddating' " orgmode dep
-"Plug 'jceb/vim-orgmode'
-"let g:FerretMap=0
-"Plug 'wincent/ferret'
-" Lint
-Plug 'w0rp/ale'
-" Completion
-Plug 'Shougo/echodoc.vim'
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-endif
-Plug 'slashmili/alchemist.vim'
-Plug 'Shougo/neosnippet'
-Plug 'honza/vim-snippets'
-" Code manipulation
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-abolish' " keepcase when replacing stuff
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-unimpaired'
-Plug 'machakann/vim-sandwich'
-Plug 'Raimondi/delimitMate'
-Plug 'mattn/emmet-vim'
-
-Plug 'janko-m/vim-test'
-Plug 'junegunn/vim-peekaboo'
-" File finder
-let g:loaded_netrwPlugin = 1 " unload netrw
-Plug 'justinmk/vim-dirvish'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-" Git
-Plug 'lambdalisue/gina.vim'
-Plug 'airblade/vim-gitgutter'
-
-Plug 'ludovicchabant/vim-gutentags'
-
-call plug#end()
 " ---------------------------------------------------------------------------
 " General
 " ---------------------------------------------------------------------------
 let mapleader=" "
 
-" load sensible neovim defaults on regular vim
-if !has('nvim')
+if !has('nvim') " load sensible neovim defaults on regular vim
   set encoding=utf-8
   silent! source ~/.vim/sensible.vim
 endif
+
+runtime packages.vim
 
 set nobackup              " do not keep backups
 set noswapfile            " don't keep swp files either
@@ -71,6 +21,7 @@ endif
 " ---------------------------------------------------------------------------
 " Colors / Theme
 " ---------------------------------------------------------------------------
+syntax on " fixes the colorscheme bg being light instead of dark
 set background=dark
 
 if has('termguicolors')
