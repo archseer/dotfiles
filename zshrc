@@ -21,9 +21,6 @@ if ! zgen saved; then
   zgen prezto completion   # must be loaded after utility
   zgen prezto prompt theme 'hyrule'
 
-  zgen prezto archive      # lsarchive and unarchive commands
-  zgen prezto osx
-
   zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-completions src
   zgen save
