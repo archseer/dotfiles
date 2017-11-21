@@ -14,14 +14,12 @@ for rc in *rc *profile tmux.conf gitconfig spacemacs vim/colors; do
 done
 
 # zsh stuff
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 
 # Apply tmux settings
 tmux source-file ~/.tmux.conf
 
 # vim-plug
-export GIT_SSL_NO_VERIFY=true
 mkdir -p ~/.vim/pack/minpac/opt
 git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac
 
