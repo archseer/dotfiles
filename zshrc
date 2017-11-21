@@ -1,7 +1,5 @@
 source "${HOME}/.zgen/zgen.zsh"
 
-unsetopt histverify
-
 if ! zgen saved; then
   echo "Creating a zgen save"
 
@@ -25,6 +23,8 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions src
   zgen save
 fi
+# override prezto
+setopt clobber
 
 # Add the missing sbin to path
 export PATH="/usr/local/sbin:$PATH"
