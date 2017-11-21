@@ -5,8 +5,8 @@ if !exists('*packages#reload')
   endfunc
 endif
 
-command! PackUpdate packadd minpac | call packages#reload() | redraw | call minpac#update()
-command! PackClean  packadd minpac | call packages#reload() | call minpac#clean()
+command! -bar PackUpdate packadd minpac | call packages#reload() | redraw | call minpac#update()
+command! -bar PackClean  packadd minpac | call packages#reload() | call minpac#clean()
 
 if !exists('*minpac#init')
   finish
@@ -23,11 +23,6 @@ call minpac#add('elixir-lang/vim-elixir')
 call minpac#add('stephenway/postcss.vim')
 call minpac#add('sheerun/vim-polyglot')
 call minpac#add('Shougo/vinarise.vim')
-
-"call minpac#add('tpope/vim-speeddating') " orgmode dep
-"call minpac#add('jceb/vim-orgmode')
-"let g:FerretMap=0
-"call minpac#add('wincent/ferret')
 " Lint
 call minpac#add('w0rp/ale')
 " Completion
@@ -37,7 +32,7 @@ if has('nvim')
 endif
 call minpac#add('slashmili/alchemist.vim')
 call minpac#add('Shougo/neosnippet')
-call minpac#add('honza/vim-snippets')
+call minpac#add('honza/vim-snippets', {'type': 'opt'})
 " Code manipulation
 call minpac#add('AndrewRadev/splitjoin.vim')
 call minpac#add('junegunn/vim-easy-align')

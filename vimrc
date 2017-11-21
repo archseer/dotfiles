@@ -2,10 +2,11 @@
 " General
 " ---------------------------------------------------------------------------
 let mapleader=" "
+let g:vim_home = expand('<sfile>:p:h')
 
 if !has('nvim') " load sensible neovim defaults on regular vim
   set encoding=utf-8
-  silent! source ~/.vim/sensible.vim
+  silent! runtime sensible.vim
 endif
 
 runtime packages.vim
@@ -14,13 +15,7 @@ set nobackup              " do not keep backups
 set noswapfile            " don't keep swp files either
 set undofile
 
-if executable('rg') " Use rg over grep
-  set grepprg=rg\ --vimgrep\ --no-heading
-  let g:ackprg = 'rg --vimgrep --no-heading'
-endif
-" ---------------------------------------------------------------------------
-" Colors / Theme
-" ---------------------------------------------------------------------------
+" -- Colors / Theme ---------------------------------------------------------
 syntax on " fixes the colorscheme bg being light instead of dark
 set background=dark
 
@@ -30,11 +25,10 @@ if has('termguicolors')
 else
   colors base16-paraiso
 endif
-" ----------------------------------------------------------------------------
-"  UI
-" ----------------------------------------------------------------------------
-"set noshowcmd             " don't display incomplete commands
+
+"  -- UI --------------------------------------------------------------------
 set title
+set ch=2                   " command line height
 set hidden                 " allow buffer switching without saving
 set lazyredraw             " no redraws in macros
 set number                 " line numbers
@@ -43,11 +37,10 @@ set wildmode=list:longest,full
 " Ignore all automatic files and folders
 set wildignore=*.o,*~,*/.git,*/tmp/*,*/node_modules/*,*/_build/*,*/deps/*,*/target/*
 set fileignorecase
-set ch=2                   " command line height
 set shortmess+=aAI         " shorten messages
 set report=0               " tell us about changes
-set nostartofline          " don't jump to the start of line when scrolling
 set mousehide              " Hide the mouse pointer while typing
+set nostartofline          " don't jump to the start of line when scrolling
 set scrolloff=5            " minimum lines to keep above and below cursor
 set sidescrolloff=7
 set sidescroll=1
@@ -56,13 +49,18 @@ set switchbuf=useopen      " When buffer already open, jump to that window
 set diffopt+=iwhite        " Add ignorance of whitespace to diff
 set diffopt+=vertical      " Allways diff vertically
 set synmaxcol=200          " Boost performance of rendering long lines
-set fillchars=diff:⣿,vert:│,fold:·
-" ----------------------------------------------------------------------------
-" Visual Cues
-" ----------------------------------------------------------------------------
+
+" -- Search -----------------------------------------------------------------
+set ignorecase smartcase   " ignore case for searches without capital letters
+if executable('rg')        " Use rg over grep
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+endif
+" toggle search highlighting
+nnoremap <silent> <leader>h :noh<cr>
+
+" -- Visual Cues ------------------------------------------------------------
 set showmatch matchtime=2  " show matching brackets/braces (2*1/10 sec)
 set cpoptions+=$           " in the change mode, show an $ at the end
-set ignorecase smartcase   " ignore case for searches without capital letters
 if has("nvim")
   set inccommand=nosplit   " live substitution preview
 end
@@ -71,16 +69,16 @@ if has('patch-7.4.338')
   set breakindent          " when wrapping, indent the lines
   set breakindentopt=sbr
 endif
+set fillchars=diff:⣿,vert:│,fold:·
 " show whitespace with <leader>s
 set listchars=tab:——,trail:·,eol:$
 "set listchars+=extends:›,precedes:‹,nbsp:␣
 if has('patch-7.4.710')    " show normal spaces too if possible
   set listchars+=space:·
 endif
-noremap <silent> <leader>s :set nolist!<CR>
-" ----------------------------------------------------------------------------
-" Text Formatting
-" ----------------------------------------------------------------------------
+nnoremap <silent> <leader>s :set nolist!<CR>
+
+" -- Text Formatting --------------------------------------------------------
 " Don't mess with 'tabstop', with 'expandtab' it isn't used.
 " Instead set softtabstop=-1, then 'shiftwidth' is used.
 set expandtab shiftwidth=2 softtabstop=-1
@@ -89,7 +87,6 @@ set textwidth=80           " wrap at 80 chars by default
 set colorcolumn=+1
 set virtualedit=block      " allow virtual edit in visual block ..
 set nojoinspaces           " Use one space, not two, after punctuation.
-
 set linebreak
 set nowrap                 " do not wrap lines
 set formatoptions+=rno1l   " support for numbered/bullet lists, etc.
@@ -153,7 +150,7 @@ endif
 
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
 let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
+let g:neosnippet#snippets_directory= g:vim_home .'/pack/minpac/opt/vim-snippets/snippets'
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
 " ---------------------------------------------------------------------------
@@ -209,11 +206,14 @@ let g:gitgutter_sign_modified_removed = '▞'
 
 " vim-test
 let test#filename_modifier = ":p"
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>l :TestLast<CR>
-nmap <silent> <leader>g :TestVisit<CR>
+nnoremap <silent> <leader>t :TestNearest<CR>
+nnoremap <silent> <leader>T :TestFile<CR>
+nnoremap <silent> <leader>a :TestSuite<CR>
+nnoremap <silent> <leader>l :TestLast<CR>
+nnoremap <silent> <leader>g :TestVisit<CR>
+
+" Default peekaboo window
+let g:peekaboo_window = 'vertical botright 60new'
 " ---------------------------------------------------------------------------
 "  Mappings
 " ---------------------------------------------------------------------------
@@ -235,8 +235,8 @@ noremap <leader>y "*y
 noremap <leader>p "*p
 
 " Blank lines without insert
-nnoremap <leader>o o<Esc>
-nnoremap <leader>O O<Esc>
+"nnoremap <leader>o o<Esc>
+"nnoremap <leader>O O<Esc>
 
 " Switch from horizontal split to vertical split and vice versa
 nnoremap <leader>- <C-w>t<C-w>H
@@ -263,9 +263,6 @@ cmap w!! w !sudo tee > /dev/null %
 " Shortcut for emmet
 imap <c-e> <c-y>,
 
-" toggle highlighting
-nnoremap <silent> <leader>h :noh<cr>
-
 " ?il | inner line
 xnoremap <silent> il <Esc>^vg_
 onoremap <silent> il :<C-U>normal! ^vg_<CR>
@@ -275,16 +272,13 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" Default peekaboo window
-let g:peekaboo_window = 'vertical botright 60new'
-
+" -- fzf ---------------------------------------------------------------------
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
 
 command! ProjectFiles execute 'Files' s:find_git_root()
 
-"nnoremap <C-p> :ProjectFiles<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>f :ProjectFiles<CR>
 nnoremap <Leader>e :History<CR>
@@ -310,15 +304,13 @@ let g:fzf_colors =
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
-" ----------------------------------------------------------------------------
-" vim-sandwich
-" ----------------------------------------------------------------------------
-" in middle (of) {'_'  '.' ',' '/' '-')
+
+" -- vim-sandwich ------------------------------------------------------------
 xmap im <Plug>(textobj-sandwich-literal-query-i)
 xmap am <Plug>(textobj-sandwich-literal-query-a)
 omap im <Plug>(textobj-sandwich-literal-query-i)
 omap am <Plug>(textobj-sandwich-literal-query-a)
-
+" in middle (of) {'_'  '.' ',' '/' '-')
 xmap i_ im_
 xmap a_ im_
 omap i_ im_
@@ -391,7 +383,7 @@ function! Preserve(cmd)
   let @/ = _s | call setpos('.', _pos) " Restore search and position
 endfunction
 
-nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
+nnoremap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 
 " HL | Find out syntax group
 function! s:hl()
