@@ -1,11 +1,12 @@
 source "${HOME}/.zgen/zgen.zsh"
 
 if ! zgen saved; then
-  echo "Creating a zgen save"
+  echo "Creating a zgen save..."
 
   #zgen prezto editor key-bindings 'vi'
   zgen prezto editor key-bindings 'emacs'
   zgen prezto utility:ls color 'yes'
+  zgen prezto utility safe-ops 'no'
   zgen prezto '*:*' color 'yes'
 
   zgen prezto

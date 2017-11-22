@@ -9,7 +9,6 @@ brew 'zsh'
 tap 'neovim/neovim'
 brew 'neovim'
 brew 'vim', args: ['with-lua', 'with-override-system-vi']
-brew 'reattach-to-user-namespace'
 
 # cli!
 brew 'tmux'
