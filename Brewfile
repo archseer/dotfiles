@@ -32,12 +32,17 @@ tap 'thoughtbot/formulae'
 brew 'thoughtbot/formulae/gitsh'
 brew 'thoughtbot/formulae/rcm'
 
-brew 'dnsmasq'
+brew 'dnsmasq', restart_service: true
 brew 'mobile-shell'
-brew 'weechat'
+brew "weechat", args: ["with-perl", "with-python"]
 brew 'ngrok'
 brew 'rsync'
 brew 'nmap'
+brew 'gor'
+#brew 'dhex'
+
+# brew 'postgresql', restart_service: true
+#brew "mariadb", restart_service: true
 
 brew 'chruby'
 brew 'ruby-build'
@@ -45,14 +50,24 @@ brew 'elixir'
 # brew 'leiningen'
 # brew 'cabal-install'
 brew 'hugo'
+brew 'watchman'
+
+tap 'theseal/ssh-askpass'
+brew "theseal/ssh-askpass/ssh-askpass"
 
 brew 'johanhaleby/kubetail/kubetail'
 brew 'kubernetes-helm'
 brew 'kops'
 
+cask 'ngrok'
 cask '1password'
-cask 'firefox'
+cask "caskroom/versions/firefoxnightly"
 cask 'transmission'
 cask 'vlc'
 cask 'iterm2'
 cask 'vagrant'
+cask "hammerspoon"
+cask "iina"
+cask "imageoptim"
+cask "iterm2"
+cask "karabiner"

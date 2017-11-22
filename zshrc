@@ -14,11 +14,11 @@ if ! zgen saved; then
   zgen prezto editor
   zgen prezto history
   zgen prezto directory
-  zgen prezto spectrum
   zgen prezto utility
   zgen prezto completion   # must be loaded after utility
   zgen prezto prompt theme 'hyrule'
 
+  zgen prezto history-substring-search
   zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-completions src
   zgen save

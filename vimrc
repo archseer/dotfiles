@@ -393,6 +393,8 @@ command! HL call <SID>hl()
 
 augroup vimrcEx
   autocmd!
+  " Auto create directories for new files.
+  au BufWritePre,FileWritePre * call mkdir(expand('<afile>:p:h'), 'p')
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it for commit messages, when the position is invalid, or when
