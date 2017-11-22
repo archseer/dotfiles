@@ -9,6 +9,8 @@ if !has('nvim') " load sensible neovim defaults on regular vim
   silent! runtime sensible.vim
 endif
 
+filetype plugin indent on
+
 runtime packages.vim
 
 set nobackup              " do not keep backups
@@ -49,6 +51,7 @@ set switchbuf=useopen      " When buffer already open, jump to that window
 set diffopt+=iwhite        " Add ignorance of whitespace to diff
 set diffopt+=vertical      " Allways diff vertically
 set synmaxcol=200          " Boost performance of rendering long lines
+set guicursor=
 
 " -- Search -----------------------------------------------------------------
 set ignorecase smartcase   " ignore case for searches without capital letters

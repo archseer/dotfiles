@@ -96,6 +96,6 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 export ELIXIR_EDITOR="vi +__LINE__ __FILE__"
 
 # autocomplete kubectl
-source <(kubectl completion zsh)
+# source <(kubectl completion zsh)
 
 export PATH="$HOME/.yarn/bin:$PATH"
