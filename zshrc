@@ -3,11 +3,11 @@ source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
   echo "Creating a zgen save..."
 
-  #zgen prezto editor key-bindings 'vi'
+  # zgen prezto editor key-bindings 'vi'
   zgen prezto editor key-bindings 'emacs'
   zgen prezto utility:ls color 'yes'
   zgen prezto utility safe-ops 'no'
-  zgen prezto '*:*' color 'yes'
+  # zgen prezto '*:*' color 'yes'
 
   zgen prezto
   zgen prezto environment
@@ -21,11 +21,14 @@ if ! zgen saved; then
 
   zgen prezto history-substring-search
   zgen load zsh-users/zsh-autosuggestions
+  # Load more completion files for zsh from the zsh-lovers github repo
   zgen load zsh-users/zsh-completions src
   zgen save
 fi
 # override prezto
 setopt clobber
+
+# -- Exports ----------------------------------------------------------------
 
 # Add the missing sbin to path
 export PATH="/usr/local/sbin:$PATH"
@@ -36,28 +39,42 @@ export LC_CTYPE="en_US.UTF-8"
 
 export EDITOR='nvim'
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
 export GL_ENABLE_DEBUG_ATTACH=YES
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
 
 # put ~/bin on PATH if you have it
 test -d "$HOME/bin" &&
-PATH="$HOME/bin:$PATH"
+  PATH="$HOME/bin:$PATH"
 
+# add rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+# add go
 export GOPATH="$HOME/src/go"
 export PATH="${GOPATH//://bin:}/bin:$PATH"
+# add yarn
+export PATH="$HOME/.yarn/bin:$PATH"
 
 #export PATH="$HOME/src/moon/bin:$PATH"
 
-alias mm='middleman'
+# OSX is turning into shit, askpass isn't working so I copied it from
+# https://github.com/markcarver/mac-ssh-askpass/blob/master/ssh-askpass
+# into ~/bin/ssh-askpass
+export SSH_ASKPASS="ssh-askpass"
+
+# erlang shell history
+export ERL_AFLAGS="-kernel shell_history enabled"
+export ELIXIR_EDITOR="vi +__LINE__ __FILE__"
+
+# autocomplete kubectl
+# source <(kubectl completion zsh)
+
+# -- Aliases ----------------------------------------------------------------
 
 alias vim='nvim'
 alias v='nvim'
+alias e='v $(fzf)'
 alias g='/usr/local/bin/git'
+alias l='ls -alhF'
 
 alias k='kubectl'
 alias h='helm'
@@ -67,10 +84,12 @@ alias f='fly -t ci'
 #alias git='echo'
 alias ag='rg'
 
-# OSX is turning into shit, askpass isn't working so I copied it from
-# https://github.com/markcarver/mac-ssh-askpass/blob/master/ssh-askpass
-# into ~/bin/ssh-askpass
-export SSH_ASKPASS="ssh-askpass"
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+# Show laptop's IP addresses
+alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+
+# -- fzf --------------------------------------------------------------------
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -90,12 +109,3 @@ gh() {
 
 zle -N gh
 bindkey '^g^h' gh
-
-# erlang shell history
-export ERL_AFLAGS="-kernel shell_history enabled"
-export ELIXIR_EDITOR="vi +__LINE__ __FILE__"
-
-# autocomplete kubectl
-# source <(kubectl completion zsh)
-
-export PATH="$HOME/.yarn/bin:$PATH"
