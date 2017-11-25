@@ -48,7 +48,6 @@ call minpac#add('mattn/emmet-vim')
 call minpac#add('janko-m/vim-test')
 call minpac#add('junegunn/vim-peekaboo')
 " File finder
-let g:loaded_netrwPlugin = 1 " unload netrw
 call minpac#add('justinmk/vim-dirvish')
 call minpac#add('junegunn/fzf')
 call minpac#add('junegunn/fzf.vim')

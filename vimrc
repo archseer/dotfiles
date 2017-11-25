@@ -9,16 +9,18 @@ if !has('nvim') " load sensible neovim defaults on regular vim
   silent! runtime sensible.vim
 endif
 
+" for some reason, using vim8 packages, these two won't be set to on
 filetype plugin indent on
+syntax on
 
 runtime packages.vim
+let g:loaded_netrwPlugin = 1 " unload netrw, we use dirvish
 
 set nobackup              " do not keep backups
 set noswapfile            " don't keep swp files either
 set undofile
 
 " -- Colors / Theme ---------------------------------------------------------
-syntax on " fixes the colorscheme bg being light instead of dark
 set background=dark
 
 if has('termguicolors')
