@@ -3,11 +3,15 @@ source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
   echo "Creating a zgen save..."
 
+  ZGEN_PREZTO_LOAD_DEFAULT=0 # don't load default list on `zgen prezto`
+
   # zgen prezto editor key-bindings 'vi'
   zgen prezto editor key-bindings 'emacs'
+  zgen prezto editor dot-expansion 'yes'
   zgen prezto utility:ls color 'yes'
   zgen prezto utility safe-ops 'no'
-  # zgen prezto '*:*' color 'yes'
+  zgen prezto '*:*' color 'yes'
+  zgen prezto prompt theme 'hyrule'
 
   zgen prezto
   zgen prezto environment
@@ -17,7 +21,7 @@ if ! zgen saved; then
   zgen prezto directory
   zgen prezto utility
   zgen prezto completion   # must be loaded after utility
-  zgen prezto prompt theme 'hyrule'
+  zgen prezto prompt
 
   zgen prezto history-substring-search
   zgen load zsh-users/zsh-autosuggestions
@@ -88,6 +92,10 @@ alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 # Show laptop's IP addresses
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+
+# Mutes/Unmutes the system volume.
+alias mute="osascript -e 'set volume output muted true'"
+alias unmute="osascript -e 'set volume output muted false'"
 
 # -- fzf --------------------------------------------------------------------
 

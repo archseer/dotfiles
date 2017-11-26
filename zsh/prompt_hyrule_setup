@@ -1,0 +1,39 @@
+function +vi-git_status {
+  # Check for untracked files or updated submodules since vcs_info does not.
+  if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
+    hook_com[unstaged]='*'
+  fi
+}
+
+function prompt_hyrule_precmd {
+  vcs_info
+}
+
+function prompt_hyrule_setup {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent sp subst)
+
+  # Load required functions.
+  autoload -Uz add-zsh-hook
+  autoload -Uz vcs_info
+
+  # Add hook for calling vcs_info before each command.
+  add-zsh-hook precmd prompt_hyrule_precmd
+
+  # Set vcs_info parameters.
+  zstyle ':vcs_info:*' enable bzr git hg svn
+  zstyle ':vcs_info:*' check-for-changes true
+  zstyle ':vcs_info:*' stagedstr '*'
+  zstyle ':vcs_info:*' unstagedstr '*'
+  zstyle ':vcs_info:*' formats '[%b%c%u]'
+  zstyle ':vcs_info:*' actionformats "[%b%c%u|%a]"
+  zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b|%r'
+  zstyle ':vcs_info:git*+set-message:*' hooks git_status
+
+  # Define prompts.
+  PROMPT=$'%F{blue}┌─%f%F{magenta}%n@%m%f%F{green}[%c]%f%F{blue}${vcs_info_msg_0_}%f\n %F{blue}└─ λ%f '
+}
+prompt_hyrule_setup "$@"
+
+

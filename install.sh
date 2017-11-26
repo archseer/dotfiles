@@ -37,6 +37,7 @@ chsh -s /usr/local/bin/zsh
 env zsh
 
 git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+ln -s $BASE/zsh/custom/themes/prompt_hyrule_setup ~/.zgen/sorin-ionescu/prezto-master/modules/prompt/functions
 
 # Apply tmux settings
 log "Setting up tmux"
