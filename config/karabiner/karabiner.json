@@ -8,45 +8,46 @@
         {
             "complex_modifications": {
                 "parameters": {
+                    "basic.to_delayed_action_delay_milliseconds": 500,
                     "basic.to_if_alone_timeout_milliseconds": 1000
                 },
                 "rules": [
                     {
-                      "description": "Disable Shift+9, Shift+0 as parentheses (Better Shifting training).",
-                      "manipulators": [
-                        {
-                          "from": {
-                            "key_code": "9",
-                            "modifiers": {
-                              "mandatory": [
-                                "left_shift"
-                              ]
-                            }
-                          },
-                          "to": [
+                        "description": "Disable Shift+9, Shift+0 as parentheses (Better Shifting training).",
+                        "manipulators": [
                             {
-                              "key_code": "vk_none"
-                            }
-                          ],
-                          "type": "basic"
-                        },
-                        {
-                          "from": {
-                            "key_code": "0",
-                            "modifiers": {
-                              "mandatory": [
-                                "left_shift"
-                              ]
-                            }
-                          },
-                          "to": [
+                                "from": {
+                                    "key_code": "9",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "vk_none"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
                             {
-                              "key_code": "vk_none"
+                                "from": {
+                                    "key_code": "0",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "vk_none"
+                                    }
+                                ],
+                                "type": "basic"
                             }
-                          ],
-                          "type": "basic"
-                        }
-                      ]
+                        ]
                     },
                     {
                         "description": "Caps Lock to Escape on single press, Control on press and hold.",
@@ -262,6 +263,7 @@
                     },
                     "ignore": false,
                     "keyboard_type": 0,
+                    "manipulate_caps_lock_led": true,
                     "simple_modifications": []
                 },
                 {
@@ -275,6 +277,7 @@
                     },
                     "ignore": false,
                     "keyboard_type": 41,
+                    "manipulate_caps_lock_led": false,
                     "simple_modifications": [
                         {
                             "from": {
@@ -304,6 +307,7 @@
                         "vendor_id": 1241
                     },
                     "ignore": true,
+                    "manipulate_caps_lock_led": false,
                     "simple_modifications": []
                 }
             ],
