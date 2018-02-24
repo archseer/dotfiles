@@ -411,3 +411,13 @@ augroup vimrcEx
 
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 augroup END
+
+augroup align_windows
+  au!
+  au VimResized * wincmd =
+augroup END
+
+" -- Abbreviations ----------------------------------------------------------
+iabbrev jsut    just
+iabbrev teh     the
+iabbrev recieve receive
