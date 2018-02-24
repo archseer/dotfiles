@@ -27,10 +27,12 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-autosuggestions
   # Load more completion files for zsh from the zsh-lovers github repo
   zgen load zsh-users/zsh-completions src
+  zgen load Tarrasch/zsh-bd
   zgen save
 fi
 # override prezto
 setopt clobber
+setopt interactivecomments
 
 # -- Exports ----------------------------------------------------------------
 
@@ -79,6 +81,7 @@ alias v='nvim'
 alias e='v $(fzf)'
 alias g='/usr/local/bin/git'
 alias l='ls -alhF'
+alias ll='ls -CF'
 
 alias k='kubectl'
 alias h='helm'
