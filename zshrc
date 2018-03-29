@@ -104,6 +104,10 @@ alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias mute="osascript -e 'set volume output muted true'"
 alias unmute="osascript -e 'set volume output muted false'"
 
+function kex() {
+  kubectl exec -i -t "$1" bin/app remote_console
+}
+
 # -- fzf --------------------------------------------------------------------
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
