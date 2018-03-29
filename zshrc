@@ -74,6 +74,8 @@ export ELIXIR_EDITOR="vi +__LINE__ __FILE__"
 # autocomplete kubectl
 # source <(kubectl completion zsh)
 
+eval "$(fasd --init auto)"
+
 # -- Aliases ----------------------------------------------------------------
 
 alias vim='nvim'
@@ -86,6 +88,8 @@ alias ll='ls -CF'
 alias k='kubectl'
 alias h='helm'
 alias f='fly -t ci'
+
+alias j='fasd_cd -d'
 
 #alias vim='echo'
 #alias git='echo'
