@@ -23,6 +23,7 @@ call minpac#add('elixir-lang/vim-elixir')
 call minpac#add('stephenway/postcss.vim')
 call minpac#add('sheerun/vim-polyglot')
 call minpac#add('Shougo/vinarise.vim')
+call minpac#add('jparise/vim-graphql')
 " Lint
 call minpac#add('w0rp/ale')
 " Completion

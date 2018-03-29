@@ -178,6 +178,7 @@ let g:vue_disable_pre_processors=1
 
 " Ale
 let g:ale_statusline_format = ['⨉ %d', '● %d', '⬥ ok']
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
 let g:ale_completion_enabled = 1
@@ -412,6 +413,7 @@ augroup vimrcEx
     \ endif
 
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
+  autocmd BufRead,BufNewFile *.graphql,*.graphqls,*.gql setfiletype graphql
 augroup END
 
 augroup align_windows
