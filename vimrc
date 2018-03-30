@@ -166,9 +166,9 @@ let g:deoplete#skip_chars = ["(", ")"]
 
 " use lsp's omni for these
 let g:deoplete#sources = {
-      \  'elixir': ['omni'],
-      \  'vue': ['omni'],
-      \  'typescript': ['omni'],
+      \  'elixir': ['omni', 'neosnippet'],
+      \  'vue': ['omni', 'neosnippet'],
+      \  'typescript': ['omni', 'neosnippet'],
       \}
 
 "let g:deoplete#omni#functions = {'_': 'lsp#complete'}
