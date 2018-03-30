@@ -24,6 +24,8 @@ call minpac#add('stephenway/postcss.vim')
 call minpac#add('sheerun/vim-polyglot')
 call minpac#add('Shougo/vinarise.vim')
 call minpac#add('jparise/vim-graphql')
+call minpac#add('prabirshrestha/async.vim')
+call minpac#add('prabirshrestha/vim-lsp')
 " Lint
 call minpac#add('w0rp/ale')
 " Completion
@@ -31,7 +33,6 @@ call minpac#add('Shougo/echodoc.vim')
 if has('nvim')
   call minpac#add('Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'})
 endif
-call minpac#add('slashmili/alchemist.vim')
 call minpac#add('Shougo/neosnippet')
 call minpac#add('honza/vim-snippets', {'type': 'opt'})
 " Code manipulation

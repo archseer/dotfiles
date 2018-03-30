@@ -121,8 +121,8 @@ let g:echodoc_enable_at_startup = 1
 let g:delimitMate_expand_cr = 2
 if has('nvim') " Use deoplete.
   let g:deoplete#enable_at_startup = 1
-  let g:deoplete#enable_smart_case = 1
   set completeopt+=menuone
+  set completeopt-=noselect
   set completeopt-=preview
   if has('patch-7.4.314') | set shortmess+=c | endif
 
@@ -156,6 +156,75 @@ endif
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory= g:vim_home .'/pack/minpac/opt/vim-snippets/snippets'
+
+" vim-lsp & deoplete settings
+let g:deoplete#max_list = 20
+let g:deoplete#enable_refresh_always = 0
+let g:deoplete#auto_complete_start_length = 1
+let g:deoplete#auto_complete_delay = 0
+let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#skip_chars = ["(", ")"]
+
+" use lsp's omni for these
+let g:deoplete#sources = {
+      \  'elixir': ['omni'],
+      \  'vue': ['omni'],
+      \  'typescript': ['omni'],
+      \}
+
+"let g:deoplete#omni#functions = {'_': 'lsp#complete'}
+
+let g:deoplete#omni#input_patterns = {
+      \   'ruby': ['\w+', '[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
+      \   'elixir': ['\w+', '[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
+      \   'javascript': ['\w+', '[^. *\t]\.\w*'],
+      \   'typescript': ['\w+', '[^. *\t]\.\w*'],
+      \ }
+
+augroup deoplete
+  au!
+  au VimEnter *
+    \ call deoplete#custom#source('_', 'converters', [
+      \ 'converter_remove_paren',
+      \ 'converter_auto_delimiter',
+      \ 'converter_remove_overlap',
+      \ 'converter_truncate_abbr',
+      \ 'converter_truncate_menu',
+    \ ])
+    \ call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy', 'matcher_length'])
+augroup END
+
+let g:lsp_signs_enabled = 1           " enable signs
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+let g:lsp_signs_error   = {'text': '●'}
+let g:lsp_signs_warning = {'text': '●'}
+let g:lsp_signs_hint    = {'text': '●'}
+augroup lsp
+  au!
+  if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'typescript-language-server',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+          \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+          \ 'whitelist': ['typescript''vue'],
+          \ })
+  endif
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'elixir-ls',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, '~/src/elixir-ls/language_server.sh']},
+        \ 'whitelist': ['elixir', 'eelixir'],
+        \ })
+  if executable('vls')
+  au User lsp_setup call lsp#register_server({
+        \   'name': 'vue-language-server',
+        \   'cmd': {server_info->['vls']},
+        \   'whitelist': ['vue'],
+        \ })
+  end
+augroup END
+
+nnoremap <leader>r :LspReferences<CR>
+nnoremap <leader>m :LspDocumentSymbol<CR>
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
 " ---------------------------------------------------------------------------
