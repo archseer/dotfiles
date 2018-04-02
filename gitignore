@@ -31,3 +31,6 @@ bower_components
 node_modules
 tmp
 deps
+
+# Elixir language server analysis files
+.elixir_ls
