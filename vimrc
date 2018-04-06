@@ -497,3 +497,5 @@ augroup END
 iabbrev jsut    just
 iabbrev teh     the
 iabbrev recieve receive
+iabbrev ipnut   input
+iabbrev copmany company
