@@ -435,7 +435,10 @@ function! Status(winnr)
       let status .= l:counts.total == 0 ? '%#StatusOk#' : '%#StatusError#'
       let status .= '%{ALEGetStatusLine()}%* '
     endif
-    let status .=  ' %{&fileencoding} | %{&filetype}  %l:%c '
+    if &fenc != 'utf-8'
+      let status .=  ' %{&fileencoding} |'
+    endif
+    let status .=  ' %{&filetype}  %l:%c '
   endif
   return status
 endfunction
