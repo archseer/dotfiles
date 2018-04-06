@@ -76,7 +76,8 @@
 	autostash = true
 
 [interactive]
-	diffFilter = diff-so-fancy --patch
+        # git broke interactive patch mode
+        #diffFilter = diff-so-fancy --patch
 
 [color]
 	ui = auto
