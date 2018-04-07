@@ -291,6 +291,18 @@ nnoremap <silent> <leader>g :TestVisit<CR>
 
 " Default peekaboo window
 let g:peekaboo_window = 'vertical botright 60new'
+
+let g:highlightedyank_highlight_duration = 500
+
+" Snipe f/F/t/T {{{
+" let g:snipe_jump_tokens = 'asdfghklqwertyuiopzxcvbnm'
+let g:snipe_jump_tokens = 'fhghdjskal'
+let g:snipe_jump_tokens = 'fjghdksla'
+
+nmap F <Plug>(snipe-F)
+nmap f <Plug>(snipe-f)
+nmap T <Plug>(snipe-T)
+nmap t <Plug>(snipe-t)
 " ---------------------------------------------------------------------------
 "  Mappings
 " ---------------------------------------------------------------------------
@@ -423,7 +435,7 @@ function! Status(winnr)
   let active = a:winnr == winnr() || winnr('$') == 1
   let status = ''
   if active != 0
-    let status .= '%#StatusMode# %{StatusHighlight(mode())} %*'
+    let status .= ' %{StatusHighlight(mode())} '
   endif
   let status .= ' %{fnamemodify(expand("%"), ":~:.")}%w%q%h%r%<%m '
   let status .= '%{&paste?"[paste]":""}'

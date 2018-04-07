@@ -46,6 +46,8 @@ call minpac#add('tpope/vim-unimpaired')
 call minpac#add('machakann/vim-sandwich')
 call minpac#add('Raimondi/delimitMate')
 call minpac#add('mattn/emmet-vim')
+call minpac#add('yangmillstheory/vim-snipe')
+call minpac#add('machakann/vim-highlightedyank')
 
 call minpac#add('janko-m/vim-test')
 call minpac#add('junegunn/vim-peekaboo')
