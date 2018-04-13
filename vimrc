@@ -110,10 +110,6 @@ nnoremap <CR> <C-]>
 autocmd FileType qf nnoremap <buffer> <CR> <CR>
 " same for vim type windows (command-history, terminal, etc.)
 autocmd FileType vim nnoremap <buffer> <CR> <CR>
-
-" alchemist should also bind to enter.
-let g:alchemist_tag_map = '<CR>'
-let g:alchemist_tag_stack_map = '<C-T>'
 " ---------------------------------------------------------------------------
 "  Completion / Snippets
 " ---------------------------------------------------------------------------
@@ -193,6 +189,7 @@ augroup deoplete
     \ call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy', 'matcher_length'])
 augroup END
 
+" -- Language servers -------------------------------------------------------
 let g:lsp_signs_enabled = 1           " enable signs
 let g:lsp_async_completion = 1
 let g:lsp_diagnostics_echo_cursor = 0 " enable echo under cursor when in normal mode
@@ -225,6 +222,19 @@ augroup END
 
 nnoremap <leader>r :LspReferences<CR>
 nnoremap <leader>m :LspDocumentSymbol<CR>
+
+" -- Linting ----------------------------------------------------------------
+let g:ale_statusline_format = ['⨉ %d', '● %d', '⬥ ok']
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_save = 1
+let g:ale_completion_enabled = 1
+let g:ale_linters = {'elixir': ['credo'], 'vue': ['tsserver', 'eslint']}
+let g:ale_fixers = {'vue': ['eslint'], 'javascript': ['eslint', 'tslint']}
+let g:ale_linter_aliases = {'vue': 'typescript'}
+let g:ale_fix_on_save = 1
+let g:ale_sign_error = "●"
+let g:ale_sign_warning = "●"
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
 " ---------------------------------------------------------------------------
@@ -244,19 +254,6 @@ let g:ruby_indent_access_modifier_style = 'outdent'
 let ruby_operators = 1 " highlight operators
 
 let g:vue_disable_pre_processors=1
-
-" Ale
-let g:ale_statusline_format = ['⨉ %d', '● %d', '⬥ ok']
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_save = 1
-let g:ale_completion_enabled = 1
-let g:ale_linters = {'elixir': ['credo'], 'vue': ['tsserver', 'eslint']}
-let g:ale_fixers = {'vue': ['eslint'], 'javascript': ['eslint', 'tslint']}
-let g:ale_linter_aliases = {'vue': 'typescript'}
-let g:ale_fix_on_save = 1
-let g:ale_sign_error = "●"
-let g:ale_sign_warning = "●"
 
 " vinarise
 let g:vinarise_enable_auto_detect = 1
@@ -317,15 +314,11 @@ nnoremap <silent> <leader>w :up<CR>
 nnoremap Y y$
 
 " Easy block pasting with auto indentation
-nnoremap p p'[v']=
-nnoremap P P'[v']=
+"nnoremap p p'[v']=
+"nnoremap P P'[v']=
 " Copy/paste system buffer
 noremap <leader>y "*y
 noremap <leader>p "*p
-
-" Blank lines without insert
-"nnoremap <leader>o o<Esc>
-"nnoremap <leader>O O<Esc>
 
 " Switch from horizontal split to vertical split and vice versa
 nnoremap <leader>- <C-w>t<C-w>H
@@ -409,19 +402,14 @@ omap a_ am_
 " ----------------------------------------------------------------------------
 function! StatusHighlight(mode)
   if a:mode == 'n' || a:mode == 'c'
-    "hi StatusMode ctermbg=148 ctermfg=22 term=bold cterm=bold guifg=#080808 guibg=#ffffff
     return 'NORMAL'
   elseif a:mode == 'i'
-    "hi StatusMode ctermbg=231 ctermfg=23 term=bold cterm=bold guifg=#005f5f guibg=#9FF28F
     return 'INSERT'
   elseif a:mode == 'R'
-    "hi StatusMode ctermbg=160 ctermfg=231 term=bold cterm=bold guifg=#740000 guibg=#f47868
     return 'REPLACE'
   elseif a:mode == 't'
-    "hi StatusMode ctermbg=160 ctermfg=231 term=bold cterm=bold guifg=#005f5f guibg=#00CCCC
     return 'TERMINAL'
   elseif a:mode =~# '\v(v|V||s|S|)'
-    "hi StatusMode ctermbg=208 ctermfg=88 term=bold cterm=bold guifg=#7f3a00 guibg=#efba5d
     return a:mode == 'v' ? 'VISUAL' : a:mode == 'V' ? 'V-LINE' : 'V-BLOCK'
   else
     return a:mode
