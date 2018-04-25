@@ -31,8 +31,14 @@ function prompt_hyrule_setup {
   zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b|%r'
   zstyle ':vcs_info:git*+set-message:*' hooks git_status
 
+  zstyle ':prezto:module:editor:info:keymap:primary' format 'λ'
+  zstyle ':prezto:module:editor:info:keymap:primary:insert' format 'I'
+  zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format 'O'
+  zstyle ':prezto:module:editor:info:keymap:alternate' format '∆'
+  zstyle ':prezto:module:editor:info:completing' format '...'
+
   # Define prompts.
-  PROMPT=$'%F{blue}┌─%f%F{magenta}%n@%m%f%F{green}[%c]%f%F{blue}${vcs_info_msg_0_}%f\n %F{blue}└─ λ%f '
+  PROMPT=$'%F{blue}┌─%f%F{magenta}%n@%m%f%F{green}[%c]%f%F{blue}${vcs_info_msg_0_}%f\n %F{blue}└─ $editor_info[keymap] %f'
 }
 prompt_hyrule_setup "$@"
 
