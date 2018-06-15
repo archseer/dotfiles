@@ -43,7 +43,7 @@
 	mm	= merge origin/master
 	p	= push
 	pf	= push --force-with-lease
-	pl	= pull
+	pl	= pull --rebase
 #	pm	= push origin master
 #	pms = push origin master:staging
 #	pmp = push origin master:production
