@@ -31,7 +31,6 @@ if ! zgen saved; then
 fi
 # override prezto
 setopt clobber
-setopt interactivecomments
 
 # -- Exports ----------------------------------------------------------------
 
@@ -57,7 +56,7 @@ eval "$(rbenv init -)"
 export GOPATH="$HOME/src/go"
 export PATH="${GOPATH//://bin:}/bin:$PATH"
 # add yarn
-export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 #export PATH="$HOME/src/moon/bin:$PATH"
 

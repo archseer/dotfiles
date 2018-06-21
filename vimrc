@@ -166,11 +166,9 @@ let g:deoplete#sources = {
       \  'typescript': ['omni', 'neosnippet'],
       \}
 
-"let g:deoplete#omni#functions = {'_': 'lsp#complete'}
-
 let g:deoplete#omni#input_patterns = {
       \   'ruby': ['\w+', '[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
-      \   'elixir': ['\w+', '[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
+      \   'elixir': ['\w+', '[^. *\t]\.\w*'],
       \   'javascript': ['\w+', '[^. *\t]\.\w*'],
       \   'typescript': ['\w+', '[^. *\t]\.\w*'],
       \ }
@@ -237,14 +235,6 @@ let g:ale_sign_warning = "●"
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
 " ---------------------------------------------------------------------------
-" vim-go
-au FileType go setl noet ts=4 sw=4 sts=4
-let g:go_snippet_engine = "neosnippet"
-let g:go_fmt_command = "goimports"
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-
 " auto-format rust on save
 let g:rustfmt_autosave = 1
 
@@ -340,10 +330,6 @@ cmap w!! w !sudo tee > /dev/null %
 
 " Shortcut for emmet
 imap <c-e> <c-y>,
-
-" ?il | inner line
-xnoremap <silent> il <Esc>^vg_
-onoremap <silent> il :<C-U>normal! ^vg_<CR>
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
