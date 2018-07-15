@@ -60,11 +60,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 #export PATH="$HOME/src/moon/bin:$PATH"
 
-# OSX is turning into shit, askpass isn't working so I copied it from
-# https://github.com/markcarver/mac-ssh-askpass/blob/master/ssh-askpass
-# into ~/bin/ssh-askpass
-export SSH_ASKPASS="ssh-askpass"
-
 # erlang shell history
 export ERL_AFLAGS="-kernel shell_history enabled"
 export ELIXIR_EDITOR="vi +__LINE__ __FILE__"
