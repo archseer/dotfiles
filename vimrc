@@ -221,7 +221,6 @@ nnoremap <leader>r :LspReferences<CR>
 nnoremap <leader>m :LspDocumentSymbol<CR>
 
 " -- Linting ----------------------------------------------------------------
-let g:ale_statusline_format = ['⨉ %d', '● %d', '⬥ ok']
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
@@ -400,7 +399,20 @@ endfunction
 
 "hi StatusError ctermbg=17 ctermfg=209 guibg=#F22C86 guifg=#281733
 hi StatusError ctermbg=17 ctermfg=209 guifg=#f47868 guibg=#281733
+hi StatusWarning ctermbg=17 ctermfg=209 guifg=#ffcd1c guibg=#281733
 hi StatusOk ctermbg=17 ctermfg=209 guifg=#ffffff guibg=#281733
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+  endfunction
 function! Status(winnr)
   let active = a:winnr == winnr() || winnr('$') == 1
   let status = ''
@@ -414,8 +426,24 @@ function! Status(winnr)
     let status .= '%='
     if active != 0 " only show lint information in the active window
       let l:counts = ale#statusline#Count(bufnr(''))
-      let status .= l:counts.total == 0 ? '%#StatusOk#' : '%#StatusError#'
-      let status .= '%{ALEGetStatusLine()}%* '
+
+      if l:counts.total == 0
+        let status .=  '%#StatusOk#⬥ ok%* '
+      else
+        let l:all_errors = l:counts.error + l:counts.style_error
+        let l:all_non_errors = l:counts.total - l:all_errors
+
+        if l:all_errors > 0
+          let status .=  '%#StatusError#'
+          let status .= printf('⨉ %d', all_errors)
+          let status .= '%* '
+        endif
+        if l:all_non_errors > 0
+          let status .=  '%#StatusWarning#'
+          let status .= printf('● %d', all_non_errors)
+          let status .= '%* '
+        endif
+      endif
     endif
     if &fenc != 'utf-8'
       let status .=  ' %{&fileencoding} |'

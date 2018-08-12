@@ -58,6 +58,7 @@
 	sq	= commit --squash
 	st	= diff-tree --no-commit-id --name-only -r # show file tree of commit
 	sw	= show
+	w	= whatchanged
 
 	undo = reset --soft HEAD^
 	standup = shortlog --since='1 week ago'
