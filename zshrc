@@ -21,6 +21,7 @@ if ! zgen saved; then
   zgen prezto utility
   zgen prezto completion   # must be loaded after utility
   zgen prezto prompt
+  zgen prezto ssh
 
   zgen prezto history-substring-search
   zgen load zsh-users/zsh-autosuggestions
