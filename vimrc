@@ -164,6 +164,7 @@ let g:deoplete#sources = {
       \  'elixir': ['omni', 'neosnippet'],
       \  'vue': ['omni', 'neosnippet'],
       \  'typescript': ['omni', 'neosnippet'],
+      \  'rust': ['omni', 'neosnippet'],
       \}
 
 let g:deoplete#omni#input_patterns = {
@@ -171,6 +172,7 @@ let g:deoplete#omni#input_patterns = {
       \   'elixir': ['\w+', '[^. *\t]\.\w*'],
       \   'javascript': ['\w+', '[^. *\t]\.\w*'],
       \   'typescript': ['\w+', '[^. *\t]\.\w*'],
+      \   'rust': ['\w+', '[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
       \ }
 
 augroup deoplete
@@ -188,7 +190,7 @@ augroup END
 
 " -- Language servers -------------------------------------------------------
 let g:lsp_signs_enabled = 1           " enable signs
-let g:lsp_async_completion = 1
+"let g:lsp_async_completion = 1
 let g:lsp_diagnostics_echo_cursor = 0 " enable echo under cursor when in normal mode
 let g:lsp_signs_error   = {'text': '●'}
 let g:lsp_signs_warning = {'text': '●'}
@@ -217,6 +219,14 @@ augroup lsp
         \   'workspace_config': {'vetur': {'validation': {'style': v:false}}},
         \ })
   end
+  if executable('rls')
+      au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
+        \ 'whitelist': ['rust'],
+        \ })
+  endif
 augroup END
 
 nnoremap <leader>r :LspReferences<CR>

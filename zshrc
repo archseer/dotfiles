@@ -58,6 +58,8 @@ export GOPATH="$HOME/src/go"
 export PATH="${GOPATH//://bin:}/bin:$PATH"
 # add yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# add rust
+export PATH="$HOME/.cargo/bin:$PATH"
 
 #export PATH="$HOME/src/moon/bin:$PATH"
 

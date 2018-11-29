@@ -5,8 +5,9 @@ if !exists('*packages#reload')
   endfunc
 endif
 
-command! -bar PackUpdate packadd minpac | call packages#reload() | redraw | call minpac#update()
+command! -bar PackUpdate packadd minpac | call packages#reload() | redraw | call minpac#update() | call minpac#status()
 command! -bar PackClean  packadd minpac | call packages#reload() | call minpac#clean()
+command! -bar PackStatus packadd minpac | call packages#reload() | call minpac#status()
 
 if !exists('*minpac#init')
   finish
