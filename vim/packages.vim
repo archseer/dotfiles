@@ -21,6 +21,7 @@ call minpac#add('archseer/colibri.vim', {'type': 'opt'})
 call minpac#add('cocopon/colorswatch.vim')
 " Languages
 call minpac#add('elixir-lang/vim-elixir')
+call minpac#add('rust-lang/rust.vim')
 call minpac#add('stephenway/postcss.vim')
 call minpac#add('sheerun/vim-polyglot')
 call minpac#add('Shougo/vinarise.vim')
