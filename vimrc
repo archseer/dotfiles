@@ -237,7 +237,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
 let g:ale_completion_enabled = 1
-let g:ale_linters = {'elixir': ['credo'], 'vue': ['tsserver', 'eslint']}
+let g:ale_linters = {'elixir': ['credo'], 'vue': ['eslint']} " 'tsserver', 
 let g:ale_fixers = {'vue': ['eslint'], 'javascript': ['eslint', 'tslint']}
 let g:ale_linter_aliases = {'vue': 'typescript'}
 let g:ale_fix_on_save = 1
@@ -246,14 +246,11 @@ let g:ale_sign_warning = "●"
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
 " ---------------------------------------------------------------------------
-" auto-format rust on save
-let g:rustfmt_autosave = 1
-
 " ruby private/protected indentation
 let g:ruby_indent_access_modifier_style = 'outdent'
 let ruby_operators = 1 " highlight operators
 
-let g:vue_disable_pre_processors=1
+let g:rustfmt_autosave = 1
 
 " vinarise
 let g:vinarise_enable_auto_detect = 1
