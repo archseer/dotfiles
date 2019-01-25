@@ -307,6 +307,11 @@ nmap t <Plug>(snipe-t)
 nnoremap Q gqip
 vnoremap Q gq
 
+" Steal hauleth's file closing mappings
+nnoremap ZS :wa<CR>
+nnoremap ZA :qa<CR>
+nnoremap ZX :cq<CR>
+
 " Save the file (if it has been modified)
 nnoremap <silent> <leader>w :up<CR>
 
