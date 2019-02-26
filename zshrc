@@ -85,6 +85,9 @@ alias k='kubectl'
 alias h='helm'
 alias f='fly -t ci'
 
+alias m='mix'
+alias c='cargo'
+
 alias j='fasd_cd -d'
 
 #alias vim='echo'

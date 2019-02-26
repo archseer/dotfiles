@@ -327,6 +327,7 @@ noremap <leader>v <C-w>v
 
 " close current buffer with <leader>x
 noremap <silent> <leader>x :bd<CR>
+noremap <silent> <leader>c :q<CR>
 
 " practical vim: use c-p, c-n with filtered command history
 cnoremap <C-p> <Up>
