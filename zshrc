@@ -71,6 +71,8 @@ export ELIXIR_EDITOR="vi +__LINE__ __FILE__"
 # source <(kubectl completion zsh)
 
 eval "$(fasd --init auto)"
+# I use sd the sed replacement util
+unalias sd
 
 # -- Aliases ----------------------------------------------------------------
 

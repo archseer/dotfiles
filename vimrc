@@ -189,7 +189,8 @@ augroup deoplete
 augroup END
 
 " -- Language servers -------------------------------------------------------
-let g:lsp_signs_enabled = 1           " enable signs
+let g:lsp_signs_enabled = 0           " enable signs
+let g:lsp_diagnostics_enabled = 0
 "let g:lsp_async_completion = 1
 let g:lsp_diagnostics_echo_cursor = 0 " enable echo under cursor when in normal mode
 let g:lsp_signs_error   = {'text': '●'}
