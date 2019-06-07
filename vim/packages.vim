@@ -32,9 +32,13 @@ call minpac#add('prabirshrestha/vim-lsp')
 call minpac#add('w0rp/ale')
 " Completion
 call minpac#add('Shougo/echodoc.vim')
-if has('nvim')
-  call minpac#add('Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'})
-endif
+call minpac#add('ncm2/ncm2')
+call minpac#add('roxma/nvim-yarp')
+
+" Completion plugins
+call minpac#add('ncm2/ncm2-bufword')
+call minpac#add('ncm2/ncm2-path')
+call minpac#add('ncm2/ncm2-vim-lsp')
 call minpac#add('Shougo/neosnippet')
 call minpac#add('honza/vim-snippets', {'type': 'opt'})
 " Code manipulation
@@ -48,8 +52,9 @@ call minpac#add('tpope/vim-unimpaired')
 call minpac#add('machakann/vim-sandwich')
 call minpac#add('Raimondi/delimitMate')
 call minpac#add('mattn/emmet-vim')
-call minpac#add('yangmillstheory/vim-snipe')
+"call minpac#add('yangmillstheory/vim-snipe')
 call minpac#add('machakann/vim-highlightedyank')
+call minpac#add('andymass/vim-matchup')
 
 call minpac#add('janko-m/vim-test')
 call minpac#add('junegunn/vim-peekaboo')
@@ -60,6 +65,4 @@ call minpac#add('junegunn/fzf.vim')
 " Git
 call minpac#add('lambdalisue/gina.vim')
 call minpac#add('airblade/vim-gitgutter')
-
-call minpac#add('ludovicchabant/vim-gutentags')
 

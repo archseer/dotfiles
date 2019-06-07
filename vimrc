@@ -32,7 +32,7 @@ endif
 
 "  -- UI --------------------------------------------------------------------
 set title
-set ch=2                   " command line height
+"set ch=2                   " command line height
 set hidden                 " allow buffer switching without saving
 set lazyredraw             " no redraws in macros
 set number                 " line numbers
@@ -95,15 +95,11 @@ set nojoinspaces           " Use one space, not two, after punctuation.
 set linebreak
 set nowrap                 " do not wrap lines
 set formatoptions+=rno1l   " support for numbered/bullet lists, etc.
-" ---------------------------------------------------------------------------
-"  Gutentags / go to definition
-" ---------------------------------------------------------------------------
 set tags="~/.vim/tags"
-let g:gutentags_cache_dir="~/.vim/tags"
-
-let g:gutentags_ctags_exclude=["node_modules","plugged","tmp","temp","log","vendor","**/db/migrate/*","bower_components","dist","build","coverage","spec","public","app/assets","*.json"]
-
-" Enter is go to definition (ctags)
+" ---------------------------------------------------------------------------
+"  Go to definition
+" ---------------------------------------------------------------------------
+" Enter is go to definition
 nnoremap <CR> <C-]>
 " In the quickfix window, <CR> is used to jump to the error under the cursor, undef
 autocmd FileType qf nnoremap <buffer> <CR> <CR>
@@ -114,23 +110,38 @@ autocmd FileType vim nnoremap <buffer> <CR> <CR>
 " ---------------------------------------------------------------------------
 let g:echodoc_enable_at_startup = 1
 let g:delimitMate_expand_cr = 2
-if has('nvim') " Use deoplete.
-  let g:deoplete#enable_at_startup = 1
+if has('nvim') " Use completion.
   set completeopt+=menuone
   set completeopt+=noselect
   set completeopt-=preview
   if has('patch-7.4.314') | set shortmess+=c | endif
 
+  " enable ncm2 for all buffers
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+
+  let g:ncm2#popup_delay = 80
+  let g:ncm2#complete_delay = 10
+  let g:ncm2#total_popup_limit = 20
+
+  " TODO: neosnippet, maybe skip bufword
+
+  let g:ncm2#filter = {'name':'substitute',
+                    \ 'pattern': '[\(\s].*$',
+                    \ 'replace': '',
+                    \ 'key': 'word'}
+
   let g:endwise_no_mappings = 1 " don't override my map..
   function! s:smart_cr()
     " neosnippet || deoplete || delimitmate || vim-endwise
+          "\ : pumvisible() ? deoplete#mappings#close_popup()
     return neosnippet#expandable_or_jumpable() ?
           \ neosnippet#mappings#expand_or_jump_impl()
-          \ : pumvisible() ? deoplete#mappings#close_popup()
+          \ : pumvisible() ? "\<c-y>"
           \ : delimitMate#WithinEmptyPair() ? delimitMate#ExpandReturn()
           \ : "\<CR>" . EndwiseDiscretionary()
   endfunction
   inoremap <expr> <CR> <SID>smart_cr()
+  inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
 endif
 " neosnippet mappings
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -145,48 +156,12 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 " For conceal markers. (neosnippet)
 if has('conceal')
-  set conceallevel=2 concealcursor=niv
+  "set conceallevel=2 concealcursor=niv
 endif
 
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory= g:vim_home .'/pack/minpac/opt/vim-snippets/snippets'
-
-" vim-lsp & deoplete settings
-let g:deoplete#max_list = 20
-let g:deoplete#enable_refresh_always = 0
-let g:deoplete#auto_complete_start_length = 1
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#skip_chars = ["(", ")"]
-
-" use lsp's omni for these
-let g:deoplete#sources = {
-      \  'elixir': ['omni', 'neosnippet'],
-      \  'vue': ['omni', 'neosnippet'],
-      \  'typescript': ['omni', 'neosnippet'],
-      \  'rust': ['omni', 'neosnippet'],
-      \}
-
-let g:deoplete#omni#input_patterns = {
-      \   'ruby': ['\w+', '[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
-      \   'elixir': ['\w+', '[^. *\t]\.\w*'],
-      \   'javascript': ['\w+', '[^. *\t]\.\w*'],
-      \   'typescript': ['\w+', '[^. *\t]\.\w*'],
-      \   'rust': ['\w+', '[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
-      \ }
-
-augroup deoplete
-  au!
-  au VimEnter *
-    \ call deoplete#custom#source('_', 'converters', [
-      \ 'converter_remove_paren',
-      \ 'converter_auto_delimiter',
-      \ 'converter_remove_overlap',
-      \ 'converter_truncate_abbr',
-      \ 'converter_truncate_menu',
-    \ ])
-    \ call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy', 'matcher_length'])
-augroup END
 
 " -- Language servers -------------------------------------------------------
 let g:lsp_signs_enabled = 0           " enable signs
@@ -244,6 +219,12 @@ let g:ale_linter_aliases = {'vue': 'typescript'}
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = "●"
 let g:ale_sign_warning = "●"
+let g:ale_virtualtext_cursor = 1
+" highlight link ALEWarningSign Todo
+" highlight link ALEErrorSign WarningMsg
+highlight link ALEVirtualTextWarning Todo
+highlight link ALEVirtualTextInfo Todo
+highlight link ALEVirtualTextError WarningMsg
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
 " ---------------------------------------------------------------------------
@@ -288,16 +269,6 @@ nnoremap <silent> <leader>g :TestVisit<CR>
 let g:peekaboo_window = 'vertical botright 60new'
 
 let g:highlightedyank_highlight_duration = 500
-
-" Snipe f/F/t/T {{{
-" let g:snipe_jump_tokens = 'asdfghklqwertyuiopzxcvbnm'
-let g:snipe_jump_tokens = 'fhghdjskal'
-let g:snipe_jump_tokens = 'fjghdksla'
-
-nmap F <Plug>(snipe-F)
-nmap f <Plug>(snipe-f)
-nmap T <Plug>(snipe-T)
-nmap t <Plug>(snipe-t)
 " ---------------------------------------------------------------------------
 "  Mappings
 " ---------------------------------------------------------------------------
