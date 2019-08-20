@@ -80,8 +80,10 @@ alias vim='nvim'
 alias v='nvim'
 alias e='v $(fzf)'
 alias g='/usr/local/bin/git'
-alias l='ls -alhF'
+alias l='ls -lahgF'
 alias ll='ls -CF'
+alias l='exa -lahgF'
+alias ll='exa -F'
 
 alias k='kubectl'
 alias h='helm'
@@ -92,9 +94,9 @@ alias c='cargo'
 
 alias j='fasd_cd -d'
 
-#alias vim='echo'
-#alias git='echo'
-alias ag='rg'
+# alias vim='echo'
+# alias git='echo'
+# alias ag='rg'
 
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 
