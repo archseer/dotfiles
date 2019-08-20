@@ -60,6 +60,8 @@ export PATH="${GOPATH//://bin:}/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # add rust
 export PATH="$HOME/.cargo/bin:$PATH"
+# add llvm
+export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 #export PATH="$HOME/src/moon/bin:$PATH"
 
