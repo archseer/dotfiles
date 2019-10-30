@@ -1,0 +1,123 @@
+* {
+	text-color:        #ccd2be;
+	background-color:  rgba(60, 65, 64, 0.3);
+	
+	fc-color: #a8b298;
+	bg-color: #3c4140;
+	fc-color-trans: #69888564;
+	bg-color-trans: #3c4140F0;
+
+	font: "Roboto 11";
+}
+
+/* ================================================= */
+/* Main container                                    */
+/* ================================================= */
+#window {
+	fullscreen:    true;
+	location:      center;
+	anchor:        center;
+	border:        0px 0px 0px 0px;
+	transparency:  "real";
+
+	orientation:  horizontal;
+	children:     [mainbox, dummy];
+    	spacing: 0;
+}
+
+/* First container */
+#mainbox {
+	expand:            false;
+	background-color:  @bg-color;
+	spacing:           1em;
+  	padding:           0px;
+  	border: 0px 1px 0px 0px;
+	border-color: #666666;
+}
+
+/* Dummy container */
+#dummy {
+	expand: true;
+  	background-color: rgba(0, 0, 0, 0.5);
+}
+/* ================================================= */
+
+/* ================================================= */
+/* Sidebar and its elements                          */
+/* ================================================= */
+#sidebar {
+	border:  0px 0px 0px 0px;
+}
+
+#button {
+	font:       "Roboto 11";
+	padding:    0.7em;
+}
+
+#button selected {
+	font:              "Roboto 11";
+	background-color:  @fc-color-trans;
+}
+/* ================================================= */
+
+/* ================================================= */
+/*  Input bar                                        */
+/* ================================================= */
+#inputbar {
+	padding:       1.4em 2em 0 2em;
+	spacing:		   0.2em;
+}
+
+#prompt {
+	font: "Roboto SemiBold 11";
+}
+
+#entry {
+	font: "Roboto 11";
+	width: 24em;
+}
+/* ================================================= */
+
+
+/* ================================================= */
+/* List view					     */
+/* ================================================= */
+#listview {
+	spacing: 0px;
+}
+
+#element {
+	font:     "Roboto 11";
+	padding:  0.7em 2em 0.7em 2em;
+}
+
+#element selected normal {
+	background-color: @fc-color-trans;
+}
+
+#element normal active {
+	background-color: @fc-color-trans;
+}
+
+#element normal urgent {
+	background-color: Orange;
+}
+
+#element alternate normal {
+}
+
+#element alternate active {
+	text-color: @focus-col;
+}
+
+#element alternate urgent {
+	background-color: OrangeRed;
+}
+
+#element selected active {
+	background-color:  @fc-color-trans;
+}
+
+#element selected urgent {
+	background-color:  DarkOrange;
+}
