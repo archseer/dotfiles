@@ -57,7 +57,10 @@ output eDP-1 scale 1.25
 #       tap enabled
 #       natural_scroll enabled
 #       middle_emulation enabled
+        #accel_profile adaptive
+        #pointer_accel 0.3
 #   }
+}
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -210,5 +213,40 @@ bar {
 
 gaps outer 10
 gaps inner 10
+
+# Take screenshots
+# ----------------------------------------------------------------------------
+
+set $screenselect slurp
+set $screenshot grim
+set $screenshotout $HOME/Pictures/screenshots/$(date "+%Y-%m-%d-%H%M%S_shot.png")
+
+bindsym Print exec $screenshot $screenshotout
+bindsym $mod+Print exec $screenshot -g "$($screenselect)" $screenshotout
+
+# Sleep key
+# bindsym XF86Sleep exec --no-startup-id systemctl suspend
+
+#
+# Screen brightness
+#
+bindsym XF86MonBrightnessUp exec light -A 5
+bindsym XF86MonBrightnessDown exec light -U 5
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+#
+# Notifications
+#
+exec mako --anchor bottom-right
 
 include /etc/sway/config.d/*

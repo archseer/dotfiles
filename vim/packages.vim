@@ -23,11 +23,13 @@ call minpac#add('cocopon/colorswatch.vim')
 call minpac#add('elixir-lang/vim-elixir')
 call minpac#add('rust-lang/rust.vim')
 call minpac#add('stephenway/postcss.vim')
+let g:polyglot_disabled = ['org']
 call minpac#add('sheerun/vim-polyglot')
 call minpac#add('Shougo/vinarise.vim')
 call minpac#add('jparise/vim-graphql')
 call minpac#add('prabirshrestha/async.vim')
 call minpac#add('prabirshrestha/vim-lsp')
+call minpac#add('jceb/vim-orgmode')
 " Lint
 call minpac#add('w0rp/ale')
 " Completion

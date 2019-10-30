@@ -2,6 +2,7 @@
 " General
 " ---------------------------------------------------------------------------
 let mapleader=" "
+let maplocalleader="\\"
 let g:vim_home = expand('<sfile>:p:h')
 
 if !has('nvim') " load sensible neovim defaults on regular vim
@@ -169,13 +170,16 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory= g:vim_home .'/pack/minpac/opt/vim-snippets/snippets'
 
 " -- Language servers -------------------------------------------------------
-let g:lsp_signs_enabled = 0           " enable signs
 let g:lsp_diagnostics_enabled = 0
 "let g:lsp_async_completion = 1
-let g:lsp_diagnostics_echo_cursor = 0 " enable echo under cursor when in normal mode
 let g:lsp_signs_error   = {'text': '●'}
 let g:lsp_signs_warning = {'text': '●'}
 let g:lsp_signs_hint    = {'text': '●'}
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/vim-lsp.log')
+highlight link LspWarningHighlight Todo
+highlight link LspInformationHighlight Todo
+highlight link LspErrorHighlight WarningMsg
 augroup lsp
   au!
   if executable('typescript-language-server')
@@ -220,13 +224,14 @@ augroup lsp
 augroup END
 
 nnoremap <leader>r :LspReferences<CR>
+nnoremap <leader>d :LspPeekDefinition<CR>
 nnoremap <leader>m :LspDocumentSymbol<CR>
 
 " -- Linting ----------------------------------------------------------------
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 let g:ale_linters = {'elixir': ['credo'], 'vue': ['eslint']} " 'tsserver', 
 let g:ale_fixers = {'vue': ['eslint'], 'javascript': ['eslint', 'tslint']}
 let g:ale_linter_aliases = {'vue': 'typescript'}

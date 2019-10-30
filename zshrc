@@ -53,6 +53,9 @@ test -d "$HOME/bin" &&
 # add rbenv
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
+# add jenv
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
 # add go
 export GOPATH="$HOME/src/go"
 export PATH="${GOPATH//://bin:}/bin:$PATH"
@@ -64,6 +67,10 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 #export PATH="$HOME/src/moon/bin:$PATH"
+
+# android ndk
+export ANDROID_NDK_HOME="$(brew --prefix)/share/android-ndk"
+
 
 # erlang shell history
 export ERL_AFLAGS="-kernel shell_history enabled"
@@ -84,7 +91,8 @@ alias e='v $(fzf)'
 alias g='/usr/local/bin/git'
 alias l='ls -lahgF'
 alias ll='ls -CF'
-alias l='exa -lahgF'
+alias l='exa -lahgF --group-directories-first'
+# --time-style=long-iso
 alias ll='exa -F'
 
 alias k='kubectl'
