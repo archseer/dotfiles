@@ -51,8 +51,8 @@ test -d "$HOME/bin" &&
   PATH="$HOME/bin:$PATH"
 
 # add rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
 # add go
 export GOPATH="$HOME/src/go"
 export PATH="${GOPATH//://bin:}/bin:$PATH"

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+class=$(playerctl metadata --player=spotify --format '{{lc(status)}}')
+
+if [[ $class == "playing" ]]; then
+  playerctl --player=spotify pause
+elif [[ $class == "paused" ]]; then
+  playerctl --player=spotify play
+else
+  /snap/bin/spotify
+fi
+
+echo -e "{\"text\":\""$text"\", \"class\":\""$class"\"}"
