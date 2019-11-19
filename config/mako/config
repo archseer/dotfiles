@@ -1,0 +1,9 @@
+font=Inter UI, Font Awesome 10
+padding=15,20
+background-color=#3b224cEE
+background-color=#281733EE
+text-color=#ebeafa
+border-size=2
+border-color=#a4a0e8EE
+default-timeout=5000
+markup=1

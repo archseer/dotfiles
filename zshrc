@@ -88,7 +88,7 @@ unalias sd
 alias vim='nvim'
 alias v='nvim'
 alias e='v $(fzf)'
-alias g='/usr/local/bin/git'
+alias g='/usr/bin/git'
 alias l='ls -lahgF'
 alias ll='ls -CF'
 alias l='exa -lahgF --group-directories-first'

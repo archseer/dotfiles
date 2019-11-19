@@ -17,23 +17,41 @@ set $right l
 set $term alacritty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu rofi -terminal alacritty -show drun | xargs swaymsg exec --
-set $menu 'rofi -terminal alacritty -modi run, drun, window -show drun'
+#set $menu rofi -terminal alacritty -show drun | xargs swaymsg exec --
+set $menu 'rofi -terminal alacritty -modi run,combi -combi-modi window,drun -show combi -theme sidestyle -show-icons -icon-theme Paper'
 
 default_floating_border pixel 3
 default_border pixel 3
 
+font pango: Inter:style=Regular 10
+# font pango: ProggyCleanTT
+
+# Set colors
+set $bg #281733
+set $fg #eff1f5
+set $br #a4a0e8
+set $ia #232425
+
+
+# class                 border  backgr. text    indicator child_border
+client.focused          $br     $br     $bg     $bg       $br
+client.focused_inactive $bg     $bg     $fg     $bg       $bg
+client.unfocused        $bg     $bg     $fg     $bg       $bg
+client.urgent           $br     $br     $fg     $bg       $br
+client.placeholder      $br     $br     $fg     $bg       $br
+client.background $bg
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/bg.jpeg fill
+output * bg ~/bg4.jpg fill
 #
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-output eDP-1 scale 1.25
+output eDP-1 scale 1.5
 
 ### Idle configuration
 #
@@ -53,14 +71,16 @@ output eDP-1 scale 1.25
 #
 # Example configuration:
 #
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-        #accel_profile adaptive
-        #pointer_accel 0.3
-#   }
+    input "1118:2338:Microsoft_Surface_HID_Touchpad" {
+        dwt enabled # disable while typing
+        tap enabled
+        # drag enabled
+        natural_scroll enabled
+        scroll_factor 1.25
+        middle_emulation enabled
+        accel_profile adaptive
+        pointer_accel 0.25
+    }
 }
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -212,7 +232,7 @@ bar {
     swaybar_command waybar
 }
 
-gaps outer 10
+gaps outer 5
 gaps inner 10
 
 # Take screenshots
@@ -231,8 +251,8 @@ bindsym $mod+Print exec $screenshot -g "$($screenselect)" $screenshotout
 #
 # Screen brightness
 #
-bindsym XF86MonBrightnessUp exec light -A 5
-bindsym XF86MonBrightnessDown exec light -U 5
+bindsym XF86MonBrightnessUp exec light -A 2
+bindsym XF86MonBrightnessDown exec light -U 2
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -248,6 +268,8 @@ bindsym XF86AudioPrev exec playerctl previous
 #
 # Notifications
 #
-exec mako --anchor bottom-right
+exec mako
+exec libinput-gestures-setup start
+exec ydotoold&
 
 include /etc/sway/config.d/*
