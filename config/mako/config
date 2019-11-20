@@ -7,3 +7,8 @@ border-size=2
 border-color=#a4a0e8EE
 default-timeout=5000
 markup=1
+
+[urgency=high]
+text-color=#F22C86
+border-color=#F22C86
+border-size=4

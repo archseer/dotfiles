@@ -4,7 +4,7 @@
     border: none;
     border-radius: 0;
     font-family: "Font Awesome", Inter UI, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     min-height: 0;
 }
 
@@ -12,18 +12,27 @@ window#waybar {
     background: rgba(43, 48, 59, 0.3);
     border-bottom: 3px solid transparent;
     color: white;
+
+    background: rgba(40, 23, 51, .5);
+    /* color: #dbbfef; */
 }
 
 #workspaces button {
-    padding: 0 5px;
-    margin: 0 3px;
+    padding: 0 .5rem;
+    margin: 0 .25rem;
     color: white;
     border-bottom: 3px solid transparent;
+}
+
+#workspaces button:hover {
+    color: red;
+    color: rgba(40, 23, 51, .75);
 }
 
 #workspaces button.focused {
     background: rgba(100, 114, 125, 0.2);
     border-bottom: 3px solid @color15;
+    color: white;
 }
 
 #mode {
@@ -32,13 +41,14 @@ window#waybar {
 }
 
 #clock, #battery, #cpu, #memory, #network, #pulseaudio, #temperature, #backlight, #idle_inhibitor, #custom-sl, #custom-spotify {
-    padding: 0 6px;
-    margin: 0 5px;
+    padding: 0 .5rem;
+    margin: 0 .325rem;
 }
 
 #clock {
     background-color: transparent;
     color: white;
+    font-weight: 500;
 }
 
 #battery {
@@ -56,10 +66,15 @@ window#waybar {
 }
 
 #battery.warning:not(.charging) {
+    color: #ffcd1c;
+    color: #f4bf00;
+}
+
+#battery.critical:not(.charging) {
     background: #f53c3c;
     color: white;
     animation-name: blink;
-    animation-duration: 0.5s;
+    animation-duration: 0.625s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
