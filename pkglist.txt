@@ -1,0 +1,131 @@
+acpi_call-dkms
+
+# terminal
+alacritty-git
+base
+
+# base-devel
+autoconf
+automake
+binutils
+bison
+fakeroot
+flex
+gcc
+groff
+libtool
+m4
+make
+patch
+pkgconf
+sudo
+texinfo
+which
+
+# for wifi
+connman
+iwd
+iw
+
+# vim
+ctags
+dialog
+# git
+diff-so-fancy
+
+# surface acpi stuff
+asp
+dkms
+dmidecode
+hidrd-git
+hwinfo
+
+intel-ucode
+
+elixir
+
+# utils
+exa
+fasd
+fd
+fzf
+git
+htop
+jq
+kubectl
+mosh
+mpd
+mpv
+mutt
+nano
+vim
+neovim
+nmap
+man-db
+ranger
+rcm
+ripgrep
+rsync
+sd
+tmux
+tree
+wget
+weechat
+zsh
+zsh-completions
+
+openssh
+mesa
+pavucontrol
+pulseaudio
+python-pip
+upower
+youtube-dl
+
+# AUR
+yay
+
+# applications
+evince
+firefox-developer-edition
+vlc
+transmission-cli
+transmission-gtk
+
+# sway
+grim
+libinput-gestures
+libnotify
+light
+mako
+rofi
+slurp
+sway
+swaylock
+waybar
+ydotool-git
+wl-clipboard
+wl-clipboard-x11
+qt5-wayland
+xorg-server-xwayland
+
+# kernel
+linux
+linux-firmware
+linux-headers
+linux-surface-dev
+linux-surface-dev-docs
+linux-surface-dev-headers
+
+# fonts & themes
+ttf-fira-code
+ttf-fira-mono
+ttf-fira-sans
+ttf-inter-ui
+ttf-proggy-clean
+ttf-roboto
+terminus-font
+noto-fonts-cjk
+otf-font-awesome
+paper-icon-theme
+
