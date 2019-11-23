@@ -1,23 +1,28 @@
 * {
-	text-color:        #ccd2be;
+	text-color:        #ffffff;
 	background-color:  rgba(59, 34, 76, 0.3);
 	
 	fc-color: #a8b298;
 	bg-color: #3c4140;
+	bg-color:  rgba(40, 23, 51, 1);
+	bg-color:  rgba(40, 23, 151, 1);
+
 	fc-color-trans: #69888564;
+	fc-color-trans: #ebeafa30;
 	bg-color-trans: #3c4140F0;
 
-	font: "Roboto 11";
+	font: "Inter 11";
 }
 
 /* ================================================= */
 /* Main container                                    */
 /* ================================================= */
 #window {
-	fullscreen:    true;
+	/* fullscreen:    true; */
 	location:      center;
 	anchor:        center;
 	border:        0px 0px 0px 0px;
+        margin: 32px 0 0 0;
 	transparency:  "real";
 
 	orientation:  horizontal;
@@ -50,12 +55,12 @@
 }
 
 #button {
-	font:       "Roboto 11";
+	font:       "Inter 11";
 	padding:    0.7em;
 }
 
 #button selected {
-	font:              "Roboto 11";
+	font:              "Inter 11";
 	background-color:  @fc-color-trans;
 }
 /* ================================================= */
@@ -69,12 +74,13 @@
 }
 
 #prompt {
-	font: "Roboto SemiBold 11";
+	font: "Inter SemiBold 11";
 }
 
 #entry {
-	font: "Roboto 11";
+	font: "Inter 11";
 	width: 24em;
+        width: 100%;
 }
 /* ================================================= */
 
@@ -87,7 +93,7 @@
 }
 
 #element {
-	font:     "Roboto 11";
+	font:     "Inter 11";
 	padding:  0.7em 2em 0.7em 2em;
 }
 

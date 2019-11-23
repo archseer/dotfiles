@@ -15,6 +15,8 @@ filetype plugin indent on
 syntax on
 
 runtime packages.vim
+" for some reason the clipboard never got initialized
+runtime autoload/provider/clipboard.vim
 let g:loaded_netrwPlugin = 1 " unload netrw, we use dirvish
 
 set nobackup              " do not keep backups

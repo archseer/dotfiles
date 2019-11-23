@@ -1,12 +1,18 @@
 font=Inter UI, Font Awesome 10
 padding=15,20
-background-color=#3b224cEE
-background-color=#281733EE
+background-color=#3b224cF0
+background-color=#281733F0
 text-color=#ebeafa
 border-size=2
 border-color=#a4a0e8EE
+progress-color=#a4a0e8
 default-timeout=5000
 markup=1
+format=<b>%s</b>\n\n%b
+
+[hidden]
+format=(and %h more)
+text-color=#999999
 
 [urgency=high]
 text-color=#F22C86

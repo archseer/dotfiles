@@ -74,13 +74,19 @@ weechat
 zsh
 zsh-completions
 
+etckeeper
+
 openssh
 mesa
 pavucontrol
 pulseaudio
+pulseaudio-alsa
 python-pip
 upower
 youtube-dl
+keybase
+keybase-gui
+redshift-wlr-gamma-control-git
 
 # AUR
 yay
@@ -91,6 +97,10 @@ firefox-developer-edition
 vlc
 transmission-cli
 transmission-gtk
+telegram-desktop
+
+imv
+aerc
 
 # sway
 grim
@@ -108,6 +118,7 @@ wl-clipboard
 wl-clipboard-x11
 qt5-wayland
 xorg-server-xwayland
+avizo
 
 # kernel
 linux
@@ -117,11 +128,14 @@ linux-surface-dev
 linux-surface-dev-docs
 linux-surface-dev-headers
 
+systemd-swap
+
 # fonts & themes
 ttf-fira-code
 ttf-fira-mono
 ttf-fira-sans
 ttf-inter-ui
+ttf-linux-libertine
 ttf-proggy-clean
 ttf-roboto
 terminus-font

@@ -4,7 +4,7 @@
     border: none;
     border-radius: 0;
     font-family: "Font Awesome", Inter UI, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     min-height: 0;
 }
 
@@ -13,12 +13,13 @@ window#waybar {
     border-bottom: 3px solid transparent;
     color: white;
 
+    background: rgba(40, 23, 51, .125);
+    background: rgba(40, 23, 51, .325);
     background: rgba(40, 23, 51, .5);
-    /* color: #dbbfef; */
 }
 
 #workspaces button {
-    padding: 0 .5rem;
+    padding: 0 .75rem;
     margin: 0 .25rem;
     color: white;
     border-bottom: 3px solid transparent;
