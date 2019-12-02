@@ -27,6 +27,10 @@ connman
 iwd
 iw
 
+# for bluetooth
+bluez-utils
+blueman
+
 # vim
 ctags
 dialog
@@ -81,12 +85,16 @@ mesa
 pavucontrol
 pulseaudio
 pulseaudio-alsa
+pulseaudio-bluetooth
 python-pip
 upower
 youtube-dl
 keybase
 keybase-gui
 redshift-wlr-gamma-control-git
+
+# includes docker
+docker-compose
 
 # AUR
 yay

@@ -285,5 +285,6 @@ bindsym XF86AudioPrev exec playerctl previous
 exec mako
 exec libinput-gestures-setup start
 exec ydotoold&
+exec redshift -l 35.7:139.7
 
 include /etc/sway/config.d/*

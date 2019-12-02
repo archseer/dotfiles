@@ -5,7 +5,6 @@
 	fc-color: #a8b298;
 	bg-color: #3c4140;
 	bg-color:  rgba(40, 23, 51, 1);
-	bg-color:  rgba(40, 23, 151, 1);
 
 	fc-color-trans: #69888564;
 	fc-color-trans: #ebeafa30;
@@ -34,7 +33,7 @@
 #mainbox {
 	expand:            false;
 	background-color:  @bg-color;
-	spacing:           1em;
+	/* spacing:           1em; */
   	padding:           0px;
   	border: 0px 1px 0px 0px;
 	border-color: #666666;
@@ -69,8 +68,9 @@
 /*  Input bar                                        */
 /* ================================================= */
 #inputbar {
-	padding:       1.4em 2em 0 2em;
+	padding:       1.4em 2em 1.2em 2em;
 	spacing:		   0.2em;
+        background-color: rgba(69, 40, 89, 1);
 }
 
 #prompt {
