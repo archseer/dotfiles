@@ -45,7 +45,7 @@ call minpac#add('ncm2/ncm2-html-subscope')
 call minpac#add('ncm2/ncm2-markdown-subscope')
 call minpac#add('Shougo/neosnippet')
 call minpac#add('honza/vim-snippets', {'type': 'opt'})
-call minpac#add('ludovicchabant/vim-gutentags')
+" call minpac#add('ludovicchabant/vim-gutentags')
 " Code manipulation
 call minpac#add('AndrewRadev/splitjoin.vim')
 call minpac#add('junegunn/vim-easy-align')

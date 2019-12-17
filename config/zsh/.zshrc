@@ -1,4 +1,6 @@
-source "${HOME}/.zgen/zgen.zsh"
+export ZGEN_DIR="${ZDOTDIR:-$HOME}/.zgen"
+[[ -d "$ZGEN_DIR" ]] || git clone https://github.com/tarjoilija/zgen.git "$ZGEN_DIR"
+source "${ZGEN_DIR}/zgen.zsh"
 
 if ! zgen saved; then
   echo "Creating a zgen save..."
@@ -35,9 +37,6 @@ setopt clobber
 
 # -- Exports ----------------------------------------------------------------
 
-# Add the missing sbin to path
-export PATH="/usr/local/sbin:$PATH"
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 export LC_CTYPE="en_US.UTF-8"
@@ -46,31 +45,8 @@ export EDITOR='nvim'
 
 export GL_ENABLE_DEBUG_ATTACH=YES
 
-# put ~/bin on PATH if you have it
-test -d "$HOME/bin" &&
-  PATH="$HOME/bin:$PATH"
-
-# add rbenv
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
-# add jenv
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-# add go
-export GOPATH="$HOME/src/go"
-export PATH="${GOPATH//://bin:}/bin:$PATH"
-# add yarn
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-# add rust
-export PATH="$HOME/.cargo/bin:$PATH"
-# add llvm
-export PATH="/usr/local/opt/llvm/bin:$PATH"
-
-#export PATH="$HOME/src/moon/bin:$PATH"
-
 # android ndk
-export ANDROID_NDK_HOME="$(brew --prefix)/share/android-ndk"
-
+# export ANDROID_NDK_HOME="$(brew --prefix)/share/android-ndk"
 
 # erlang shell history
 export ERL_AFLAGS="-kernel shell_history enabled"
@@ -103,6 +79,8 @@ alias m='mix'
 alias c='cargo'
 
 alias j='fasd_cd -d'
+
+alias yay="PKGEXT='.pkg.tar' yay"
 
 # alias vim='echo'
 # alias git='echo'

@@ -102,10 +102,10 @@ set tags="~/.vim/tags"
 " ---------------------------------------------------------------------------
 "  Go to definition
 " ---------------------------------------------------------------------------
-set tags="~/.vim/tags"
-let g:gutentags_cache_dir="~/.vim/tags"
+" set tags="~/.vim/tags"
+" let g:gutentags_cache_dir="~/.vim/tags"
 
-let g:gutentags_ctags_exclude=["node_modules","plugged","tmp","temp","log","vendor","**/db/migrate/*","bower_components","dist","build","coverage","spec","public","app/assets","*.json"]
+" let g:gutentags_ctags_exclude=["node_modules","plugged","tmp","temp","log","vendor","**/db/migrate/*","bower_components","dist","build","coverage","spec","public","app/assets","*.json"]
 
 " Enter is go to definition
 nnoremap <CR> <C-]>
@@ -309,8 +309,8 @@ nnoremap <silent> <leader>w :up<CR>
 nnoremap Y y$
 
 " Copy/paste system buffer
-noremap <leader>y "*y
-noremap <leader>p "*p
+noremap <leader>y "+y
+noremap <leader>p "+p
 
 " Switch from horizontal split to vertical split and vice versa
 nnoremap <leader>- <C-w>t<C-w>H
