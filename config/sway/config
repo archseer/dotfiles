@@ -119,6 +119,9 @@ bindcode 101 exec ydotool key enter
     # Start password manager
     bindsym $mod+p exec bwmenu
 
+    # Open a file manager
+    bindsym $mod+z exec alacritty -e nnn
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -271,6 +274,9 @@ bindsym XF86Sleep exec --no-startup-id systemctl suspend
 # Screen brightness
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
+
+# Toggle Redshift
+bindsym $mod+Home exec --no-startup-id pkill -USR1 redshift
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume

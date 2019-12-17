@@ -1,7 +1,7 @@
-acpi_call-dkms
 
 # terminal
 alacritty-git
+
 base
 
 # base-devel
@@ -33,7 +33,9 @@ blueman
 
 # vim
 ctags
+
 dialog
+
 # git
 diff-so-fancy
 
@@ -43,9 +45,15 @@ dkms
 dmidecode
 hidrd-git
 hwinfo
+acpi_call-dkms
+acpica
+i2c-tools
 
 # CPU firmware
 intel-ucode
+# hardware acceleration
+intel-media-driver
+libva-utils
 # sound firmware
 sof-firmware
 
@@ -70,6 +78,7 @@ neovim
 nmap
 man-db
 ranger
+nnn
 rcm
 ripgrep
 rsync
@@ -80,15 +89,23 @@ wget
 weechat
 zsh
 zsh-completions
+watchman
+
+powertop
+tlp
 
 etckeeper
 
 openssh
 mesa
+
+# audio
 pavucontrol
 pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
+alsa-utils
+
 python-pip
 upower
 youtube-dl
@@ -98,6 +115,13 @@ redshift-wlr-gamma-control-git
 
 # includes docker
 docker-compose
+
+# firefox development
+mercurial
+ccache
+gdb
+# libinput dev
+meson
 
 # AUR
 yay
@@ -129,7 +153,6 @@ wl-clipboard
 wl-clipboard-x11
 qt5-wayland
 xorg-server-xwayland
-avizo
 
 # kernel
 linux
