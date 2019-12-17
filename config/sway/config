@@ -87,7 +87,7 @@ input "1118:2338:Microsoft_Surface_HID_Touchpad" {
 input "1118:2338:Microsoft_Surface_HID_Keyboard" {
     xkb_layout us
     xkb_variant norman
-    xkb_options ctrl:nocaps
+    xkb_options ctrl:nocaps,compose:ralt
 }
 
 # rebind JP keys to planck equivalents
