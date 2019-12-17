@@ -1,5 +1,4 @@
 export ZGEN_DIR="${ZDOTDIR:-$HOME}/.zgen"
-[[ -d "$ZGEN_DIR" ]] || git clone https://github.com/tarjoilija/zgen.git "$ZGEN_DIR"
 source "${ZGEN_DIR}/zgen.zsh"
 
 if ! zgen saved; then
@@ -9,9 +8,9 @@ if ! zgen saved; then
 
   zgen prezto editor key-bindings 'vi'
   zgen prezto editor dot-expansion 'yes'
-  zgen prezto utility:ls color 'yes'
-  zgen prezto utility safe-ops 'no'
-  zgen prezto '*:*' color 'yes'
+  # zgen prezto utility:ls color 'yes'
+  # zgen prezto utility safe-ops 'no'
+  # zgen prezto '*:*' color 'yes'
   zgen prezto prompt theme 'hyrule'
 
   zgen prezto
@@ -20,7 +19,7 @@ if ! zgen saved; then
   zgen prezto editor
   zgen prezto history
   zgen prezto directory
-  zgen prezto utility
+  # zgen prezto utility
   zgen prezto completion   # must be loaded after utility
   zgen prezto prompt
   zgen prezto ssh

@@ -1,0 +1,7 @@
+[submodule "zsh/zgen"]
+  path = config/zsh/.zgen
+  url = https://github.com/tarjoilija/zgen
+
+[submodule "config/nvim/pack/minpac/opt/minpac"]
+  path = config/nvim/pack/minpac/opt/minpac
+  url = https://github.com/k-takata/minpac

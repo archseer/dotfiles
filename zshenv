@@ -25,3 +25,4 @@ export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 # Correct XDG paths
 export ZDOTDIR="$HOME/.config/zsh"
+export INPUTRC="$HOME/.config/inputrc"
