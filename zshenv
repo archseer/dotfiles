@@ -26,3 +26,10 @@ export PATH="/usr/local/opt/llvm/bin:$PATH"
 # Correct XDG paths
 export ZDOTDIR="$HOME/.config/zsh"
 export INPUTRC="$HOME/.config/inputrc"
+
+# Compile packages with -j8
+export MAKEFLAGS="-j8"
+export CFLAGS="-march=native -mtune=native"
+export CXXFLAGS="${CFLAGS}"
+
+export RUSTFLAGS="-C target-cpu=native"

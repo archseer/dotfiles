@@ -1,6 +1,6 @@
 
 # terminal
-alacritty-git
+alacritty
 
 base
 
@@ -26,6 +26,9 @@ which
 connman
 iwd
 iw
+
+# concurrent gzip (mkinitcpio)
+pigz
 
 # for bluetooth
 bluez-utils
@@ -91,9 +94,15 @@ weechat
 zsh
 zsh-completions
 watchman
+p7zip
+picocom
+
+wee-slack
+weechat-poljar-matrix-git
 
 powertop
 tlp
+thermald
 
 etckeeper
 
@@ -163,13 +172,11 @@ linux-surface-dev
 linux-surface-dev-docs
 linux-surface-dev-headers
 
-systemd-swap
-
 # fonts & themes
 ttf-fira-code
 ttf-fira-mono
 ttf-fira-sans
-ttf-inter-ui
+inter-font
 ttf-linux-libertine
 ttf-proggy-clean
 ttf-roboto

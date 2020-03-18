@@ -8,9 +8,6 @@ if ! zgen saved; then
 
   zgen prezto editor key-bindings 'vi'
   zgen prezto editor dot-expansion 'yes'
-  # zgen prezto utility:ls color 'yes'
-  # zgen prezto utility safe-ops 'no'
-  # zgen prezto '*:*' color 'yes'
   zgen prezto prompt theme 'hyrule'
 
   zgen prezto
@@ -19,10 +16,8 @@ if ! zgen saved; then
   zgen prezto editor
   zgen prezto history
   zgen prezto directory
-  # zgen prezto utility
   zgen prezto completion   # must be loaded after utility
   zgen prezto prompt
-  zgen prezto ssh
 
   zgen prezto history-substring-search
   zgen load zsh-users/zsh-autosuggestions
@@ -41,6 +36,9 @@ export LANG=en_US.UTF-8
 export LC_CTYPE="en_US.UTF-8"
 
 export EDITOR='nvim'
+export VISUAL='nvim'
+export TERMINAL='alacritty'
+export BROWSER='firefox-developer-edition'
 
 export GL_ENABLE_DEBUG_ATTACH=YES
 
@@ -50,6 +48,10 @@ export GL_ENABLE_DEBUG_ATTACH=YES
 # erlang shell history
 export ERL_AFLAGS="-kernel shell_history enabled"
 export ELIXIR_EDITOR="vi +__LINE__ __FILE__"
+
+export WEECHAT_HOME="$HOME/.config/weechat"
+
+export NNN_USE_EDITOR=1
 
 # autocomplete kubectl
 # source <(kubectl completion zsh)
@@ -118,3 +120,5 @@ gh() {
 
 zle -N gh
 bindkey '^g^h' gh
+
+source /home/speed/.config/broot/launcher/bash/br

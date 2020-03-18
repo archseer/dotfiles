@@ -209,7 +209,7 @@ augroup lsp
   if executable('ra_lsp_server')
       au User lsp_setup call lsp#register_server({
         \ 'name': 'ra_lsp_server',
-        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'ra_lsp_server']},
+        \ 'cmd': {server_info->['ra_lsp_server']},
         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
         \ 'whitelist': ['rust'],
         \ })

@@ -45,7 +45,10 @@ client.background $bg
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/out.jpg fill
+output * bg ~/Pictures/wallpapers/swatch.png fill
+output * bg ~/Pictures/wallpapers/blurred_fast.jpg fill
+output * bg ~/Pictures/wallpapers/solarclipse2.jpg fill
+output * bg ~/Pictures/wallpapers/out.jpg fill
 #
 # Example configuration:
 #
@@ -78,10 +81,10 @@ input "1118:2338:Microsoft_Surface_HID_Touchpad" {
     tap enabled
     # drag enabled
     natural_scroll enabled
-    scroll_factor 1.25
+    scroll_factor 0.75
     middle_emulation enabled
     accel_profile adaptive
-    pointer_accel 0.25
+    pointer_accel 0.33
 }
 
 input "1118:2338:Microsoft_Surface_HID_Keyboard" {
@@ -295,6 +298,7 @@ bindsym XF86AudioPrev exec playerctl previous
 exec mako
 exec libinput-gestures-setup start
 exec ydotoold&
+exec evscript -f ~/.config/evscape/config.dyon -d /dev/input/event2
 exec redshift -l 35.7:139.7
 
 include /etc/sway/config.d/*

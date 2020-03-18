@@ -1,0 +1,37 @@
+ignore-empty-password
+
+indicator-radius=160
+indicator-thickness=20
+indicator-caps-lock
+
+key-hl-color=880033
+
+separator-color=00000000
+
+inside-color=00000088
+inside-clear-color=ffd204FF
+inside-caps-lock-color=009ddcFF
+inside-ver-color=d9d8d8FF
+inside-wrong-color=ee2e24FF
+
+ring-color=231f20FF
+ring-clear-color=231f20FF
+ring-caps-lock-color=231f20FF
+ring-ver-color=231f20FF
+ring-wrong-color=231f20FF
+
+line-color=00000000
+/* line-clear-color=ffd204FF */
+/* line-caps-lock-color=009ddcFF */
+/* line-ver-color=d9d8d8FF */
+/* line-wrong-color=ee2e24FF */
+
+text-clear-color=ffd204FF
+text-ver-color=d9d8d8FF
+text-wrong-color=ee2e24FF
+
+bs-hl-color=ee2e24FF
+caps-lock-key-hl-color=ffd204FF
+caps-lock-bs-hl-color=ee2e24FF
+disable-caps-lock-text
+text-caps-lock-color=009ddc

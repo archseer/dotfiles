@@ -75,8 +75,8 @@ window#waybar {
     background: #f53c3c;
     color: white;
     animation-name: blink;
-    animation-duration: 0.625s;
-    animation-timing-function: linear;
+    animation-duration: 0.875s;
+    animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }

@@ -26,7 +26,6 @@ call minpac#add('stephenway/postcss.vim')
 let g:polyglot_disabled = ['org']
 call minpac#add('sheerun/vim-polyglot')
 call minpac#add('Shougo/vinarise.vim')
-call minpac#add('jparise/vim-graphql')
 call minpac#add('prabirshrestha/async.vim')
 call minpac#add('prabirshrestha/vim-lsp')
 call minpac#add('jceb/vim-orgmode')
