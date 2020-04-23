@@ -116,60 +116,44 @@ autocmd FileType vim nnoremap <buffer> <CR> <CR>
 " ---------------------------------------------------------------------------
 "  Completion / Snippets
 " ---------------------------------------------------------------------------
-let g:echodoc_enable_at_startup = 1
-let g:delimitMate_expand_cr = 2
-if has('nvim') " Use completion.
-  set completeopt+=menuone
-  set completeopt+=noselect
-  set completeopt-=preview
-  if has('patch-7.4.314') | set shortmess+=c | endif
+" let g:echodoc_enable_at_startup = 1
+" let g:delimitMate_expand_cr = 2
 
-  " enable ncm2 for all buffers
-  autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
+set shortmess+=c
 
-  let g:ncm2#popup_delay = 80
-  let g:ncm2#complete_delay = 10
-  let g:ncm2#total_popup_limit = 20
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" let g:ncm2#popup_delay = 80
+" let g:ncm2#complete_delay = 10
+" let g:ncm2#total_popup_limit = 20
 
   " TODO: neosnippet, maybe skip bufword
 
-  let g:ncm2#filter = {'name':'substitute',
-                    \ 'pattern': '[\(\s].*$',
-                    \ 'replace': '',
-                    \ 'key': 'word'}
+  " let g:ncm2#filter = {'name':'substitute',
+  "                   \ 'pattern': '[\(\s].*$',
+  "                   \ 'replace': '',
+  "                   \ 'key': 'word'}
 
-  let g:endwise_no_mappings = 1 " don't override my map..
-  function! s:smart_cr()
-    " neosnippet || deoplete || delimitmate || vim-endwise
-          "\ : pumvisible() ? deoplete#mappings#close_popup()
-    return neosnippet#expandable_or_jumpable() ?
-          \ neosnippet#mappings#expand_or_jump_impl()
-          \ : pumvisible() ? "\<c-y>"
-          \ : delimitMate#WithinEmptyPair() ? delimitMate#ExpandReturn()
-          \ : "\<CR>" . EndwiseDiscretionary()
-  endfunction
-  inoremap <expr> <CR> <SID>smart_cr()
-  inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
-endif
-" neosnippet mappings
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-" SuperTab like snippets behavior.
-imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-" For conceal markers. (neosnippet)
-if has('conceal')
-  "set conceallevel=2 concealcursor=niv
-endif
+let g:endwise_no_mappings = 1 " don't override my map..
 
-let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory= g:vim_home .'/pack/minpac/opt/vim-snippets/snippets'
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Press enter key to trigger snippet expansion
+" The parameters are the same as `:help feedkeys()`
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+
+" c-j c-k for moving in snippet
+let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
+
 
 " -- Language servers -------------------------------------------------------
 let g:lsp_diagnostics_enabled = 0
@@ -206,23 +190,14 @@ augroup lsp
         \   'workspace_config': {'vetur': {'validation': {'style': v:false}}},
         \ })
   end
-  if executable('ra_lsp_server')
+  if executable('rust-analyzer')
       au User lsp_setup call lsp#register_server({
-        \ 'name': 'ra_lsp_server',
-        \ 'cmd': {server_info->['ra_lsp_server']},
+        \ 'name': 'rust-analyzer',
+        \ 'cmd': {server_info->['rust-analyzer']},
         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
         \ 'whitelist': ['rust'],
         \ })
   endif
-  " if executable('rls')
-  "     au User lsp_setup call lsp#register_server({
-  "       \ 'name': 'rls',
-  "       \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
-  "       \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
-  "       \ 'whitelist': ['rust'],
-  "       \ })
-  
-  " endif
 augroup END
 
 nnoremap <leader>r :LspReferences<CR>
