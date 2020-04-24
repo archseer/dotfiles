@@ -128,32 +128,24 @@ inoremap <c-c> <ESC>
 " enable ncm2 for all buffers
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
+let g:ncm2#complete_delay = 10
 " let g:ncm2#popup_delay = 80
-" let g:ncm2#complete_delay = 10
 " let g:ncm2#total_popup_limit = 20
-
-  " TODO: neosnippet, maybe skip bufword
-
-  " let g:ncm2#filter = {'name':'substitute',
-  "                   \ 'pattern': '[\(\s].*$',
-  "                   \ 'replace': '',
-  "                   \ 'key': 'word'}
-
-let g:endwise_no_mappings = 1 " don't override my map..
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Press enter key to trigger snippet expansion
 " The parameters are the same as `:help feedkeys()`
-inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+let g:AutoPairsMapCR=0
+inoremap <silent> <Plug>(MyCR) <CR><C-R>=AutoPairsReturn()<CR>
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<Plug>(MyCR)", 'im')
 
 " c-j c-k for moving in snippet
 let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
-
 
 " -- Language servers -------------------------------------------------------
 let g:lsp_diagnostics_enabled = 0
