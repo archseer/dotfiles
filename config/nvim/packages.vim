@@ -34,7 +34,7 @@ call minpac#add('Shougo/vinarise.vim')
 call minpac#add('prabirshrestha/async.vim')
 call minpac#add('prabirshrestha/vim-lsp')
 " Lint
-call minpac#add('w0rp/ale')
+" call minpac#add('w0rp/ale')
 " Completion
 call minpac#add('ncm2/ncm2')
 call minpac#add('roxma/nvim-yarp')
@@ -66,6 +66,7 @@ call minpac#add('andymass/vim-matchup')
 
 call minpac#add('janko-m/vim-test')
 call minpac#add('junegunn/vim-peekaboo')
+call minpac#add('ripxorip/aerojump.nvim')
 " File finder
 call minpac#add('justinmk/vim-dirvish')
 call minpac#add('junegunn/fzf')

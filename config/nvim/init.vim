@@ -19,8 +19,7 @@ runtime packages.vim
 runtime autoload/provider/clipboard.vim
 let g:loaded_netrwPlugin = 1 " unload netrw, we use dirvish
 
-set nobackup              " do not keep backups
-set noswapfile            " don't keep swp files either
+set nobackup noswapfile   " do not keep backups or swaps
 set undofile
 
 " -- Colors / Theme ---------------------------------------------------------
@@ -48,15 +47,17 @@ set shortmess+=aAI         " shorten messages
 set report=0               " tell us about changes
 set mousehide              " Hide the mouse pointer while typing
 set nostartofline          " don't jump to the start of line when scrolling
+set sidescroll=1
 set scrolloff=5            " minimum lines to keep above and below cursor
 set sidescrolloff=7
-set sidescroll=1
 set splitbelow splitright  " splits that make more sense
 set switchbuf=useopen      " When buffer already open, jump to that window
 set diffopt+=iwhite        " Add ignorance of whitespace to diff
 set diffopt+=vertical      " Allways diff vertically
 set synmaxcol=200          " Boost performance of rendering long lines
 set guicursor=
+
+set conceallevel=2
 
 " -- Search -----------------------------------------------------------------
 set ignorecase smartcase   " ignore case for searches without capital letters
@@ -69,9 +70,7 @@ nnoremap <silent> <leader>h :noh<cr>
 " -- Visual Cues ------------------------------------------------------------
 set showmatch matchtime=2  " show matching brackets/braces (2*1/10 sec)
 set cpoptions+=$           " in the change mode, show an $ at the end
-if has("nvim")
-  set inccommand=nosplit   " live substitution preview
-end
+set inccommand=nosplit     " live substitution preview
 if has('patch-7.4.338')
   let &showbreak = '↳ '
   set breakindent          " when wrapping, indent the lines
@@ -79,11 +78,8 @@ if has('patch-7.4.338')
 endif
 set fillchars=diff:⣿,vert:│,fold:·
 " show whitespace with <leader>s
-set listchars=tab:——,trail:·,eol:$
+set listchars=tab:——,trail:·,eol:$,space:·
 "set listchars+=extends:›,precedes:‹,nbsp:␣
-if has('patch-7.4.710')    " show normal spaces too if possible
-  set listchars+=space:·
-endif
 nnoremap <silent> <leader>s :set nolist!<CR>
 
 " -- Text Formatting --------------------------------------------------------
@@ -104,7 +100,6 @@ set tags="~/.vim/tags"
 " ---------------------------------------------------------------------------
 " set tags="~/.vim/tags"
 " let g:gutentags_cache_dir="~/.vim/tags"
-
 " let g:gutentags_ctags_exclude=["node_modules","plugged","tmp","temp","log","vendor","**/db/migrate/*","bower_components","dist","build","coverage","spec","public","app/assets","*.json"]
 
 " Enter is go to definition
@@ -116,9 +111,6 @@ autocmd FileType vim nnoremap <buffer> <CR> <CR>
 " ---------------------------------------------------------------------------
 "  Completion / Snippets
 " ---------------------------------------------------------------------------
-" let g:echodoc_enable_at_startup = 1
-" let g:delimitMate_expand_cr = 2
-
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
 
@@ -148,40 +140,26 @@ let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " -- Language servers -------------------------------------------------------
-let g:lsp_diagnostics_enabled = 0
+let g:lsp_diagnostics_enabled = 1
+let grlsp_signs_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 0
 "let g:lsp_async_completion = 1
 let g:lsp_signs_error   = {'text': '●'}
 let g:lsp_signs_warning = {'text': '●'}
 let g:lsp_signs_hint    = {'text': '●'}
 " let g:lsp_log_verbose = 1
 " let g:lsp_log_file = expand('~/vim-lsp.log')
-highlight link LspWarningHighlight Todo
-highlight link LspInformationHighlight Todo
-highlight link LspErrorHighlight WarningMsg
+" highlight link LspWarningHighlight WarningMsg
+" highlight link LspInformationHighlight Todo
+" highlight link LspErrorHighlight ErrorMsg
+highlight LspWarningHighlight gui=underline
+highlight LspInformationHighlight gui=underline
+highlight LspErrorHighlight gui=underline
+highlight link LspWarningText WarningMsg
+highlight link LspInformationText Todo
+highlight link LspErrorText ErrorMsg
 augroup lsp
   au!
-  if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-          \ 'name': 'typescript-language-server',
-          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-          \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-          \ 'whitelist': ['typescript'],
-          \ })
-  endif
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'elixir-ls',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, '~/src/elixir-ls/language_server.sh']},
-        \ 'whitelist': ['elixir', 'eelixir'],
-        \ 'workspace_config': {'elixirLS': {'dialyzerEnabled': v:false}},
-        \ })
-  if executable('vls')
-  au User lsp_setup call lsp#register_server({
-        \   'name': 'vue-language-server',
-        \   'cmd': {server_info->['vls']},
-        \   'whitelist': ['vue'],
-        \   'workspace_config': {'vetur': {'validation': {'style': v:false}}},
-        \ })
-  end
   if executable('rust-analyzer')
       au User lsp_setup call lsp#register_server({
         \ 'name': 'rust-analyzer',
@@ -197,22 +175,23 @@ nnoremap <leader>d :LspPeekDefinition<CR>
 nnoremap <leader>m :LspDocumentSymbol<CR>
 
 " -- Linting ----------------------------------------------------------------
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_save = 1
-let g:ale_completion_enabled = 0
-let g:ale_linters = {'elixir': ['credo'], 'vue': ['eslint']} " 'tsserver', 
-let g:ale_fixers = {'vue': ['eslint'], 'javascript': ['eslint', 'tslint']}
-let g:ale_linter_aliases = {'vue': 'typescript'}
-let g:ale_fix_on_save = 1
-let g:ale_sign_error = "●"
-let g:ale_sign_warning = "●"
-let g:ale_virtualtext_cursor = 1
-" highlight link ALEWarningSign Todo
-" highlight link ALEErrorSign WarningMsg
-highlight link ALEVirtualTextWarning Todo
-highlight link ALEVirtualTextInfo Todo
-highlight link ALEVirtualTextError WarningMsg
+" let g:ale_disable_lsp = 1
+" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_save = 1
+" let g:ale_completion_enabled = 0
+" let g:ale_linters = {'elixir': ['credo'], 'vue': ['eslint'], 'rust': []} " 'tsserver', 
+" let g:ale_fixers = {'vue': ['eslint'], 'javascript': ['eslint', 'tslint']}
+" let g:ale_linter_aliases = {'vue': 'typescript'}
+" let g:ale_fix_on_save = 1
+" let g:ale_sign_error = "●"
+" let g:ale_sign_warning = "●"
+" let g:ale_virtualtext_cursor = 1
+" " highlight link ALEWarningSign Todo
+" " highlight link ALEErrorSign WarningMsg
+" highlight link ALEVirtualTextWarning Todo
+" highlight link ALEVirtualTextInfo Todo
+" highlight link ALEVirtualTextError WarningMsg
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
 " ---------------------------------------------------------------------------
@@ -309,6 +288,16 @@ imap <c-e> <c-y>,
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+nmap gaa ga_
+
+xmap <Leader>ga <Plug>(LiveEasyAlign)
+
+" Create mappings (with leader)
+nmap <Leader>as <Plug>(AerojumpSpace)
+nmap <Leader>ab <Plug>(AerojumpBolt)
+nmap <Leader>aa <Plug>(AerojumpFromCursorBolt)
+" Boring mode
+nmap <Leader>ad <Plug>(AerojumpDefault)
 
 " -- fzf ---------------------------------------------------------------------
 function! s:find_git_root()
@@ -343,6 +332,12 @@ let g:fzf_colors =
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
 
+" if exists('$TMUX')
+"   let g:fzf_layout = { 'tmux': '-p90%,60%' }
+" else
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+" endif
+
 " -- vim-sandwich ------------------------------------------------------------
 xmap im <Plug>(textobj-sandwich-literal-query-i)
 xmap am <Plug>(textobj-sandwich-literal-query-a)
@@ -358,15 +353,15 @@ omap a_ am_
 " ----------------------------------------------------------------------------
 function! StatusHighlight(mode)
   if a:mode == 'n' || a:mode == 'c'
-    return 'NORMAL'
+    return 'NOR'
   elseif a:mode == 'i'
-    return 'INSERT'
+    return 'INS'
   elseif a:mode == 'R'
-    return 'REPLACE'
+    return 'REP'
   elseif a:mode == 't'
-    return 'TERMINAL'
+    return 'TER'
   elseif a:mode =~# '\v(v|V||s|S|)'
-    return a:mode == 'v' ? 'VISUAL' : a:mode == 'V' ? 'V-LINE' : 'V-BLOCK'
+    return a:mode == 'v' ? 'VIS' : a:mode == 'V' ? 'V-L' : 'V-B'
   else
     return a:mode
   endif
@@ -376,18 +371,6 @@ endfunction
 hi StatusError ctermbg=17 ctermfg=209 guifg=#f47868 guibg=#281733
 hi StatusWarning ctermbg=17 ctermfg=209 guifg=#ffcd1c guibg=#281733
 hi StatusOk ctermbg=17 ctermfg=209 guifg=#ffffff guibg=#281733
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
-  endfunction
 function! Status(winnr)
   let active = a:winnr == winnr() || winnr('$') == 1
   let status = ''
@@ -400,13 +383,14 @@ function! Status(winnr)
   if &filetype != 'netrw' && &filetype != 'undotree'
     let status .= '%='
     if active != 0 " only show lint information in the active window
-      let l:counts = ale#statusline#Count(bufnr(''))
+      " let l:counts = ale#statusline#Count(bufnr(''))
+      let l:counts = lsp#get_buffer_diagnostics_counts()
 
-      if l:counts.total == 0
+      if (l:counts.error + l:counts.warning) == 0
         let status .=  '%#StatusOk#⬥ ok%* '
       else
-        let l:all_errors = l:counts.error + l:counts.style_error
-        let l:all_non_errors = l:counts.total - l:all_errors
+        let l:all_errors = l:counts.error
+        let l:all_non_errors = l:counts.warning
 
         if l:all_errors > 0
           let status .=  '%#StatusError#'
