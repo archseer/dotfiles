@@ -304,7 +304,7 @@ call s:HL('Comment',        'comment', '',       '')
 "call s:HL('SpecialComment', 'comment', '',       'reverse')
 call s:HL('SpecialComment', 'sinbad', '',       '')
 call s:HL('SpecialComment', 'silver', '',       '')
-call s:HL('Todo',           'background', 'warning', 'italic') " swapped for some reason
+call s:HL('Todo',           'warning', 'background', '')
 call s:HL('Error',          'error',   'background')
 
 " -> Keywords

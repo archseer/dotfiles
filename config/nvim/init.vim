@@ -55,7 +55,7 @@ set switchbuf=useopen      " When buffer already open, jump to that window
 set diffopt+=iwhite        " Add ignorance of whitespace to diff
 set diffopt+=vertical      " Allways diff vertically
 set synmaxcol=200          " Boost performance of rendering long lines
-set guicursor=
+" set guicursor=
 
 set conceallevel=2
 
@@ -96,19 +96,6 @@ set nowrap                 " do not wrap lines
 set formatoptions+=rno1l   " support for numbered/bullet lists, etc.
 set tags="~/.vim/tags"
 " ---------------------------------------------------------------------------
-"  Go to definition
-" ---------------------------------------------------------------------------
-" set tags="~/.vim/tags"
-" let g:gutentags_cache_dir="~/.vim/tags"
-" let g:gutentags_ctags_exclude=["node_modules","plugged","tmp","temp","log","vendor","**/db/migrate/*","bower_components","dist","build","coverage","spec","public","app/assets","*.json"]
-
-" Enter is go to definition
-nnoremap <CR> <C-]>
-" In the quickfix window, <CR> is used to jump to the error under the cursor, undef
-autocmd FileType qf nnoremap <buffer> <CR> <CR>
-" same for vim type windows (command-history, terminal, etc.)
-autocmd FileType vim nnoremap <buffer> <CR> <CR>
-" ---------------------------------------------------------------------------
 "  Completion / Snippets
 " ---------------------------------------------------------------------------
 set completeopt=noinsert,menuone,noselect
@@ -124,7 +111,18 @@ let g:ncm2#complete_delay = 10
 " let g:ncm2#popup_delay = 80
 " let g:ncm2#total_popup_limit = 20
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+function! MyTab()
+ " first try jumping to next completion space
+ call UltiSnips#JumpForwards()
+ if g:ulti_jump_forwards_res == 1
+   return ""
+ endif
+
+ " then tab
+ return "\<Tab>"
+endfunction
+
+inoremap <silent> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-R>=MyTab()\<CR>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Press enter key to trigger snippet expansion
@@ -140,58 +138,81 @@ let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " -- Language servers -------------------------------------------------------
-let g:lsp_diagnostics_enabled = 1
-let grlsp_signs_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 0
-"let g:lsp_async_completion = 1
-let g:lsp_signs_error   = {'text': '●'}
-let g:lsp_signs_warning = {'text': '●'}
-let g:lsp_signs_hint    = {'text': '●'}
-" let g:lsp_log_verbose = 1
-" let g:lsp_log_file = expand('~/vim-lsp.log')
-" highlight link LspWarningHighlight WarningMsg
-" highlight link LspInformationHighlight Todo
-" highlight link LspErrorHighlight ErrorMsg
 highlight LspWarningHighlight gui=underline
 highlight LspInformationHighlight gui=underline
 highlight LspErrorHighlight gui=underline
 highlight link LspWarningText WarningMsg
 highlight link LspInformationText Todo
 highlight link LspErrorText ErrorMsg
-augroup lsp
+
+" sign define LspDiagnosticsErrorSign text=● texthl=LspDiagnosticsError linehl= numhl=
+" sign define LspDiagnosticsWarningSign text=● texthl=LspDiagnosticsWarning linehl= numhl=
+" sign define LspDiagnosticsInformationSign text=● texthl=LspDiagnosticsInformation linehl= numhl=
+" sign define LspDiagnosticsHintSign text=● texthl=LspDiagnosticsHint linehl= numhl=
+
+let g:LspDiagnosticsErrorSign = '●'
+let g:LspDiagnosticsWarningSign = '●'
+let g:LspDiagnosticsInformationSign = '●'
+let g:LspDiagnosticsHintSign = '●'
+
+let g:diagnostic_virtual_text_prefix = ''
+let g:diagnostic_enable_virtual_text = 1
+let g:space_before_virtual_text = 1
+let g:diagnostic_insert_delay = 1
+
+packadd nvim-lsp
+packadd ncm2
+packadd diagnostic-nvim
+lua << EOF
+if vim.env.SNIPPETS then
+    vim.snippet = require 'snippet'
+end
+
+local nvim_lsp = require('nvim_lsp')
+local ncm2 = require('ncm2')
+local diagnostic = require('diagnostic')
+-- log_level = vim.lsp.protocol.MessageType.Trace;
+nvim_lsp.rust_analyzer.setup {
+  on_init = ncm2.register_lsp_source,
+  on_attach = diagnostic.on_attach,
+  settings = {
+    capabilities = {
+      textDocument = {
+        completion = {
+          completionItem = {
+            snippetSupport = true
+          }
+        }
+      }
+    }
+  }
+}
+EOF
+
+function! SetupLSP()
+  setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  " keywordprg
+  nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+  " enter is go to definition
+  nnoremap <silent> <CR>  <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+  nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+  nnoremap <silent> ]d :NextDiagnosticCycle<CR>
+  nnoremap <silent> [d :PrevDiagnosticCycle<CR>
+  nnoremap <silent> <leader>do :OpenDiagnostic<CR>
+  nnoremap <leader>dl <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+endfunction
+
+augroup LSP
   au!
-  if executable('rust-analyzer')
-      au User lsp_setup call lsp#register_server({
-        \ 'name': 'rust-analyzer',
-        \ 'cmd': {server_info->['rust-analyzer']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
-        \ 'whitelist': ['rust'],
-        \ })
-  endif
+  au FileType rust call SetupLSP()
 augroup END
 
-nnoremap <leader>r :LspReferences<CR>
-nnoremap <leader>d :LspPeekDefinition<CR>
-nnoremap <leader>m :LspDocumentSymbol<CR>
-
-" -- Linting ----------------------------------------------------------------
-" let g:ale_disable_lsp = 1
-" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_save = 1
-" let g:ale_completion_enabled = 0
-" let g:ale_linters = {'elixir': ['credo'], 'vue': ['eslint'], 'rust': []} " 'tsserver', 
-" let g:ale_fixers = {'vue': ['eslint'], 'javascript': ['eslint', 'tslint']}
-" let g:ale_linter_aliases = {'vue': 'typescript'}
-" let g:ale_fix_on_save = 1
-" let g:ale_sign_error = "●"
-" let g:ale_sign_warning = "●"
-" let g:ale_virtualtext_cursor = 1
-" " highlight link ALEWarningSign Todo
-" " highlight link ALEErrorSign WarningMsg
-" highlight link ALEVirtualTextWarning Todo
-" highlight link ALEVirtualTextInfo Todo
-" highlight link ALEVirtualTextError WarningMsg
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
 " ---------------------------------------------------------------------------
@@ -382,24 +403,21 @@ function! Status(winnr)
 
   if &filetype != 'netrw' && &filetype != 'undotree'
     let status .= '%='
-    if active != 0 " only show lint information in the active window
-      " let l:counts = ale#statusline#Count(bufnr(''))
-      let l:counts = lsp#get_buffer_diagnostics_counts()
+    if active != 0 " only show diagnostic information in the active window
+      let l:errors = luaeval("vim.lsp.util.buf_diagnostics_count(\"Error\")")
+      let l:warnings = luaeval("vim.lsp.util.buf_diagnostics_count(\"Warning\")")
 
-      if (l:counts.error + l:counts.warning) == 0
+      if (l:errors + l:warnings) == 0
         let status .=  '%#StatusOk#⬥ ok%* '
       else
-        let l:all_errors = l:counts.error
-        let l:all_non_errors = l:counts.warning
-
-        if l:all_errors > 0
+        if l:errors > 0
           let status .=  '%#StatusError#'
-          let status .= printf('⨉ %d', all_errors)
+          let status .= printf('⨉ %d', errors)
           let status .= '%* '
         endif
-        if l:all_non_errors > 0
+        if l:warnings > 0
           let status .=  '%#StatusWarning#'
-          let status .= printf('● %d', all_non_errors)
+          let status .= printf('● %d', warnings)
           let status .= '%* '
         endif
       endif

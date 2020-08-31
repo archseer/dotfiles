@@ -30,11 +30,9 @@ let g:polyglot_disabled = ['org']
 call minpac#add('sheerun/vim-polyglot')
 call minpac#add('Shougo/vinarise.vim')
 " call minpac#add('jceb/vim-orgmode')
-" LSP
-call minpac#add('prabirshrestha/async.vim')
-call minpac#add('prabirshrestha/vim-lsp')
 " Lint
 " call minpac#add('w0rp/ale')
+call minpac#add('neovim/nvim-lsp')
 " Completion
 call minpac#add('ncm2/ncm2')
 call minpac#add('roxma/nvim-yarp')
@@ -44,6 +42,7 @@ call minpac#add('ncm2/ncm2-path')
 call minpac#add('ncm2/ncm2-vim-lsp')
 call minpac#add('ncm2/ncm2-html-subscope')
 call minpac#add('ncm2/ncm2-markdown-subscope')
+call minpac#add('haorenW1025/diagnostic-nvim')
 " Snippets
 call minpac#add('SirVer/ultisnips')
 call minpac#add('honza/vim-snippets', {'type': 'opt'})
