@@ -73,15 +73,18 @@ alias l='exa -lahgF --group-directories-first'
 alias ll='exa -F'
 
 alias k='kubectl'
-alias h='helm'
-alias f='fly -t ci'
+# alias h='helm'
+# alias f='fly -t ci'
 
 alias m='mix'
 alias c='cargo'
 
+# j stands for jump
 alias j='fasd_cd -d'
 
 alias yay="PKGEXT='.pkg.tar' yay"
+
+alias open="xdg-open"
 
 # alias vim='echo'
 # alias git='echo'
@@ -114,7 +117,7 @@ gh() {
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
   fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
     --header 'Press CTRL-S to toggle sort' \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --stat --color=always | head -'$LINES |
   grep -o "[a-f0-9]\{7,\}"
 }
 
