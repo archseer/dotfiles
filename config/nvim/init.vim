@@ -104,38 +104,30 @@ set shortmess+=c
 " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
 inoremap <c-c> <ESC>
 
-" enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
-
-let g:ncm2#complete_delay = 10
+" let g:ncm2#complete_delay = 10
 " let g:ncm2#popup_delay = 80
 " let g:ncm2#total_popup_limit = 20
 
-function! MyTab()
- " first try jumping to next completion space
- call UltiSnips#JumpForwards()
- if g:ulti_jump_forwards_res == 1
-   return ""
- endif
+let g:completion_docked_hover = 1
+" let g:completion_enable_snippet = "snippets.nvim"
 
- " then tab
- return "\<Tab>"
-endfunction
-
-inoremap <silent> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-R>=MyTab()\<CR>"
+inoremap <silent> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Press enter key to trigger snippet expansion
 " The parameters are the same as `:help feedkeys()`
 let g:AutoPairsMapCR=0
 inoremap <silent> <Plug>(MyCR) <CR><C-R>=AutoPairsReturn()<CR>
-inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<Plug>(MyCR)", 'im')
+" inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<Plug>(MyCR)", 'im')
 
-" c-j c-k for moving in snippet
-let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
+
+" <c-k> will either expand the current snippet at the word or try to jump to
+" the next position for the snippet.
+inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
+
+" <c-j> will jump backwards to the previous field.
+" If you jump before the first field, it will cancel the snippet.
+inoremap <c-j> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
 
 " -- Language servers -------------------------------------------------------
 highlight LspWarningHighlight gui=underline
@@ -145,37 +137,57 @@ highlight link LspWarningText WarningMsg
 highlight link LspInformationText Todo
 highlight link LspErrorText ErrorMsg
 
+" -- Fixes whitespace highlighted in popups
+highlight mkdLineBreak guifg=none guibg=none
+
 " sign define LspDiagnosticsErrorSign text=● texthl=LspDiagnosticsError linehl= numhl=
 " sign define LspDiagnosticsWarningSign text=● texthl=LspDiagnosticsWarning linehl= numhl=
 " sign define LspDiagnosticsInformationSign text=● texthl=LspDiagnosticsInformation linehl= numhl=
 " sign define LspDiagnosticsHintSign text=● texthl=LspDiagnosticsHint linehl= numhl=
 
-let g:LspDiagnosticsErrorSign = '●'
-let g:LspDiagnosticsWarningSign = '●'
-let g:LspDiagnosticsInformationSign = '●'
-let g:LspDiagnosticsHintSign = '●'
+call sign_define("LspDiagnosticsErrorSign", {"text" : "●", "texthl" : "LspDiagnosticsError"})
+call sign_define("LspDiagnosticsWarningSign", {"text" : "●", "texthl" : "LspDiagnosticsWarning"})
+call sign_define("LspDiagnosticsInformationSign", {"text" : "●", "texthl" : "LspDiagnosticsInformation"})
+call sign_define("LspDiagnosticsHintSign", {"text" : "●", "texthl" : "LspDiagnosticsHint"})
 
 let g:diagnostic_virtual_text_prefix = ''
 let g:diagnostic_enable_virtual_text = 1
 let g:space_before_virtual_text = 1
 let g:diagnostic_insert_delay = 1
 
-packadd nvim-lsp
-packadd ncm2
+set signcolumn=yes
+packadd nvim-lspconfig
 packadd diagnostic-nvim
+packadd completion-nvim
+packadd snippets.nvim
 lua << EOF
-if vim.env.SNIPPETS then
-    vim.snippet = require 'snippet'
-end
+-- if vim.env.SNIPPETS then
+--     vim.snippet = require 'snippet'
+-- end
 
 local nvim_lsp = require('nvim_lsp')
-local ncm2 = require('ncm2')
 local diagnostic = require('diagnostic')
--- log_level = vim.lsp.protocol.MessageType.Trace;
+local completion = require('completion')
+local snippets = require('snippets')
+
+-- snippets.set_ux(require'snippets.inserters.vim_input')
+
+local on_attach = function(_, bufnr)
+  -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  diagnostic.on_attach()
+  completion.on_attach()
+end
+
+-- vim.lsp.set_log_level(0)
+
 nvim_lsp.rust_analyzer.setup {
-  on_init = ncm2.register_lsp_source,
-  on_attach = diagnostic.on_attach,
+  on_attach = on_attach,
   settings = {
+    ["rust-analyzer"] = {
+      checkOnSave = {
+        enable = true
+      }
+    },
     capabilities = {
       textDocument = {
         completion = {
