@@ -43,4 +43,10 @@ export MAKEFLAGS="-j8"
 export CFLAGS="-march=native -mtune=native"
 export CXXFLAGS="${CFLAGS}"
 # export RUSTFLAGS="-C target-cpu=native"
+# export RUSTFLAGS="-C link-arg=-fuse-ld=lld"
 
+# CJK IME
+export INPUT_METHOD=fcitx5
+export GTK_IM_MODULE=fcitx5
+export QT_IM_MODULE=fcitx5
+export XMODIFIERS=@im=fcitx5

@@ -67,10 +67,10 @@ output DP-1 mode  2560x1440@59.951Hz
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 1b022c' \
+         # timeout 300 'swaylock -f -c 1b022c' \
          timeout 600 'swaymsg "output * dpms off"' \
               resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 1b022c'
+         # before-sleep 'swaylock -f -c 1b022c'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -80,7 +80,7 @@ exec swayidle -w \
 #
 # Example configuration:
 #
-input "1118:2479:Microsoft_Surface_HID_Touchpad" {
+input "1118:2479:Microsoft_Surface_045E:09AF_Touchpad" {
     dwt enabled # disable while typing
     tap enabled
     # drag enabled
@@ -91,7 +91,7 @@ input "1118:2479:Microsoft_Surface_HID_Touchpad" {
     pointer_accel 0.33
 }
 
-input "1118:2478:Microsoft_Surface_HID_Keyboard" {
+input "1118:2478:Microsoft_Surface_045E:09AE_Keyboard" {
     xkb_layout us
     xkb_variant norman
     xkb_options ctrl:nocaps,compose:ralt
@@ -306,5 +306,6 @@ exec evscript -f ~/.config/evscape/config.dyon -d /dev/input/by-path/platform-MS
 exec redshift -l 35.7:139.7
 # Turn screen off on inactivity
 # exec swayidle timeout 300 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
+exec fcitx5 -r
 
 include /etc/sway/config.d/*
